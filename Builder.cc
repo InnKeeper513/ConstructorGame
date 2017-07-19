@@ -2,6 +2,9 @@
 #include "Player.h"
 #include "Subscriptions.h"
 #include <vector>
+#include <string>
+
+using namespace std;
 
 Builder::Builder(Player player, int builderPoints, int brick, int energy,
    int glass, int heat, int wifi):
@@ -13,6 +16,13 @@ Builder::Builder(Player player, int builderPoints, int brick, int energy,
    heat{heat},
    wifi{wifi}{}
 
+void Builder::addAddress(int add){
+  address.emplace_back(add);
+}
+
+void Builder::addPath(int add){
+  path.emplace_back(add);
+}
 
 Player Builder::subType(){
   return player;
@@ -76,6 +86,17 @@ int Builder::getResource(Subscriptions sub){
     return heat;
   else if(sub == Subscriptions::Wifi)
     return wifi;
+}
+
+string Builder::getColor(){
+  if(player == Player::Blue)
+    return "Blue";
+  else if(player == Player::Red)
+    return "Red";
+  else if(player == Player::Orange)
+    return "Orange";
+  else if(player == Player::Yellow)
+    return "Yellow";
 }
 
 // TODO Trade need to be identified later on
