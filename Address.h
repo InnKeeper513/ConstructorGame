@@ -9,15 +9,19 @@ public:
 	Address();
 	Address(int number);
 	~Address();
-	Builder* GetBuilder();
+	
+	std::string GetBuilder();
 	std::string GetBuildingType();
 	int GetNumber();
 	void AddNeighborAddress(Address* address);
 	void PushNeighborAddress(Address* address);
 	void AddNeighborPath(Path* path);
+	// Modified
+	void setOwner(std::string);
 private:
 	int number;
-	Builder* owner;
+	// Modified
+	std::string owner;
 	std::string buildingType;
 	Address** neighborAddresses;
 	int numNeighborAddresses;
