@@ -36,12 +36,14 @@ int main()
 	for(int i = 0; i < 4; i++){
 		int tempAdd;
 		cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
+		cout << ">";
 		cin >> tempAdd;
 		builders[i].addAddress(tempAdd);
 	}
 	for(int j = 3; j >= 0; j++){
 		int tempAdd2;
 		cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
+		cout << ">";
 		cin >> tempAdd2;
 		builders[i].addAddress(tempAdd2);
 	}
@@ -76,6 +78,7 @@ int main()
 				string diceCMD;
 
 				cout << "Enter 'load' or 'fair' dice"
+				cout << ">";
 				cin >> diceCMD;
 				Dice dice(diceCMD);
 				// Get the rolled number
@@ -91,6 +94,7 @@ int main()
 			// User is able to call the list of commands until end turn
 			while(true){
 				string userCMD;
+				cout << ">";
 				cin >> userCMD;
 
 				if(userCMD == "board")
@@ -144,6 +148,7 @@ int main()
 
 	cout <<"Would you like to play again?" << endl;
 	string continue;
+	cout << ">";
 	cin >> continue;
 	if(continue == "yes"){
 		// Need to reset the game
