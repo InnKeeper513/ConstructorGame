@@ -1,23 +1,20 @@
 // TianA5.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-const string  BoardFileName = "c:\\Users\\Mike-Mac\\documents\\visual studio 2015\\Projects\\TianA5\\TianA5\\Board.txt";
+//const string  BoardFileName = "c:\\Users\\Mike-Mac\\documents\\visual studio 2015\\Projects\\TianA5\\TianA5\\Board.txt";
 int main()
 {
 	Board board;
-	ifstream file(BoardFileName);
-	file >> board;
+	//ifstream file(BoardFileName);
+	//file >> board;
 	bool win = false;
-	cout << board;
-	file.close();
-	char  c;
-	cin >> c;
+	//cout << board;
+	//file.close();
 	// random number for the dice
 	int rand;
 
