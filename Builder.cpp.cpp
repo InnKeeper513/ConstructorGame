@@ -56,3 +56,51 @@ int Builder::GetNumWiFi()
 {
 	return this->numWiFi;
 }
+
+// Added
+int incrPoints(int add){
+		numPoints += add;
+}
+
+int addBrick(int add){
+	numBrick += add;
+}
+int addEnergy(int add){
+	numEnergy += add;
+}
+int addGlass(int add){
+	numGlass += add;
+}
+int addHeat(int add){
+	numHeat += add;
+}
+int addWifi(int add){
+	numWifi += add;
+}
+int removeBrick(int remove){
+	numBrick -= remove;
+}
+int removeEnergy(int remove){
+	numEnergy -= remove;
+}
+int removeGlass(int remove){
+	numGlass -= remove;
+}
+int removeHeat(int remove){
+	numHeat -= remove;
+}
+int removeWifi(int remove){
+	numWifi -= remove;
+}
+int addAddress(Address& set){
+	address.emplace_back(set);
+}
+int addPath(Path& set){
+	path.emplace_back(set);
+}
+vector<Address> getAddress(){
+	return address;
+}
+vector<Path> getPath(){
+	return path;
+}

@@ -18,4 +18,3 @@ private:
 	int numNeighborPathes;
 	bool isInNeighborPathes(int number);
 };
-
