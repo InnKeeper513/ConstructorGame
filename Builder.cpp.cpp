@@ -1,11 +1,19 @@
 #include "Builder.h"
 
+using namespace std;
 
 
-Builder::Builder()
-{
-}
-
+Builder::Builder(int number, string color, int numPoints, int numBrick, int numEnergy,
+	int numGlass, int numHeat, int numWifi):
+	number{number},
+	color{color},
+	numPoints{numPoints},
+	numBrick{numBrick},
+	numEnergy{numEnergy},
+	numGlass{numGlass},
+	numHeat{numHeat},
+	numWifi{numWifi}
+	{}
 
 Builder::~Builder()
 {
@@ -48,4 +56,3 @@ int Builder::GetNumWiFi()
 {
 	return this->numWiFi;
 }
-
