@@ -7,13 +7,13 @@
 
 using namespace std;
 
-const string  BarodFileName = "c:\\Users\\Mike-Mac\\documents\\visual studio 2015\\Projects\\TianA5\\TianA5\\Board.txt";
+const string  BoardFileName = "c:\\Users\\Mike-Mac\\documents\\visual studio 2015\\Projects\\TianA5\\TianA5\\Board.txt";
 int main()
 {
 	Board board;
-	ifstream file(BarodFileName);
+	ifstream file(BoardFileName);
 	file >> board;
-
+	bool win = false;
 	cout << board;
 	file.close();
 	char  c;
@@ -28,6 +28,7 @@ int main()
 	builders.emplace_back(2,"Orange");
 	builders.emplace_back(3,"Yellow");
 
+	while(game == on){
 	// Adding 2 initial address locations for the player
 	//TODO Address need to be valid
 	// - It must exist
@@ -54,8 +55,18 @@ int main()
 	// Loop through the game
 	while(true){
 
+		if (win == true){
+			break;
+		}
+
 		// Every turn, there will be 4 player inputing commands
 		for(int i = 0; i < 4; i++){
+			if(builders[i].GetNumPoints() >= 10){
+				cout << "Player " << builders[i].GetColor() << " win!";
+				win = true;
+				break;
+			}
+
 			cout << "Builder " << builders[i].GetColor() << "'s turn'" << endl;
 			// print the builder's status
 			builders[i].status();
@@ -77,17 +88,69 @@ int main()
 
 	// End Beginning of Turn *********************
 	// Begin During the Turn *********************
+			// User is able to call the list of commands until end turn
+			while(true){
+				string userCMD;
+				cin >> userCMD;
 
+				if(userCMD == "board")
+					cout << board;
+				else if(userCMD == "status"){
+					for(int i = 0; i < 3; i++){
+						builders[i].status();
+					}
+				} else if(userCMD == "residences") {
+					// print all the completed residences
+				} else if(userCMD == "build-road") {
+					cin >> userCMD;
+					sstringstream ss{userCMD};
+					int roadNumber;
+					ss >> roadNumber;
+					// Build the road at roadNumber
+				} else if(userCMD == "build-res") {
+					cin >> userCMD;
+					sstringstream ss{userCMD};
+					int resNumber;
+					ss >> resNumber;
+					// Build the road at roadNumber
+				} else if(userCMD == "improve") {
+					cin >> userCMD;
+					sstringstream ss{userCMD};
+					int improveNumber;
+					ss >> improveNumber;
+					// Improve the residence at the improveNumebr location
+				} else if(userCMD == "trade") {
 
+				} else if(userCMD == "next") {
+					break;
+				} else if(userCMD == "save") {
 
+				} else if(userCMD == "help") {
+					cout << "Valid commands:" << endl;
+					cout << "board" << endl;
+					cout << "status" << endl;
+					cout << "residences" << endl;
+					cout << "build-road <path#>" << endl;
+					cout << "build-res <housing#>" << endl;
+					cout << "improve <housign#>" << endl;
+					cout << "trade <colour> <give> <take>" << endl;
+					cout << "next" << endl;
+					cout << "save <file>" << endl;
+					cout << "help" << endl;
+				}
+			}
 		}
 	}
 
-
-
-
-
-
-
-    return 0;
+	cout <<"Would you like to play again?" << endl;
+	string continue;
+	cin >> continue;
+	if(continue == "yes"){
+		// Need to reset the game
+	} else{
+		// End game
+		break;
+	}
+	}
+  return 0;
 }

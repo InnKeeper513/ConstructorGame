@@ -15,9 +15,7 @@ Builder::Builder(int number, string color, int numPoints, int numBrick, int numE
 	numWifi{numWifi}
 	{}
 
-Builder::~Builder()
-{
-}
+Builder::~Builder(){}
 
 int Builder::GetNumber()
 {
@@ -58,6 +56,10 @@ int Builder::GetNumWiFi()
 }
 
 // Added
+void Builder::trade(Builder&, string give, string take){
+	
+}
+
 void Builder::status(){
 	std::cout << color << " has " << numPoints << " building points, " << numBrick << " brick, "
 	<< numEnergy << " energy, " << numGlass << " glass, " << numHeat << " heat, and " << numWifi

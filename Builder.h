@@ -22,6 +22,7 @@ public:
 	int GetNumHeat();
 	int GetNumWiFi();
 	// Added
+	void trade(Builder&, Builder&, std::string, std::string);
 	void status();
 	int incrPoints(int);
 	int addBrick(int);
