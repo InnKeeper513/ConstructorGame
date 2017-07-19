@@ -3,7 +3,6 @@
 #include <string>
 #include "Builder.h"
 #include "Path.h"
-using namespace std;
 class Address
 {
 public:
@@ -11,7 +10,7 @@ public:
 	Address(int number);
 	~Address();
 	Builder* GetBuilder();
-	string GetBuildingType();
+	std::string GetBuildingType();
 	int GetNumber();
 	void AddNeighborAddress(Address* address);
 	void PushNeighborAddress(Address* address);
@@ -19,7 +18,7 @@ public:
 private:
 	int number;
 	Builder* owner;
-	string buildingType;
+	std::string buildingType;
 	Address** neighborAddresses;
 	int numNeighborAddresses;
 	Path** neighborPathes;
@@ -27,5 +26,3 @@ private:
 	bool isInNeighborAddress(int number);
 	bool isInNeighborPath(int number);
 };
-
-

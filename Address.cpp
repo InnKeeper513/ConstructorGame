@@ -1,5 +1,7 @@
 #include "Address.h"
 
+using namespace std;
+
 Address::Address()
 {
 	this->number = 0;
@@ -90,4 +92,3 @@ void Address::AddNeighborPath(Path* path)
 		this->numNeighborPathes++;
 	}
 }
-
