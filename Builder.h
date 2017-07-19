@@ -1,68 +1,55 @@
+#pragma once
+#include <string>
+#include <vector>
+#include "Address.h"
+#include "Path.h"
+
 #ifndef _BUILDER_H_
 #define _BUILDER_H_
 
-#include "Subscriptions.h"
-#include "Player.h"
-#include <vector>
-#include <string>
+class Builder
+{
+public:
+	Builder(int number, std::string color, int numPoints=0, int numBrick=0,
+		int numEnergy=0, int numGlass=0, int numHeat=0, int numWifi=0);
+	~Builder();
+	int GetNumber();
+	std::string GetColor();
+	int GetNumPoints();
+	int GetNumBrick();
+	int GetNumEnergy();
+	int GetNumGlass();
+	int GetNumHeat();
+	int GetNumWiFi();
+	// Added
+	int incrPoints(int);
+	int addBrick(int);
+	int addEnergy(int);
+	int addGlass(int);
+	int addHeat(int);
+	int addWifi(int);
+	int removeBrick(int);
+	int removeEnergy(int);
+	int removeGlass(int);
+	int removeHeat(int);
+	int removeWifi(int);
+	int addAddress(Address&);
+	int addPath(Path&);
+	vector<Address> getAddress();
+	vector<Path> getPath();
 
-class Builder{
+private:
 
-  Player player;
-  int builderPoints;
-
-  std::vector<int> address;
-  std::vector<int> path;
-
-  int brick;
-  int energy;
-  int glass;
-  int heat;
-  int wifi;
-
-  public:
-
-  Builder(Player player, int builderPoints = 0, int brick=0, int energy=0,
-     int glass=0, int heat=0, int wifi=0);
-  // Return the player color
-  Player subType();
-
-  // Add an address
-  void addAddress(int address);
-
-  // Add a path
-  void addPath(int path);
-
-  // Return a vector of address
-  std::vector<int> ownAddress();
-
-  // Return a vector of paths
-  std::vector<int> ownPath();
-
-  // Return the amount of building points
-  int getBuildPoints();
-
-  // Set the building points
-  void setBuildPoints(int);
-
-  // Incraese the specified resource
-  void incrResource(Subscriptions, int);
-
-  // Decraese the specified resource
-  void decResource(Subscriptions, int);
-
-  // Return the specified resources
-  int getResource(Subscriptions);
-
-  std::string getColor();
-
-  void printStatus();
-
-  // Trade with another player
-  void trade(Builder&);
-
-  void instantiate();
-
+	vector<Address> address;
+	vector<Path> path;
+	int number;
+	std::string color;
+	int numPoints;
+	int numBrick;
+	int numEnergy;
+	int numGlass;
+	int numHeat;
+	int numWiFi;
 };
 
 #endif
