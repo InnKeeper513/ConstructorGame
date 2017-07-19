@@ -22,6 +22,7 @@ public:
 	int GetNumHeat();
 	int GetNumWiFi();
 	// Added
+	void status();
 	int incrPoints(int);
 	int addBrick(int);
 	int addEnergy(int);

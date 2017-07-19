@@ -58,49 +58,56 @@ int Builder::GetNumWiFi()
 }
 
 // Added
-int incrPoints(int add){
+void Builder::status(){
+	std::cout << color << " has " << numPoints << " building points, " << numBrick << " brick, "
+	<< numEnergy << " energy, " << numGlass << " glass, " << numHeat << " heat, and " << numWifi
+	<< " WiFi." << std::endl;
+}
+
+int Builder::incrPoints(int add){
 		numPoints += add;
 }
 
-int addBrick(int add){
+int Builder::addBrick(int add){
 	numBrick += add;
 }
-int addEnergy(int add){
+int Builder::addEnergy(int add){
 	numEnergy += add;
 }
-int addGlass(int add){
+int Builder::addGlass(int add){
 	numGlass += add;
 }
-int addHeat(int add){
+int Builder::addHeat(int add){
 	numHeat += add;
 }
-int addWifi(int add){
+int Builder::addWifi(int add){
 	numWifi += add;
 }
-int removeBrick(int remove){
+int Builder::removeBrick(int remove){
 	numBrick -= remove;
 }
-int removeEnergy(int remove){
+int Builder::removeEnergy(int remove){
 	numEnergy -= remove;
 }
-int removeGlass(int remove){
+int Builder::removeGlass(int remove){
 	numGlass -= remove;
 }
-int removeHeat(int remove){
+int Builder::removeHeat(int remove){
 	numHeat -= remove;
 }
-int removeWifi(int remove){
+int Builder::removeWifi(int remove){
 	numWifi -= remove;
 }
-int addAddress(Address& set){
-	address.emplace_back(set);
+// Add address
+int Builder::addAddress(int set){
+	address.emplace_back(Address(set));
 }
-int addPath(Path& set){
-	path.emplace_back(set);
+int Builder::addPath(int set){
+	path.emplace_back(Path(set));
 }
-vector<Address> getAddress(){
+vector<Address> Builder::getAddress(){
 	return address;
 }
-vector<Path> getPath(){
+vector<Path> Builder::getPath(){
 	return path;
 }
