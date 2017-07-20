@@ -3,6 +3,7 @@
 #define _ADDRESS_H_
 #include <string>
 #include "Path.h"
+#include <vector>
 
 class Address{
 public:
@@ -11,22 +12,19 @@ public:
 	std::string GetBuilder();
 	std::string GetBuildingType();
 	int GetNumber();
-	void AddNeighborAddress(Address* address);
-	void PushNeighborAddress(Address* address);
-	void AddNeighborPath(Path* path);
+	void addAddress(int);
 	// Modified
 	void setOwner(std::string);
 private:
+
 	int number;
 	// Modified
 	std::string owner;
 	std::string buildingType;
-	Address** neighborAddresses;
-	int numNeighborAddresses;
-	Path** neighborPathes;
-	int numNeighborPathes;
+
+	std::vector<int> addresses;
+
 	bool isInNeighborAddress(int number);
-	bool isInNeighborPath(int number);
 };
 
 #endif

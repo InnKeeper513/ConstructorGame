@@ -148,6 +148,8 @@ int main()
 					cout << "next" << endl;
 					cout << "save <file>" << endl;
 					cout << "help" << endl;
+				} else {
+					cout << "Invalid Command." << endl;
 				}
 			}
 		}

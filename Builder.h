@@ -29,6 +29,7 @@ public:
 	int GetNumHeat();
 	int GetNumWifi();
 	// Added
+	void printData();
 	void trade(Builder&, std::string, std::string);
 	void status();
 	int incrPoints(int);

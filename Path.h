@@ -1,6 +1,8 @@
 #ifndef _PATH_H_
 #define _PATH_H_
 //class Builder;
+#include <vector>
+
 
 class Path
 {
@@ -9,14 +11,11 @@ public:
 	Path(int number);
 	//Builder* GetBuilder();
 	int GetNumber();
-	void AddNeighborPath(Path* path);
-	void PushNeighborPath(Path* path);
+	void addPath(int);
 private:
+	std::vector<Path> paths;
 	int number;
-	//Builder* owner;
-	Path** neighborPathes;
 	int numNeighborPathes;
-	bool isInNeighborPathes(int number);
 };
 
 #endif

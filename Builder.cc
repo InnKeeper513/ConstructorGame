@@ -57,6 +57,13 @@ void Builder::trade(Builder&, string give, string take){
 
 }
 
+void Builder::printData(){
+	cout << numBrick << " " << numEnergy << " " << numGlass << " " << numHeat << " " << numWifi;
+
+	
+
+}
+
 void Builder::status(){
 	cout << color << " has " << numPoints << " building points, " << numBrick << " brick, "
 	<< numEnergy << " energy, " << numGlass << " glass, " << numHeat << " heat, and " << numWifi
