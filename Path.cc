@@ -1,12 +1,14 @@
 #include "Path.h"
 #include "Address.h"
+#include <algorithm>
+
+using namespace std;
 
 Path::Path()
 {
 	this->number = 0;
 	this->numNeighborPathes = 0;
 	this->neighborPathes = new Path*[0];
-	this->owner = NULL;
 }
 
 Path::Path(int number):Path()
@@ -14,14 +16,7 @@ Path::Path(int number):Path()
 	this->number = number;
 }
 
-Path::~Path()
-{
-}
 
-Builder* Path::GetBuilder()
-{
-	return this->owner;
-}
 int Path::GetNumber()
 {
 	return this->number;
@@ -56,6 +51,3 @@ bool Path::isInNeighborPathes(int number)
 	}
 	return false;
 }
-
-
-

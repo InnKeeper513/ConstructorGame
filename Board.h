@@ -5,33 +5,23 @@
 #include <fstream>
 #include <sstream>
 #include "Tile.h"
+#include <vector>
+#include "Address.h"
+#include "Path.h"
 
-using namespace std;
 class Board
 {
+
 public:
+
 	Board();
-	~Board();
-	friend ostream &operator<<(ostream &output, Board &board);
-	friend istream &operator>>(istream &input, Board &board);
-	void AddLine(string line);
-	void Print(ostream &output);
-	void BuildTiles();
-private:
-	string* boardArray;
-	int lines;
-	Tile* tiles;
-	Address* addresses;
-	Path* pathes;
-	int numTiles;
-	int numAddresses;
-	int numPathes;
-	int FindMaxNumber(string findStr);
-	void BuildAddresses();
-	void BuildPathes();
-	void CreateTiles();
-	void AddTile(int number, string resource, int value, int row, int col);
+	friend std::ostream &operator<<(std::ostream &output, Board &board);
+
 
 };
+
+extern std::vector<Address> addresses;
+extern std::vector<Path> paths;
+extern std::vector<Tile> tiles;
 
 #endif

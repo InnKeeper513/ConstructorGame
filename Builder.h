@@ -1,18 +1,25 @@
-#pragma once
-#include <string>
-#include <vector>
-#include "Address.h"
-#include "Path.h"
-
 #ifndef _BUILDER_H_
 #define _BUILDER_H_
-
-class Builder
-{
+#include <string>
+#include <vector>
+#include <iostream>
+#include "Address.h"
+#include "Path.h"
+class Builder{
+	int number;
+	std::string color;
+	int numPoints;
+	int numBrick;
+	int numEnergy;
+	int numGlass;
+	int numHeat;
+	int numWifi;
+	std::vector<Address> address;
+	std::vector<Path> path;
 public:
+	Builder();
 	Builder(int number, std::string color, int numPoints=0, int numBrick=0,
 		int numEnergy=0, int numGlass=0, int numHeat=0, int numWifi=0);
-	~Builder();
 	int GetNumber();
 	std::string GetColor();
 	int GetNumPoints();
@@ -20,7 +27,7 @@ public:
 	int GetNumEnergy();
 	int GetNumGlass();
 	int GetNumHeat();
-	int GetNumWiFi();
+	int GetNumWifi();
 	// Added
 	void trade(Builder&, std::string, std::string);
 	void status();
@@ -35,23 +42,10 @@ public:
 	int removeGlass(int);
 	int removeHeat(int);
 	int removeWifi(int);
-	int addAddress(Address&);
-	int addPath(Path&);
-	vector<Address> getAddress();
-	vector<Path> getPath();
-
-private:
-
-	vector<Address> address;
-	vector<Path> path;
-	int number;
-	std::string color;
-	int numPoints;
-	int numBrick;
-	int numEnergy;
-	int numGlass;
-	int numHeat;
-	int numWiFi;
+	int addAddress(int);
+	int addPath(int);
+	std::vector<Address> getAddress();
+	std::vector<Path> getPath();
 };
 
 #endif

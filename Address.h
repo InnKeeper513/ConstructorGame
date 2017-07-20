@@ -1,15 +1,13 @@
-#pragma once
 
+#ifndef _ADDRESS_H_
+#define _ADDRESS_H_
 #include <string>
-#include "Builder.h"
 #include "Path.h"
-class Address
-{
+
+class Address{
 public:
 	Address();
 	Address(int number);
-	~Address();
-	
 	std::string GetBuilder();
 	std::string GetBuildingType();
 	int GetNumber();
@@ -30,3 +28,5 @@ private:
 	bool isInNeighborAddress(int number);
 	bool isInNeighborPath(int number);
 };
+
+#endif

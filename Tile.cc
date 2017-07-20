@@ -1,5 +1,5 @@
 #include "Tile.h"
-
+using namespace std;
 Tile::Tile()
 {
 	this->row = 0;
@@ -22,15 +22,6 @@ Tile::Tile(int number, string resource, int value):Tile()
 	this->resource = resource;
 
 }
-
-Tile::~Tile()
-{
-	//delete this->pathes;
-	//this->pathes = NULL;
-	//delete this->addresses;
-	//this->addresses = NULL;
-}
-
 
 void Tile::SetGeese()
 {

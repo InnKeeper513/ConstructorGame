@@ -1,16 +1,23 @@
-// TianA5.cpp : Defines the entry point for the console application.
-//
-
 #include <iostream>
 #include <vector>
+#include "Dice.h"
 #include "Board.h"
+#include "Builder.h"
+#include <string>
+//#include "Address.h"
 
 using namespace std;
 
-//const string  BoardFileName = "c:\\Users\\Mike-Mac\\documents\\visual studio 2015\\Projects\\TianA5\\TianA5\\Board.txt";
 int main()
 {
+	// WRITE THE COMMAND LINE HERE
+	string commandLine;
+
+	// WRITE THE COMMAND LINE HERE
+
 	Board board;
+	cout << board;
+
 	//ifstream file(BoardFileName);
 	//file >> board;
 	bool win = false;
@@ -20,30 +27,32 @@ int main()
 	int rand;
 
 	// The beginning of game.
-	vecctor<Builders> builders;
-	builders.emplace_back(0,"Blue");
-	builders.emplace_back(1,"Red");
-	builders.emplace_back(2,"Orange");
-	builders.emplace_back(3,"Yellow");
+	vector<Builder> builders;
+	builders.emplace_back(Builder(0,"Blue"));
+	builders.emplace_back(Builder(1,"Red"));
+	builders.emplace_back(Builder(2,"Orange"));
+	builders.emplace_back(Builder(3,"Yellow"));
 
-	while(game == on){
+
+	// Continue the game
+	while(true){
 	// Adding 2 initial address locations for the player
 	//TODO Address need to be valid
 	// - It must exist
 	// - It cannot collapse with other player's address
 	for(int i = 0; i < 4; i++){
 		int tempAdd;
-		cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
+		cout << "Builder " << builders[i].GetColor() << " , where do you want to build a basement?" << endl;
 		cout << ">";
 		cin >> tempAdd;
 		builders[i].addAddress(tempAdd);
 	}
-	for(int j = 3; j >= 0; j++){
+	for(int j = 3; j >= 0; j--){
 		int tempAdd2;
-		cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
+		cout << "Builder " << builders[j].GetColor() << " , where do you want to build a basement?" << endl;
 		cout << ">";
 		cin >> tempAdd2;
-		builders[i].addAddress(tempAdd2);
+		builders[j].addAddress(tempAdd2);
 	}
 
 	// Print the updated board
@@ -75,13 +84,13 @@ int main()
 			while(true){
 				string diceCMD;
 
-				cout << "Enter 'load' or 'fair' dice"
+				cout << "Enter 'load' or 'fair' dice" << endl;
 				cout << ">";
 				cin >> diceCMD;
 				Dice dice(diceCMD);
 				// Get the rolled number
-				rand = dice.roll();
-
+				rand = dice.rollDice();
+				cin >> diceCMD;
 				if(diceCMD == "roll"){
 					break;
 				}
@@ -105,19 +114,19 @@ int main()
 					// print all the completed residences
 				} else if(userCMD == "build-road") {
 					cin >> userCMD;
-					sstringstream ss{userCMD};
+					istringstream ss{userCMD};
 					int roadNumber;
 					ss >> roadNumber;
 					// Build the road at roadNumber
 				} else if(userCMD == "build-res") {
 					cin >> userCMD;
-					sstringstream ss{userCMD};
+					istringstream ss{userCMD};
 					int resNumber;
 					ss >> resNumber;
 					// Build the road at roadNumber
 				} else if(userCMD == "improve") {
 					cin >> userCMD;
-					sstringstream ss{userCMD};
+					istringstream ss{userCMD};
 					int improveNumber;
 					ss >> improveNumber;
 					// Improve the residence at the improveNumebr location
@@ -145,10 +154,10 @@ int main()
 	}
 
 	cout <<"Would you like to play again?" << endl;
-	string continue;
+	string newRound;
 	cout << ">";
-	cin >> continue;
-	if(continue == "yes"){
+	cin >> newRound;
+	if(newRound == "yes"){
 		// Need to reset the game
 	} else{
 		// End game
@@ -156,4 +165,6 @@ int main()
 	}
 	}
   return 0;
+
+
 }

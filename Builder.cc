@@ -2,9 +2,7 @@
 
 using namespace std;
 
-
-Builder::Builder(int number, string color, int numPoints, int numBrick, int numEnergy,
-	int numGlass, int numHeat, int numWifi):
+Builder::Builder(int number, string color, int numPoints, int numBrick, int numEnergy, int numGlass, int numHeat, int numWifi):
 	number{number},
 	color{color},
 	numPoints{numPoints},
@@ -15,7 +13,6 @@ Builder::Builder(int number, string color, int numPoints, int numBrick, int numE
 	numWifi{numWifi}
 	{}
 
-Builder::~Builder(){}
 
 int Builder::GetNumber()
 {
@@ -50,20 +47,20 @@ int Builder::GetNumHeat()
 	return this->numHeat;
 }
 
-int Builder::GetNumWiFi()
+int Builder::GetNumWifi()
 {
-	return this->numWiFi;
+	return this->numWifi;
 }
 
 // Added
 void Builder::trade(Builder&, string give, string take){
-	
+
 }
 
 void Builder::status(){
-	std::cout << color << " has " << numPoints << " building points, " << numBrick << " brick, "
+	cout << color << " has " << numPoints << " building points, " << numBrick << " brick, "
 	<< numEnergy << " energy, " << numGlass << " glass, " << numHeat << " heat, and " << numWifi
-	<< " WiFi." << std::endl;
+	<< " WiFi." << endl;
 }
 
 int Builder::incrPoints(int add){

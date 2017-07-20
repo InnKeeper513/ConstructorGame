@@ -1,35 +1,33 @@
-#pragma once
 
+#ifndef _TILE_H_
+#define _TILE_H_
 #include <string>
 #include "Address.h"
 #include "Path.h"
-using namespace std;
 
 class Tile
 {
 public:
 	Tile();
-	Tile(int number, string resource, int value);
-	~Tile();
+	Tile(int number, std::string resource, int value);
 	int GetNumber();
-	string GetResource();
+	std::string GetResource();
 	int GetValue();
 	void SetGeese();
-	string GetGeese();
+	std::string GetGeese();
 	void AddAddress(Address *address);
 	void AddPath(Path *path);
 	void SetPos(int row, int col);
 private:
 	int number;
-	string resource;
+	std::string resource;
 	int value;
 	Address** addresses;
 	int numAddress;
 	Path** pathes;
 	int numpath;
-	string geese;
+	std::string geese;
 	int row;
 	int col;
 };
-
-
+#endif

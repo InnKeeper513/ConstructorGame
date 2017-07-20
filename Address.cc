@@ -6,27 +6,19 @@ Address::Address()
 {
 	this->number = 0;
 	this->buildingType = "";
-	this->owner = NULL;
+	this->owner = "";
 	this->numNeighborAddresses = 0;
 	this->neighborAddresses = new Address*[0];
 	this->numNeighborPathes = 0;
 	this->neighborPathes = new Path*[0];
 }
 
-Address::Address(int number):Address()
+Address::Address(int number)
 {
 	this->number = number;
 }
 
-Address::~Address()
-{
-	//delete this->neighborAddresses;
-	//this->neighborAddresses = NULL;
-	//delete this->neighborPathes;
-	//this->neighborPathes= NULL;
-}
-
-Builder* Address::GetBuilder()
+string Address::GetBuilder()
 {
 	return this->owner;
 }
