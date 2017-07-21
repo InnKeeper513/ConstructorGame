@@ -12,6 +12,8 @@
 class Board
 {
 
+
+
 public:
 
 	Board();

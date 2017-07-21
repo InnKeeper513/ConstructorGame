@@ -4,7 +4,9 @@
 #include <vector>
 #include <iostream>
 #include "Address.h"
+#include "Board.h"
 #include "Path.h"
+
 class Builder{
 	int number;
 	std::string color;
@@ -14,8 +16,8 @@ class Builder{
 	int numGlass;
 	int numHeat;
 	int numWifi;
-	std::vector<Address> address;
-	std::vector<Path> path;
+	std::vector<int> address;
+	std::vector<int> path;
 public:
 	Builder();
 	Builder(int number, std::string color, int numPoints=0, int numBrick=0,
@@ -45,8 +47,10 @@ public:
 	int removeWifi(int);
 	int addAddress(int);
 	int addPath(int);
-	std::vector<Address> getAddress();
-	std::vector<Path> getPath();
+	bool checkImprove(int);
+	void checkBuildingResource(int);
+	std::vector<int> getAddress();
+	std::vector<int> getPath();
 };
 
 #endif

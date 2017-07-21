@@ -59,9 +59,6 @@ void Builder::trade(Builder&, string give, string take){
 
 void Builder::printData(){
 	cout << numBrick << " " << numEnergy << " " << numGlass << " " << numHeat << " " << numWifi;
-
-	
-
 }
 
 void Builder::status(){
@@ -106,14 +103,62 @@ int Builder::removeWifi(int remove){
 }
 // Add address
 int Builder::addAddress(int set){
-	address.emplace_back(Address(set));
+	string name;
+	if(color == "Red")
+		name = "R";
+	else if(color == "Blue")
+		name = "B";
+	else if(color == "Orange")
+		name = "O";
+	else if(color == "Yellow")
+		name = "Y";
+
+	addresses[set].setOwner(name);
+	address.emplace_back(set);
 }
 int Builder::addPath(int set){
-	path.emplace_back(Path(set));
+	path.emplace_back(set);
 }
-vector<Address> Builder::getAddress(){
+
+bool Builder::checkImprove(int check){
+		for(int i = 0; i < address.size(); i++){
+			// It cannot be a tower
+			if(address[i] == check && addresses[address[i]].getBuildingType() != "T")
+				return true;
+			else if(address[i] == check && addresses[address[i]].getBuildingType() == "T")
+				return false;
+		}
+		return false;
+}
+
+void Builder::checkBuildingResource(int check){
+	if(addresses[check].getBuildingType() == "B"){
+				if(numGlass >= 2 && numHeat >= 3){
+					numGlass -= 2;
+					numHeat -= 3;
+					numPoints ++;
+					addresses[check].setBuildingType("H");
+				}else{
+					cout << "You do not have enough resources." << endl;
+				}
+	} else if(addresses[check].getBuildingType() == "H"){
+				if(numBrick >= 3 && numEnergy >= 2 && numGlass >= 2 && numWifi >= 1 && numHeat >= 2){
+					numBrick -= 3;
+					numEnergy -= 2;
+					numGlass -= 2;
+					numWifi -= 1;
+					numHeat -= 22;
+					numPoints ++;
+					addresses[check].setBuildingType("T");
+				}else{
+					cout << "You do not have enough resources." << endl;
+				}
+	}
+}
+
+vector<int> Builder::getAddress(){
 	return address;
 }
-vector<Path> Builder::getPath(){
+vector<int> Builder::getPath(){
 	return path;
 }

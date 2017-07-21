@@ -2,27 +2,28 @@
 
 using namespace std;
 
-Address::Address()
-{
+Address::Address(int number):number{number},owner{"N"}{}
 
+string Address::getBuilder()
+{
+	return owner;
+}
+string Address::getBuildingType()
+{
+	return buildingType;
 }
 
-Address::Address(int number)
-{
-	this->number = number;
+void Address::setBuildingType(string set){
+	buildingType = set;
 }
 
-string Address::GetBuilder()
+int Address::getNumber()
 {
-	return this->owner;
+	return number;
 }
-string Address::GetBuildingType()
-{
-	return this->buildingType;
-}
-int Address::GetNumber()
-{
-	return this->number;
+
+void Address::setOwner(string set){
+	owner = set;
 }
 
 bool Address::isInNeighborAddress(int number)

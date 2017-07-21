@@ -46,6 +46,7 @@ int main()
 		cout << ">";
 		cin >> tempAdd;
 		builders[i].addAddress(tempAdd);
+		addresses[tempAdd].setBuildingType("B");
 	}
 	for(int j = 3; j >= 0; j--){
 		int tempAdd2;
@@ -53,6 +54,7 @@ int main()
 		cout << ">";
 		cin >> tempAdd2;
 		builders[j].addAddress(tempAdd2);
+		addresses[tempAdd2].setBuildingType("B");
 	}
 
 	// Print the updated board
@@ -70,6 +72,16 @@ int main()
 
 		// Every turn, there will be 4 player inputing commands
 		for(int i = 0; i < 4; i++){
+			string builderColor;
+			if(builders[i].GetColor() == "Red")
+				builderColor = "R";
+			else if(builders[i].GetColor() == "Blue")
+				builderColor = "B";
+			else if(builders[i].GetColor() == "Orange")
+				builderColor = "O";
+			else if(builders[i].GetColor() == "Yellow")
+				builderColor = "Y";
+
 			if(builders[i].GetNumPoints() >= 10){
 				cout << "Player " << builders[i].GetColor() << " win!";
 				win = true;
@@ -79,7 +91,7 @@ int main()
 			cout << "Builder " << builders[i].GetColor() << "'s turn'" << endl;
 			// print the builder's status
 			builders[i].status();
-
+			// TODO need to make sure the user entered the right input
 			// Enter rolling dice commands
 			while(true){
 				string diceCMD;
@@ -90,10 +102,7 @@ int main()
 				Dice dice(diceCMD);
 				// Get the rolled number
 				rand = dice.rollDice();
-				cin >> diceCMD;
-				if(diceCMD == "roll"){
 					break;
-				}
 			}
 
 	// End Beginning of Turn *********************
@@ -104,6 +113,8 @@ int main()
 				cout << ">";
 				cin >> userCMD;
 
+				//TODO endoffile need to be backed up
+
 				if(userCMD == "board")
 					cout << board;
 				else if(userCMD == "status"){
@@ -112,11 +123,38 @@ int main()
 					}
 				} else if(userCMD == "residences") {
 					// print all the completed residences
+					// print basements
+					cout << "B: ";
+					for(int j = 0; j < builders[i].getAddress().size(); j++){
+						if(addresses[builders[i].getAddress()[j]].getBuildingType() == "B")
+							cout << builders[i].getAddress()[j] << " ";
+					}
+					// print houses
+					cout << "H: ";
+					for(int j = 0; j < builders[i].getAddress().size(); j++){
+						if(addresses[builders[i].getAddress()[j]].getBuildingType() == "H")
+							cout << builders[i].getAddress()[j] << " ";
+					}
+					// print towers
+					cout << "T: ";
+					for(int j = 0; j < builders[i].getAddress().size(); j++){
+						if(addresses[builders[i].getAddress()[j]].getBuildingType() == "T")
+							cout << builders[i].getAddress()[j] << " ";
+					}
+
 				} else if(userCMD == "build-road") {
+
 					cin >> userCMD;
 					istringstream ss{userCMD};
 					int roadNumber;
 					ss >> roadNumber;
+
+					// TODO need to check if the road is valid and if resource is enough
+					// Cost of building a road
+					builders[i].removeHeat(1);
+					builders[i].removeWifi(1);
+
+					paths[roadNumber].upgrade(builderColor);
 					// Build the road at roadNumber
 				} else if(userCMD == "build-res") {
 					cin >> userCMD;
@@ -124,12 +162,24 @@ int main()
 					int resNumber;
 					ss >> resNumber;
 					// Build the road at roadNumber
+
+
 				} else if(userCMD == "improve") {
+					// Improve the residence at the improveNumebr location
 					cin >> userCMD;
 					istringstream ss{userCMD};
 					int improveNumber;
 					ss >> improveNumber;
-					// Improve the residence at the improveNumebr location
+					// check if the owner owns the residence and it is not a tower yet
+					if(builders[i].checkImprove(improveNumber)){
+						// If the resouce is enough, will build it.
+						builders[i].checkBuildingResource(improveNumber);
+					} else {
+					// invalid address to improve
+						cout << "You cannot build here.";
+					}
+
+
 				} else if(userCMD == "trade") {
 
 				} else if(userCMD == "next") {

@@ -2,14 +2,91 @@
 
 
 using namespace std;
+
+string displayPath(int add){
+	// If there are no owner for the road, display the road number
+	if(paths[add].getBuilder() == "N"){
+			if(add >= 10)
+				return to_string(add);
+			else return " " + to_string(add);
+	} else return paths[add].getBuilder() + "R";
+}
+string displayAddress(int add){
+	// If there are no owner then just display the number of the address
+	if(addresses[add].getBuilder() == "N"){
+			if(add >= 10)
+				return to_string(add);
+			else return " " + to_string(add);
+	}else{
+		return addresses[add].getBuilder() + addresses[add].getBuildingType();
+	}
+}
+void displayResource(int add){
+
+}
+
+void displayGoose(int add){
+
+}
+void displayAmount(int add){
+
+}
+
+// Display the board
+// TODO will need to display the board base on different tile types, resources, etc..
+ostream &operator<<(ostream &out, Board &board) {
+out << "                    |" << displayAddress(0) << "|--" << displayPath(0) << "--|" << displayAddress(1) << "|" << endl;
+out << "                      |         |" << endl;
+out << "                     " << displayPath(1) << "    0   " << displayPath(2) << endl;
+out << "                      |  " << "BRICK " << " |" << endl;
+out << "          |" << displayAddress(2) << "|--" << displayPath(3) << "--|" << displayAddress(3) << "|  " << " 3" << "  |" << displayAddress(4) << "|--" << displayPath(4) <<"--|" << displayAddress(5) << "|"  << endl;
+out << "            |         |         |         |" << endl;
+out << "           " << displayPath(5) << "    1   " << displayPath(6) << "        " << displayPath(7) << "   " << " 2" << "   " << displayPath(8) << endl;
+out << "            |  " << "ENERGY"<<" |         | "<<" HEAT  "<< " |" << endl;
+out << "|" << displayAddress(6) << "|--" << displayPath(9) << "--|" << displayAddress(7) << "|  " << "10" << "  |" << displayAddress(8) << "|--" << displayPath(10) << "--|" << displayAddress(9) << "|  " << " 5" << "  |" << displayAddress(10) << "|--" << displayPath(11) << "--|" << displayAddress(11) << "|" << endl;
+out << "  |         |         |         |         |         |" << endl;
+out << " " << displayPath(12) << "   " << " 3" << "   " << displayPath(13) << "        " << displayPath(14) << "   " << " 4" << "   " << displayPath(15) << "        " << displayPath(16) << "   " << " 5" << "   " << displayPath(17) << endl;
+out << "  |  "<< "ENERGY" << " |         |  " << "PARK  " << " |         |  " << "HEAT  " << " |" << endl;
+out << "|" << displayAddress(12) << "|  " << " 4" << "  |" << displayAddress(13) << "|--" << displayPath(18) << "--|" << displayAddress(14) << "|      |" << displayAddress(15) << "|--" << displayPath(19) << "--|" << displayAddress(16) << "|  " << "10" << "  |" << displayAddress(17) << "|" << endl;
+out << "  |         |         |         |         |         |" << endl;
+out << " " << displayPath(20) << "        " << displayPath(21) << "    6   " << displayPath(22) << "        " << displayPath(23) << "   " << " 7" << "   " << displayPath(24) << "        " << displayPath(25) << endl;
+out << "  |         |  " << "GLASS " << " |         |  " << "BRICK " << " |         |" << endl;
+out << "|" << displayAddress(18) << "|--" << displayPath(26) << "--|" << displayAddress(19) << "|  " << "11" << "  |" << displayAddress(20) << "|--" << displayPath(27) << "--|" << displayAddress(21) << "|  " << " 3" << "  |" << displayAddress(22) << "|--" <<displayPath(28) << "--|" << displayAddress(23) << "|" << endl;
+out << "  |         |         |         |         |         |" << endl;
+out << " " << displayPath(29) << "   " << " 8" << "   " << displayPath(30) << "        " << displayPath(31) << "   " << " 9" << "   " << displayPath(32)  << "        " << displayPath(33) << "   " << "10" << "   " << displayPath(34) << endl;
+out << "  |  "<< "HEAT  " << " |         |  " << "BRICK " << " |         |  " << "BRICK " << " |" << endl;
+out << "|" << displayAddress(24) << "|  " << " 8" << "  |" << displayAddress(25) << "|--" << displayPath(35) << "--|" << displayAddress(26) << "|  " << " 2" << "  |" << displayAddress(27) << "|--" << displayPath(36) << "--|" << displayAddress(28) << "|  " << " 6" << "  |" << displayAddress(29) << "|" << endl;
+out << "  |         |         |         |         |         |" << endl;
+out << " " << displayPath(37) << "        " << displayPath(38) << "   11   " << displayPath(39) << "        " << displayPath(40) << "   " << "12" << "   " << displayPath(41) << "        " << displayPath(42) << endl;
+out << "  |         |  " << "ENERGY " << "|         |  " << "WIFI  " << " |         |" << endl;
+out << "|" << displayAddress(30) << "|--" << displayPath(43) << "--|" << displayAddress(31) << "|  " << " 8" << "  |" << displayAddress(32) << "|--" << displayPath(44) << "--|" << displayAddress(33) << "|  " << "12" << "  |" << displayAddress(34) << "|--" << displayPath(45) << "--|" << displayAddress(35) << "|" << endl;
+out << "  |         |         |         |         |         |" << endl;
+out << " " << displayPath(46) << "   " << "13" << "   " << displayPath(47) << "        " << displayPath(48) << "   " << "14" << "   " << displayPath(49) << "        " << displayPath(50) << "   " << "15" << "   " << displayPath(51) << endl;
+out << "  |  "<< "ENERGY " << "|         |  " << "WIFI  " << " |         |  " << "GLASS " << " |" << endl;
+out << "|" << displayAddress(36) << "|  " << " 5" << "  |" << displayAddress(37) << "|--" << displayPath(52) << "--|" << displayAddress(38) << "|  " << "11" << "  |" << displayAddress(39) << "|--" << displayPath(53) << "--|" << displayAddress(40) << "|  " << " 4" << "  |" << displayAddress(41) << "|" << endl;
+out << "  |         |         |         |         |         |" << endl;
+out << " " << displayPath(54) << "        " << displayPath(55) << "   16   " << displayPath(56) << "        " << displayPath(57) << "   " << "17" << "   " << displayPath(58) << "        " << displayPath(59) << endl;
+out << "  |         |  " << "WIFI  " << " |         |  " << "GLASS " << " |         |" << endl;
+out << "|" << displayAddress(42) << "|--" << displayPath(60) << "--|" << displayAddress(43) << "|  " << " 6" << "  |" << displayAddress(44) << "|--" << displayPath(61) << "--|" << displayAddress(45) << "|  " << " 9" << "  |" << displayAddress(46) << "|--" << displayPath(62) << "--|" << displayAddress(47) << "|" << endl;
+out << "            |         |         |         |" << endl;
+out << "           " << displayPath(63) << "        " << displayPath(64) << "   18   " << displayPath(65) << "        " << displayPath(66) << endl;
+out << "            |         |  " << "GLASS " << " |         |" << endl;
+out << "          |" << displayAddress(48) << "|--" << displayPath(67) << "--|" << displayAddress(49) << "|  " << " 9" << "  |" << displayAddress(50) << "|--" << displayPath(68) <<"--|" << displayAddress(51) << "|"  << endl;
+out << "                      |         |" << endl;
+out << "                     " << displayPath(69) << "        "  << displayPath(70) << endl;
+out << "                      |         |" << endl;
+out << "                    |" << displayAddress(52) << "|--" << displayPath(71) << "--|" << displayAddress(53) << "|" << endl;
+
+	return out;
+}
 Board::Board(){
 	//TODO Initialize the board
-	
+
 	// Initialize the address
 	for (int i = 0; i <= 53; i++){
 
 		addresses.emplace_back(Address(i));
-	
+
 	}
 	// Initialize the pahts between addresses
 	for(int j = 0; j <= 71; j++){
@@ -308,6 +385,8 @@ Board::Board(){
 	paths[71].addPath(52);
 	paths[71].addPath(53);
 
+// path add neighbour
+// tile add address
 
 
 
@@ -318,52 +397,4 @@ Board::Board(){
 
 
 
-
-}
-// Display the board
-// TODO will need to display the board base on different tile types, resources, etc..
-ostream &operator<<(ostream &out, Board &board) {
-out << "                    |" << " 0" << "|--" << " 0" << "--|" << " 1" << "|" << endl;
-out << "                      |         |" << endl;
-out << "                     " << " 1" << "    0   " << " 2" << endl;
-out << "                      |  " << "BRICK " << " |" << endl;
-out << "          |" << " 2" << "|--" << " 3" << "--|" << " 3" << "|  " << " 3" << "  |" <<" 4" << "|--" << " 4" <<"--|" << " 5" << "|"  << endl;
-out << "            |         |         |         |" << endl;
-out << "           " << " 5" << "    1   " << " 6" << "        " << " 7" << "   " << " 2" << "   " << " 8" << endl;
-out << "            |  " << "ENERGY"<<" |         | "<<" HEAT  "<< " |" << endl;
-out << "|" << " 6" << "|--" << " 9" << "--|" << " 7" << "|  " << "10" << "  |" << " 8" << "|--" << "10" << "--|" << " 9" << "|  " << " 5" << "  |" << "10" << "|--" << "11" << "--|" << "11" << "|" << endl;
-out << "  |         |         |         |         |         |" << endl;
-out << " " << "12" << "   " << " 3" << "   " << "13" << "        " << "14" << "   " << " 4" << "   " << "15" << "        " << "16" << "   " << " 5" << "   " << "17" << endl;
-out << "  |  "<< "ENERGY" << " |         |  " << "PARK  " << " |         |  " << "HEAT  " << " |" << endl;
-out << "|" << "12" << "|  " << " 4" << "  |" << "13" << "|--" << "18" << "--|" << "14" << "|      |" << "15" << "|--" << "19" << "--|" << "16" << "|  " << "10" << "  |" << "17" << "|" << endl;
-out << "  |         |         |         |         |         |" << endl;
-out << " " << "20" << "        " << "21" << "    6   " << "22" << "        " << "23" << "   " << " 7" << "   " << "24" << "        " << "17" << endl;
-out << "  |         |  " << "GLASS " << " |         |  " << "BRICK " << " |         |" << endl;
-out << "|" << "18" << "|--" << "26" << "--|" << "19" << "|  " << "11" << "  |" << "20" << "|--" << "27" << "--|" << "21" << "|  " << " 3" << "  |" << "22" << "|--" << "28" << "--|" << "23" << "|" << endl;
-out << "  |         |         |         |         |         |" << endl;
-out << " " << "29" << "   " << " 8" << "   " << "30" << "        " << "31" << "   " << " 9" << "   " << "32" << "        " << "33" << "   " << "10" << "   " << "34" << endl;
-out << "  |  "<< "HEAT  " << " |         |  " << "BRICK " << " |         |  " << "BRICK " << " |" << endl;
-out << "|" << "24" << "|  " << " 8" << "  |" << "25" << "|--" << "35" << "--|" << "26" << "|  " << " 2" << "  |" << "27" << "|--" << "36" << "--|" << "28" << "|  " << " 6" << "  |" << "29" << "|" << endl;
-out << "  |         |         |         |         |         |" << endl;
-out << " " << "37" << "        " << "38" << "   11   " << "39" << "        " << "40" << "   " << "12" << "   " << "41" << "        " << "42" << endl;
-out << "  |         |  " << "ENERGY " << "|         |  " << "WIFI  " << " |         |" << endl;
-out << "|" << "30" << "|--" << "43" << "--|" << "31" << "|  " << " 8" << "  |" << "32" << "|--" << "44" << "--|" << "33" << "|  " << "12" << "  |" << "34" << "|--" << "45" << "--|" << "35" << "|" << endl;
-out << "  |         |         |         |         |         |" << endl;
-out << " " << "46" << "   " << "13" << "   " << "47" << "        " << "48" << "   " << "14" << "   " << "49" << "        " << "50" << "   " << "15" << "   " << "51" << endl;
-out << "  |  "<< "ENERGY " << "|         |  " << "WIFI  " << " |         |  " << "GLASS " << " |" << endl;
-out << "|" << "36" << "|  " << " 5" << "  |" << "37" << "|--" << "52" << "--|" << "38" << "|  " << "11" << "  |" << "39" << "|--" << "53" << "--|" << "40" << "|  " << " 4" << "  |" << "41" << "|" << endl;
-out << "  |         |         |         |         |         |" << endl;
-out << " " << "54" << "        " << "55" << "   16   " << "56" << "        " << "57" << "   " << "17" << "   " << "58" << "        " << "59" << endl;
-out << "  |         |  " << "WIFI  " << " |         |  " << "GLASS " << " |         |" << endl;
-out << "|" << "42" << "|--" << "60" << "--|" << "43" << "|  " << " 6" << "   |" << "4" << "|--" << "61" << "--|" << "45" << "|  " << " 9" << "  |" << "46" << "|--" << "62" << "--|" << "47" << "|" << endl;
-out << "            |         |         |         |" << endl;
-out << "           " << "63" << "        " << "64" << "   18   " << "65" << "        " << "66" << endl;
-out << "            |         |  " << "GLASS " << " |         |" << endl;
-out << "          |" << "48" << "|--" << "67" << "--|" << "49" << "|  " << " 9" << "  |" <<"50" << "|--" << "68" <<"--|" << "51" << "|"  << endl;
-out << "                      |         |" << endl;
-out << "                     " << "69" << "        "  << "70" << endl;
-out << "                      |         |" << endl;
-out << "                    |" << "52" << "|--" << "71" << "--|" << "53" << "|" << endl;
-
-	return out;
 }
