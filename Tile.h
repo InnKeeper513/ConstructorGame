@@ -4,7 +4,6 @@
 #include <string>
 #include "Address.h"
 #include "Path.h"
-#include <vector>
 
 class Tile
 {
@@ -16,14 +15,19 @@ public:
 	int GetValue();
 	void SetGeese();
 	std::string GetGeese();
-	void addAddress(int);
+	void AddAddress(Address *address);
+	void AddPath(Path *path);
+	void SetPos(int row, int col);
 private:
-	std::vector<int> tileAddress;
 	int number;
 	std::string resource;
 	int value;
+	Address** addresses;
 	int numAddress;
+	Path** pathes;
 	int numpath;
 	std::string geese;
+	int row;
+	int col;
 };
 #endif
