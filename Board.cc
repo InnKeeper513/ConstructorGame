@@ -387,392 +387,391 @@ Board::Board(){
 
 // path add neighbour
 
-paths[0].addneighbour(1)
-paths[0].addneighbour(2)
-paths[1].addneighbour(0)
-paths[1].addneighbour(3)
-paths[1].addneighbour(6)
-paths[2].addneighbour(0)
-paths[2].addneighbour(3)
-paths[2].addneighbour(7)
-paths[3].addneighbour(1)
-paths[3].addneighbour(5)
-paths[3].addneighbour(6)
-paths[4].addneighbour(7)
-paths[4].addneighbour(8)
-paths[4].addneighbour(2)
-paths[5].addneighbour(3)
-paths[5].addneighbour(9)
-paths[5].addneighbour(10)
-paths[5].addneighbour(13)
-paths[6].addneighbour(3)
-paths[6].addneighbour(10)
-paths[6].addneighbour(14)
-paths[6].addneighbour(1)
-paths[7].addneighbour(4)
-paths[7].addneighbour(10)
-paths[7].addneighbour(15)
-paths[7].addneighbour(2)
-paths[8].addneighbour(4)
-paths[8].addneighbour(11)
-paths[8].addneighbour(16)
-paths[9].addneighbour(13)
-paths[9].addneighbour(5)
-paths[9].addneighbour(12)
-paths[10].addneighbour(6)
-paths[10].addneighbour(7)
-paths[10].addneighbour(14)
-paths[10].addneighbour(15)
-paths[11].addneighbour(8)
-paths[11].addneighbour(16)
-paths[11].addneighbour(17)
-paths[12].addneighbour(9)
-paths[12].addneighbour(20)
-paths[13].addneighbour(5)
-paths[13].addneighbour(9)
-paths[13].addneighbour(18)
-paths[13].addneighbour(21)
-paths[14].addneighbour(6)
-paths[14].addneighbour(10)
-paths[14].addneighbour(18)
-paths[14].addneighbour(22)
-paths[15].addneighbour(7)
-paths[15].addneighbour(10)
-paths[15].addneighbour(19)
-paths[15].addneighbour(23)
-paths[16].addneighbour(8)
-paths[16].addneighbour(11)
-paths[16].addneighbour(19)
-paths[16].addneighbour(24)
-paths[17].addneighbour(11)
-paths[17].addneighbour(25)
-paths[18].addneighbour(13)
-paths[18].addneighbour(14)
-paths[18].addneighbour(21)
-paths[18].addneighbour(22)
-paths[19].addneighbour(15)
-paths[19].addneighbour(16)
-paths[19].addneighbour(23)
-paths[19].addneighbour(24)
-paths[20].addneighbour(12)
-paths[20].addneighbour(26)
-paths[20].addneighbour(29)
-paths[21].addneighbour(13)
-paths[21].addneighbour(18)
-paths[21].addneighbour(26)
-paths[21].addneighbour(30)
-paths[22].addneighbour(14)
-paths[22].addneighbour(18)
-paths[22].addneighbour(27)
-paths[22].addneighbour(31)
-paths[23].addneighbour(15)
-paths[23].addneighbour(19)
-paths[23].addneighbour(27)
-paths[23].addneighbour(32)
-paths[24].addneighbour(16)
-paths[24].addneighbour(19)
-paths[24].addneighbour(28)
-paths[24].addneighbour(33)
-paths[25].addneighbour(17)
-paths[25].addneighbour(28)
-paths[25].addneighbour(34)
-paths[26].addneighbour(20)
-paths[26].addneighbour(21)
-paths[26].addneighbour(29)
-paths[26].addneighbour(30)
-paths[27].addneighbour(22)
-paths[27].addneighbour(23)
-paths[27].addneighbour(31)
-paths[27].addneighbour(32)
-paths[28].addneighbour(24)
-paths[28].addneighbour(25)
-paths[28].addneighbour(33)
-paths[28].addneighbour(34)
-paths[29].addneighbour(20)
-paths[29].addneighbour(26)
-paths[29].addneighbour(37)
-paths[30].addneighbour(21)
-paths[30].addneighbour(26)
-paths[30].addneighbour(38)
-paths[30].addneighbour(35)
-paths[31].addneighbour(22)
-paths[31].addneighbour(27)
-paths[31].addneighbour(35)
-paths[31].addneighbour(39)
-paths[32].addneighbour(23)
-paths[32].addneighbour(27)
-paths[32].addneighbour(36)
-paths[32].addneighbour(40)
-paths[33].addneighbour(24)
-paths[33].addneighbour(28)
-paths[33].addneighbour(36)
-paths[33].addneighbour(41)
-paths[34].addneighbour(25)
-paths[34].addneighbour(28)
-paths[34].addneighbour(42)
-paths[35].addneighbour(30)
-paths[35].addneighbour(31)
-paths[35].addneighbour(38)
-paths[35].addneighbour(39)
-paths[36].addneighbour(32)
-paths[36].addneighbour(33)
-paths[36].addneighbour(40)
-paths[36].addneighbour(41)
-paths[37].addneighbour(29)
-paths[37].addneighbour(46)
-paths[37].addneighbour(43)
-paths[38].addneighbour(30)
-paths[38].addneighbour(35)
-paths[38].addneighbour(43)
-paths[38].addneighbour(47)
-paths[39].addneighbour(31)
-paths[39].addneighbour(35)
-paths[39].addneighbour(44)
-paths[39].addneighbour(48)
-paths[40].addneighbour(32)
-paths[40].addneighbour(36)
-paths[40].addneighbour(44)
-paths[40].addneighbour(49)
-paths[41].addneighbour(33)
-paths[41].addneighbour(36)
-paths[41].addneighbour(45)
-paths[41].addneighbour(50)
-paths[42].addneighbour(34)
-paths[42].addneighbour(45)
-paths[42].addneighbour(51)
-paths[43].addneighbour(37)
-paths[43].addneighbour(38)
-paths[43].addneighbour(46)
-paths[43].addneighbour(47)
-paths[44].addneighbour(39)
-paths[44].addneighbour(40)
-paths[44].addneighbour(48)
-paths[44].addneighbour(49)
-paths[45].addneighbour(41)
-paths[45].addneighbour(42)
-paths[45].addneighbour(50)
-paths[45].addneighbour(51)
-paths[46].addneighbour(37)
-paths[46].addneighbour(42)
-paths[46].addneighbour(54)
-paths[47].addneighbour(38)
-paths[47].addneighbour(43)
-paths[47].addneighbour(52)
-paths[47].addneighbour(55)
-paths[48].addneighbour(39)
-paths[48].addneighbour(44)
-paths[48].addneighbour(52)
-paths[48].addneighbour(56)
-paths[49].addneighbour(40)
-paths[49].addneighbour(44)
-paths[49].addneighbour(53)
-paths[49].addneighbour(57)
-paths[50].addneighbour(41)
-paths[50].addneighbour(45)
-paths[50].addneighbour(53)
-paths[50].addneighbour(58)
-paths[51].addneighbour(45)
-paths[51].addneighbour(42)
-paths[51].addneighbour(59)
-paths[52].addneighbour(47)
-paths[52].addneighbour(48)
-paths[52].addneighbour(55)
-paths[52].addneighbour(56)
-paths[53].addneighbour(49)
-paths[53].addneighbour(50)
-paths[53].addneighbour(57)
-paths[53].addneighbour(58)
-paths[54].addneighbour(46)
-paths[54].addneighbour(60)
-paths[55].addneighbour(47)
-paths[55].addneighbour(52)
-paths[55].addneighbour(60)
-paths[55].addneighbour(63)
-paths[56].addneighbour(48)
-paths[56].addneighbour(52)
-paths[56].addneighbour(61)
-paths[56].addneighbour(64)
-paths[57].addneighbour(49)
-paths[57].addneighbour(53)
-paths[57].addneighbour(61)
-paths[57].addneighbour(65)
-paths[58].addneighbour(50)
-paths[58].addneighbour(53)
-paths[58].addneighbour(62)
-paths[58].addneighbour(66)
-paths[59].addneighbour(51)
-paths[59].addneighbour(62)
-paths[60].addneighbour(54)
-paths[60].addneighbour(55)
-paths[60].addneighbour(63)
-paths[61].addneighbour(56)
-paths[61].addneighbour(57)
-paths[61].addneighbour(64)
-paths[61].addneighbour(65)
-paths[62].addneighbour(58)
-paths[62].addneighbour(59)
-paths[62].addneighbour(66)
-paths[63].addneighbour(55)
-paths[63].addneighbour(60)
-paths[63].addneighbour(67)
-paths[64].addneighbour(56)
-paths[64].addneighbour(61)
-paths[64].addneighbour(67)
-paths[64].addneighbour(69)
-paths[65].addneighbour(57)
-paths[65].addneighbour(61)
-paths[65].addneighbour(68)
-paths[65].addneighbour(70)
-paths[66].addneighbour(58)
-paths[66].addneighbour(62)
-paths[66].addneighbour(68)
-paths[67].addneighbour(63)
-paths[67].addneighbour(64)
-paths[67].addneighbour(69)
-paths[68].addneighbour(65)
-paths[68].addneighbour(66)
-paths[68].addneighbour(70)
-paths[69].addneighbour(64)
-paths[69].addneighbour(67)
-paths[69].addneighbour(71)
-paths[70].addneighbour(65)
-paths[70].addneighbour(68)
-paths[70].addneighbour(71)
-paths[71].addneighbour(69)
-paths[71].addneighbour(70)
-// tile add address
+paths[0].addNeighbor(1);
+paths[0].addNeighbor(2);
+paths[1].addNeighbor(0);
+paths[1].addNeighbor(3);
+paths[1].addNeighbor(6);
+paths[2].addNeighbor(0);
+paths[2].addNeighbor(3);
+paths[2].addNeighbor(7);
+paths[3].addNeighbor(1);
+paths[3].addNeighbor(5);
+paths[3].addNeighbor(6);
+paths[4].addNeighbor(7);
+paths[4].addNeighbor(8);
+paths[4].addNeighbor(2);
+paths[5].addNeighbor(3);
+paths[5].addNeighbor(9);
+paths[5].addNeighbor(10);
+paths[5].addNeighbor(13);
+paths[6].addNeighbor(3);
+paths[6].addNeighbor(10);
+paths[6].addNeighbor(14);
+paths[6].addNeighbor(1);
+paths[7].addNeighbor(4);
+paths[7].addNeighbor(10);
+paths[7].addNeighbor(15);
+paths[7].addNeighbor(2);
+paths[8].addNeighbor(4);
+paths[8].addNeighbor(11);
+paths[8].addNeighbor(16);
+paths[9].addNeighbor(13);
+paths[9].addNeighbor(5);
+paths[9].addNeighbor(12);
+paths[10].addNeighbor(6);
+paths[10].addNeighbor(7);
+paths[10].addNeighbor(14);
+paths[10].addNeighbor(15);
+paths[11].addNeighbor(8);
+paths[11].addNeighbor(16);
+paths[11].addNeighbor(17);
+paths[12].addNeighbor(9);
+paths[12].addNeighbor(20);
+paths[13].addNeighbor(5);
+paths[13].addNeighbor(9);
+paths[13].addNeighbor(18);
+paths[13].addNeighbor(21);
+paths[14].addNeighbor(6);
+paths[14].addNeighbor(10);
+paths[14].addNeighbor(18);
+paths[14].addNeighbor(22);
+paths[15].addNeighbor(7);
+paths[15].addNeighbor(10);
+paths[15].addNeighbor(19);
+paths[15].addNeighbor(23);
+paths[16].addNeighbor(8);
+paths[16].addNeighbor(11);
+paths[16].addNeighbor(19);
+paths[16].addNeighbor(24);
+paths[17].addNeighbor(11);
+paths[17].addNeighbor(25);
+paths[18].addNeighbor(13);
+paths[18].addNeighbor(14);
+paths[18].addNeighbor(21);
+paths[18].addNeighbor(22);
+paths[19].addNeighbor(15);
+paths[19].addNeighbor(16);
+paths[19].addNeighbor(23);
+paths[19].addNeighbor(24);
+paths[20].addNeighbor(12);
+paths[20].addNeighbor(26);
+paths[20].addNeighbor(29);
+paths[21].addNeighbor(13);
+paths[21].addNeighbor(18);
+paths[21].addNeighbor(26);
+paths[21].addNeighbor(30);
+paths[22].addNeighbor(14);
+paths[22].addNeighbor(18);
+paths[22].addNeighbor(27);
+paths[22].addNeighbor(31);
+paths[23].addNeighbor(15);
+paths[23].addNeighbor(19);
+paths[23].addNeighbor(27);
+paths[23].addNeighbor(32);
+paths[24].addNeighbor(16);
+paths[24].addNeighbor(19);
+paths[24].addNeighbor(28);
+paths[24].addNeighbor(33);
+paths[25].addNeighbor(17);
+paths[25].addNeighbor(28);
+paths[25].addNeighbor(34);
+paths[26].addNeighbor(20);
+paths[26].addNeighbor(21);
+paths[26].addNeighbor(29);
+paths[26].addNeighbor(30);
+paths[27].addNeighbor(22);
+paths[27].addNeighbor(23);
+paths[27].addNeighbor(31);
+paths[27].addNeighbor(32);
+paths[28].addNeighbor(24);
+paths[28].addNeighbor(25);
+paths[28].addNeighbor(33);
+paths[28].addNeighbor(34);
+paths[29].addNeighbor(20);
+paths[29].addNeighbor(26);
+paths[29].addNeighbor(37);
+paths[30].addNeighbor(21);
+paths[30].addNeighbor(26);
+paths[30].addNeighbor(38);
+paths[30].addNeighbor(35);
+paths[31].addNeighbor(22);
+paths[31].addNeighbor(27);
+paths[31].addNeighbor(35);
+paths[31].addNeighbor(39);
+paths[32].addNeighbor(23);
+paths[32].addNeighbor(27);
+paths[32].addNeighbor(36);
+paths[32].addNeighbor(40);
+paths[33].addNeighbor(24);
+paths[33].addNeighbor(28);
+paths[33].addNeighbor(36);
+paths[33].addNeighbor(41);
+paths[34].addNeighbor(25);
+paths[34].addNeighbor(28);
+paths[34].addNeighbor(42);
+paths[35].addNeighbor(30);
+paths[35].addNeighbor(31);
+paths[35].addNeighbor(38);
+paths[35].addNeighbor(39);
+paths[36].addNeighbor(32);
+paths[36].addNeighbor(33);
+paths[36].addNeighbor(40);
+paths[36].addNeighbor(41);
+paths[37].addNeighbor(29);
+paths[37].addNeighbor(46);
+paths[37].addNeighbor(43);
+paths[38].addNeighbor(30);
+paths[38].addNeighbor(35);
+paths[38].addNeighbor(43);
+paths[38].addNeighbor(47);
+paths[39].addNeighbor(31);
+paths[39].addNeighbor(35);
+paths[39].addNeighbor(44);
+paths[39].addNeighbor(48);
+paths[40].addNeighbor(32);
+paths[40].addNeighbor(36);
+paths[40].addNeighbor(44);
+paths[40].addNeighbor(49);
+paths[41].addNeighbor(33);
+paths[41].addNeighbor(36);
+paths[41].addNeighbor(45);
+paths[41].addNeighbor(50);
+paths[42].addNeighbor(34);
+paths[42].addNeighbor(45);
+paths[42].addNeighbor(51);
+paths[43].addNeighbor(37);
+paths[43].addNeighbor(38);
+paths[43].addNeighbor(46);
+paths[43].addNeighbor(47);
+paths[44].addNeighbor(39);
+paths[44].addNeighbor(40);
+paths[44].addNeighbor(48);
+paths[44].addNeighbor(49);
+paths[45].addNeighbor(41);
+paths[45].addNeighbor(42);
+paths[45].addNeighbor(50);
+paths[45].addNeighbor(51);
+paths[46].addNeighbor(37);
+paths[46].addNeighbor(42);
+paths[46].addNeighbor(54);
+paths[47].addNeighbor(38);
+paths[47].addNeighbor(43);
+paths[47].addNeighbor(52);
+paths[47].addNeighbor(55);
+paths[48].addNeighbor(39);
+paths[48].addNeighbor(44);
+paths[48].addNeighbor(52);
+paths[48].addNeighbor(56);
+paths[49].addNeighbor(40);
+paths[49].addNeighbor(44);
+paths[49].addNeighbor(53);
+paths[49].addNeighbor(57);
+paths[50].addNeighbor(41);
+paths[50].addNeighbor(45);
+paths[50].addNeighbor(53);
+paths[50].addNeighbor(58);
+paths[51].addNeighbor(45);
+paths[51].addNeighbor(42);
+paths[51].addNeighbor(59);
+paths[52].addNeighbor(47);
+paths[52].addNeighbor(48);
+paths[52].addNeighbor(55);
+paths[52].addNeighbor(56);
+paths[53].addNeighbor(49);
+paths[53].addNeighbor(50);
+paths[53].addNeighbor(57);
+paths[53].addNeighbor(58);
+paths[54].addNeighbor(46);
+paths[54].addNeighbor(60);
+paths[55].addNeighbor(47);
+paths[55].addNeighbor(52);
+paths[55].addNeighbor(60);
+paths[55].addNeighbor(63);
+paths[56].addNeighbor(48);
+paths[56].addNeighbor(52);
+paths[56].addNeighbor(61);
+paths[56].addNeighbor(64);
+paths[57].addNeighbor(49);
+paths[57].addNeighbor(53);
+paths[57].addNeighbor(61);
+paths[57].addNeighbor(65);
+paths[58].addNeighbor(50);
+paths[58].addNeighbor(53);
+paths[58].addNeighbor(62);
+paths[58].addNeighbor(66);
+paths[59].addNeighbor(51);
+paths[59].addNeighbor(62);
+paths[60].addNeighbor(54);
+paths[60].addNeighbor(55);
+paths[60].addNeighbor(63);
+paths[61].addNeighbor(56);
+paths[61].addNeighbor(57);
+paths[61].addNeighbor(64);
+paths[61].addNeighbor(65);
+paths[62].addNeighbor(58);
+paths[62].addNeighbor(59);
+paths[62].addNeighbor(66);
+paths[63].addNeighbor(55);
+paths[63].addNeighbor(60);
+paths[63].addNeighbor(67);
+paths[64].addNeighbor(56);
+paths[64].addNeighbor(61);
+paths[64].addNeighbor(67);
+paths[64].addNeighbor(69);
+paths[65].addNeighbor(57);
+paths[65].addNeighbor(61);
+paths[65].addNeighbor(68);
+paths[65].addNeighbor(70);
+paths[66].addNeighbor(58);
+paths[66].addNeighbor(62);
+paths[66].addNeighbor(68);
+paths[67].addNeighbor(63);
+paths[67].addNeighbor(64);
+paths[67].addNeighbor(69);
+paths[68].addNeighbor(65);
+paths[68].addNeighbor(66);
+paths[68].addNeighbor(70);
+paths[69].addNeighbor(64);
+paths[69].addNeighbor(67);
+paths[69].addNeighbor(71);
+paths[70].addNeighbor(65);
+paths[70].addNeighbor(68);
+paths[70].addNeighbor(71);
+paths[71].addNeighbor(69);
+paths[71].addNeighbor(70);
+// tile add address;
 
-tiles[0].addAddress(0)
-    tiles[0].addAddress(1)
-    tiles[0].addAddress(4)
-    tiles[0].addAddress(3)
-    tiles[0].addAddress(8)
-    tiles[0].addAddress(9)
+tiles[0].addAddress(0);
+    tiles[0].addAddress(1);
+    tiles[0].addAddress(4);
+    tiles[0].addAddress(3);
+    tiles[0].addAddress(8);
+    tiles[0].addAddress(9);
 
-    tiles[1].addAddress(2)
-    tiles[1].addAddress(3)
-    tiles[1].addAddress(7)
-    tiles[1].addAddress(8)
-    tiles[1].addAddress(13)
-    tiles[1].addAddress(14)
+    tiles[1].addAddress(2);
+    tiles[1].addAddress(3);
+    tiles[1].addAddress(7);
+    tiles[1].addAddress(8);
+    tiles[1].addAddress(13);
+    tiles[1].addAddress(14);
 
 
-    tiles[2].addAddress(4)
-    tiles[2].addAddress(5)
-    tiles[2].addAddress(9)
-    tiles[2].addAddress(10)
-    tiles[2].addAddress(15)
-    tiles[2].addAddress(16)
+    tiles[2].addAddress(4);
+    tiles[2].addAddress(5);
+    tiles[2].addAddress(9);
+    tiles[2].addAddress(10);
+    tiles[2].addAddress(15);
+    tiles[2].addAddress(16);
+    tiles[3].addAddress(6);
+    tiles[3].addAddress(7);
+    tiles[3].addAddress(12);
+    tiles[3].addAddress(13);
+    tiles[3].addAddress(18);
+    tiles[3].addAddress(19);
 
-    tiles[3].addAddress(6)
-    tiles[3].addAddress(7)
-    tiles[3].addAddress(12)
-    tiles[3].addAddress(13)
-    tiles[3].addAddress(18)
-    tiles[3].addAddress(19)
+    tiles[4].addAddress(8);
+    tiles[4].addAddress(9);
+    tiles[4].addAddress(14);
+    tiles[4].addAddress(15);
+    tiles[4].addAddress(20);
+    tiles[4].addAddress(21);
 
-    tiles[4].addAddress(8)
-    tiles[4].addAddress(9)
-    tiles[4].addAddress(14)
-    tiles[4].addAddress(15)
-    tiles[4].addAddress(20)
-    tiles[4].addAddress(21)
+    tiles[5].addAddress(10);
+    tiles[5].addAddress(11);
+    tiles[5].addAddress(16);
+    tiles[5].addAddress(17);
+    tiles[5].addAddress(22);
+    tiles[5].addAddress(23);
 
-    tiles[5].addAddress(10)
-    tiles[5].addAddress(11)
-    tiles[5].addAddress(16)
-    tiles[5].addAddress(17)
-    tiles[5].addAddress(22)
-    tiles[5].addAddress(23)
+    tiles[6].addAddress(13);
+    tiles[6].addAddress(14);
+    tiles[6].addAddress(19);
+    tiles[6].addAddress(20);
+    tiles[6].addAddress(25);
+    tiles[6].addAddress(26);
 
-    tiles[6].addAddress(13)
-    tiles[6].addAddress(14)
-    tiles[6].addAddress(19)
-    tiles[6].addAddress(20)
-    tiles[6].addAddress(25)
-    tiles[6].addAddress(26)
+    tiles[7].addAddress(15);
+    tiles[7].addAddress(16);
+    tiles[7].addAddress(21);
+    tiles[7].addAddress(22);
+    tiles[7].addAddress(28);
+    tiles[7].addAddress(28);
 
-    tiles[7].addAddress(15)
-    tiles[7].addAddress(16)
-    tiles[7].addAddress(21)
-    tiles[7].addAddress(22)
-    tiles[7].addAddress(28)
-    tiles[7].addAddress(28)
+    tiles[8].addAddress(18);
+    tiles[8].addAddress(19);
+    tiles[8].addAddress(24);
+    tiles[8].addAddress(25);
+    tiles[8].addAddress(30);
+    tiles[8].addAddress(31);
 
-    tiles[8].addAddress(18)
-    tiles[8].addAddress(19)
-    tiles[8].addAddress(24)
-    tiles[8].addAddress(25)
-    tiles[8].addAddress(30)
-    tiles[8].addAddress(31)
+    tiles[9].addAddress(20);
+    tiles[9].addAddress(21);
+    tiles[9].addAddress(31);
+    tiles[9].addAddress(32);
+    tiles[9].addAddress(37);
+    tiles[9].addAddress(38);
 
-    tiles[9].addAddress(20)
-    tiles[9].addAddress(21)
-    tiles[9].addAddress(31)
-    tiles[9].addAddress(32)
-    tiles[9].addAddress(37)
-    tiles[9].addAddress(38)
+    tiles[10].addAddress(22);
+    tiles[10].addAddress(23);
+    tiles[10].addAddress(28);
+    tiles[10].addAddress(29);
+    tiles[10].addAddress(34);
+    tiles[10].addAddress(35);
 
-    tiles[10].addAddress(22)
-    tiles[10].addAddress(23)
-    tiles[10].addAddress(28)
-    tiles[10].addAddress(29)
-    tiles[10].addAddress(34)
-    tiles[10].addAddress(35)
+    tiles[11].addAddress(25);
+    tiles[11].addAddress(26);
+    tiles[11].addAddress(31);
+    tiles[11].addAddress(32);
+    tiles[11].addAddress(37);
+    tiles[11].addAddress(38);
 
-    tiles[11].addAddress(25)
-    tiles[11].addAddress(26)
-    tiles[11].addAddress(31)
-    tiles[11].addAddress(32)
-    tiles[11].addAddress(37)
-    tiles[11].addAddress(38)
+    tiles[12].addAddress(27);
+    tiles[12].addAddress(28);
+    tiles[12].addAddress(33);
+    tiles[12].addAddress(34);
+    tiles[12].addAddress(39);
+    tiles[12].addAddress(40);
 
-    tiles[12].addAddress(27)
-    tiles[12].addAddress(28)
-    tiles[12].addAddress(33)
-    tiles[12].addAddress(34)
-    tiles[12].addAddress(39)
-    tiles[12].addAddress(40)
+    tiles[13].addAddress(30);
+    tiles[13].addAddress(31);
+    tiles[13].addAddress(36);
+    tiles[13].addAddress(37);
+    tiles[13].addAddress(42);
+    tiles[13].addAddress(43);
 
-    tiles[13].addAddress(30)
-    tiles[13].addAddress(31)
-    tiles[13].addAddress(36)
-    tiles[13].addAddress(37)
-    tiles[13].addAddress(42)
-    tiles[13].addAddress(43)
+    tiles[14].addAddress(32);
+    tiles[14].addAddress(33);
+    tiles[14].addAddress(38);
+    tiles[14].addAddress(39);
+    tiles[14].addAddress(44);
+    tiles[14].addAddress(45);
 
-    tiles[14].addAddress(32)
-    tiles[14].addAddress(33)
-    tiles[14].addAddress(38)
-    tiles[14].addAddress(39)
-    tiles[14].addAddress(44)
-    tiles[14].addAddress(45)
+    tiles[15].addAddress(34);
+    tiles[15].addAddress(35);
+    tiles[15].addAddress(40);
+    tiles[15].addAddress(41);
+    tiles[15].addAddress(46);
+    tiles[15].addAddress(47);
 
-    tiles[15].addAddress(34)
-    tiles[15].addAddress(35)
-    tiles[15].addAddress(40)
-    tiles[15].addAddress(41)
-    tiles[15].addAddress(46)
-    tiles[15].addAddress(47)
+    tiles[16].addAddress(37);
+    tiles[16].addAddress(38);
+    tiles[16].addAddress(43);
+    tiles[16].addAddress(44);
+    tiles[16].addAddress(48);
+    tiles[16].addAddress(49);
 
-    tiles[16].addAddress(37)
-    tiles[16].addAddress(38)
-    tiles[16].addAddress(43)
-    tiles[16].addAddress(44)
-    tiles[16].addAddress(48)
-    tiles[16].addAddress(49)
+    tiles[17].addAddress(39);
+    tiles[17].addAddress(40);
+    tiles[17].addAddress(45);
+    tiles[17].addAddress(46);
+    tiles[17].addAddress(50);
+    tiles[17].addAddress(51);
 
-    tiles[17].addAddress(39)
-    tiles[17].addAddress(40)
-    tiles[17].addAddress(45)
-    tiles[17].addAddress(46)
-    tiles[17].addAddress(50)
-    tiles[17].addAddress(51)
-
-    tiles[18].addAddress(44)
-    tiles[18].addAddress(45)
-    tiles[18].addAddress(49)
-    tiles[18].addAddress(50)
-    tiles[18].addAddress(52)
-    tiles[18].addAddress(53)
+    tiles[18].addAddress(44);
+    tiles[18].addAddress(45);
+    tiles[18].addAddress(49);
+    tiles[18].addAddress(50);
+    tiles[18].addAddress(52);
+    tiles[18].addAddress(53);
 }

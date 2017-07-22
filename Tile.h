@@ -4,27 +4,25 @@
 #include <string>
 #include "Address.h"
 #include "Path.h"
+#include <vector>
 
 class Tile
 {
 public:
-	Tile();
 	Tile(int number, std::string resource, int value);
 	int GetNumber();
 	std::string GetResource();
 	int GetValue();
-	void SetGeese();
+	void SetGeese(int);
 	std::string GetGeese();
-	void AddAddress(Address *address);
-	void AddPath(Path *path);
+	void addAddress(int add);
 	void SetPos(int row, int col);
 private:
+	std::vector<int> tileAddress;
 	int number;
 	std::string resource;
 	int value;
-	Address** addresses;
 	int numAddress;
-	Path** pathes;
 	int numpath;
 	std::string geese;
 	int row;

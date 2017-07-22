@@ -1,16 +1,13 @@
 #include "Tile.h"
 using namespace std;
-Tile::Tile(){}
 
-Tile::Tile(int number, string resource, int value):Tile()
+Tile::Tile(int number, string resource, int value)
 {
-	this->number = number;
-	this->value = value;
-	this->resource = resource;
+
 
 }
 
-void Tile::SetGeese()
+void Tile::SetGeese(int set)
 {
 	if (this->geese == "")
 	{
@@ -44,5 +41,5 @@ int Tile::GetValue()
 
 void Tile::addAddress(int add)
 {
-	tileAddress.emplace_back(add);	
+	tileAddress.emplace_back(add);
 }
