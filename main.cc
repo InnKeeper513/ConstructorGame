@@ -88,11 +88,12 @@ int main()
 	// - It cannot collapse with other player's address
 	for(int i = 0; i < 4; i++){
 		int tempAdd;
-		cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
-		cout << ">";
 
-		cin >> tempAdd;
 		while(true){
+			cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
+			cout << ">";
+			cin >> tempAdd;
+
 			if(addresses[tempAdd].getBuilder() == "N"){
 				builders[i].addAddress(tempAdd);
 				addresses[tempAdd].setBuildingType("B");
@@ -104,10 +105,11 @@ int main()
 	}
 	for(int i = 3; i >= 0; i--){
 		int tempAdd2;
-		cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
-		cout << ">";
-		cin >> tempAdd2;
+
 		while(true){
+			cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
+			cout << ">";
+			cin >> tempAdd2;
 			if(addresses[tempAdd2].getBuilder() == "N"){
 				builders[i].addAddress(tempAdd2);
 				addresses[tempAdd2].setBuildingType("B");
@@ -238,9 +240,24 @@ int main()
 					if(builders[i].checkAdjacent(resNumber) &&
 					 addresses[resNumber].getBuildingType() == "B" &&
 				 	 builders[i].checkAdjacentPath()){
-						builders[i].addAddress(resNumber);
-						addresses[resNumber].setBuildingType("B");
-						addresses[resNumber].setOwner(builders[i].getColor());
+
+						// Check if there are enough resources
+						if(builders[i].getNumBrick() >= 1 && builders[i].getNumEnergy() >= 1 &&
+							builders[i].getNumGlass() >= 1 && builders[i].getNumWifi() >= 1){
+
+							// Remove the amount of resources by building the basement
+							builders[i].removeBrick(1);
+							builders[i].removeEnergy(1);
+							builders[i].removeGlass(1);
+							builders[i].removeWifi(1);
+
+							// Add the basement to the address and set its owner
+							builders[i].addAddress(resNumber);
+							addresses[resNumber].setBuildingType("B");
+							addresses[resNumber].setOwner(builders[i].getColor());
+						} else {
+							cout << "You do not have enough resources." << endl;
+						}
 					} else {
 						cout << "You cannot build here." << endl;
 					}
@@ -260,10 +277,74 @@ int main()
 						cout << "You cannot build here.";
 					}
 
-
 				} else if(userCMD == "trade") {
+						string builder2;
+						string resource1;
+						string resource2;
+						// TODO need to check if these inputs are valid
+						cin >> builder2;
+						cin >> resource1;
+						cin >> resource2;
+
+						int playerNum = 0;
+						for(int k = 0; k < 4; k++){
+							if(builders[k].getColor() == builder2){
+								playerNum = k;
+								break;
+							}
+						}
+
+						cout << builders[i].getColor() << " offers " << builder2 << " one " << resource1 << " for one " << resource2 << endl;
+						cout << "Does " << builder2 << " accept this offer?" << endl;
+						cout << "Answer with yes / no" << endl;
+
+						string answer;
+						cin >> answer;
+
+						// If the answer is yes, then the current builder will gain 1 resource1 and lose 1 resource 2
+						// The trading builder will lose 1 resource 1 and gain 1 resource 2
+						if(answer == "yes"){
+							if(resource1 == "HEAT"){
+									builders[i].addHeat(1);
+									builders[playerNum].removeHeat(1);
+							} else if(resource1 == "WIFI") {
+									builders[i].addWifi(1);
+									builders[playerNum].removeWifi(1);
+							} else if(resource1 == "BRICK") {
+									builders[i].addBrick(1);
+									builders[playerNum].removeBrick(1);
+							} else if(resource1 == "ENERGY") {
+									builders[i].addEnergy(1);
+									builders[playerNum].removeEnergy(1);
+							} else if(resource1 == "GLASS") {
+									builders[i].addGlass(1);
+									builders[playerNum].removeGlass(1);
+							}
+							if(resource2 == "HEAT"){
+									builders[playerNum].addHeat(1);
+									builders[i].removeHeat(1);
+							} else if(resource2 == "WIFI") {
+									builders[playerNum].addWifi(1);
+									builders[i].removeWifi(1);
+							} else if(resource2 == "BRICK") {
+									builders[playerNum].addBrick(1);
+									builders[i].removeBrick(1);
+							} else if(resource2 == "ENERGY") {
+									builders[playerNum].addEnergy(1);
+									builders[i].removeEnergy(1);
+							} else if(resource2 == "GLASS") {
+									builders[playerNum].addGlass(1);
+									builders[i].removeGlass(1);
+							}
+						} else if(answer == "no"){
+
+						} else {
+							// TODO will keep asking until correct command;
+							cout << "Invalid Command";
+						}
 
 				} else if(userCMD == "next") {
+					// Switch to the next player
 					break;
 				} else if(userCMD == "save") {
 					/*
