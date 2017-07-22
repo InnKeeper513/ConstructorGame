@@ -14,40 +14,40 @@ Builder::Builder(int number, string color, int numPoints, int numBrick, int numE
 	{}
 
 
-int Builder::GetNumber()
+int Builder::getNumber()
 {
 	return this->number;
 }
-string Builder::GetColor()
+string Builder::getColor()
 {
 	return this->color;
 }
 
-int Builder::GetNumPoints()
+int Builder::getNumPoints()
 {
 	return this->numPoints;
 }
-int Builder::GetNumBrick()
+int Builder::getNumBrick()
 {
 	return this->numBrick;
 }
 
-int Builder::GetNumEnergy()
+int Builder::getNumEnergy()
 {
 	return this->numEnergy;
 }
 
-int Builder::GetNumGlass()
+int Builder::getNumGlass()
 {
 	return this->numGlass;
 }
 
-int Builder::GetNumHeat()
+int Builder::getNumHeat()
 {
 	return this->numHeat;
 }
 
-int Builder::GetNumWifi()
+int Builder::getNumWifi()
 {
 	return this->numWifi;
 }

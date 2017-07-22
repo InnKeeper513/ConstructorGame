@@ -22,14 +22,14 @@ public:
 	Builder();
 	Builder(int number, std::string color, int numPoints=0, int numBrick=0,
 		int numEnergy=0, int numGlass=0, int numHeat=0, int numWifi=0);
-	int GetNumber();
-	std::string GetColor();
-	int GetNumPoints();
-	int GetNumBrick();
-	int GetNumEnergy();
-	int GetNumGlass();
-	int GetNumHeat();
-	int GetNumWifi();
+	int getNumber();
+	std::string getColor();
+	int getNumPoints();
+	int getNumBrick();
+	int getNumEnergy();
+	int getNumGlass();
+	int getNumHeat();
+	int getNumWifi();
 	// Added
 	void printData();
 	void trade(Builder&, std::string, std::string);

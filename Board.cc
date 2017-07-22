@@ -641,8 +641,8 @@ paths[70].addNeighbor(71);
 paths[71].addNeighbor(69);
 paths[71].addNeighbor(70);
 // tile add address;
-
-tiles[0].addAddress(0);
+/*
+	tiles[0].addAddress(0);
     tiles[0].addAddress(1);
     tiles[0].addAddress(4);
     tiles[0].addAddress(3);
@@ -774,4 +774,5 @@ tiles[0].addAddress(0);
     tiles[18].addAddress(50);
     tiles[18].addAddress(52);
     tiles[18].addAddress(53);
+		*/
 }

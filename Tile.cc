@@ -24,7 +24,6 @@ string Tile::GetGeese()
 
 }
 
-
 int Tile::GetNumber()
 {
 	return this->number;

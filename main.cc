@@ -10,6 +10,7 @@ using namespace std;
 
 int main()
 {
+
 	// WRITE THE COMMAND LINE HERE
 	string commandLine;
 
@@ -33,7 +34,6 @@ int main()
 	builders.emplace_back(Builder(2,"Orange"));
 	builders.emplace_back(Builder(3,"Yellow"));
 
-
 	// Continue the game
 	while(true){
 	// Adding 2 initial address locations for the player
@@ -42,7 +42,7 @@ int main()
 	// - It cannot collapse with other player's address
 	for(int i = 0; i < 4; i++){
 		int tempAdd;
-		cout << "Builder " << builders[i].GetColor() << " , where do you want to build a basement?" << endl;
+		cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
 		cout << ">";
 		cin >> tempAdd;
 		builders[i].addAddress(tempAdd);
@@ -50,7 +50,7 @@ int main()
 	}
 	for(int j = 3; j >= 0; j--){
 		int tempAdd2;
-		cout << "Builder " << builders[j].GetColor() << " , where do you want to build a basement?" << endl;
+		cout << "Builder " << builders[j].getColor() << " , where do you want to build a basement?" << endl;
 		cout << ">";
 		cin >> tempAdd2;
 		builders[j].addAddress(tempAdd2);
@@ -73,22 +73,22 @@ int main()
 		// Every turn, there will be 4 player inputing commands
 		for(int i = 0; i < 4; i++){
 			string builderColor;
-			if(builders[i].GetColor() == "Red")
+			if(builders[i].getColor() == "Red")
 				builderColor = "R";
-			else if(builders[i].GetColor() == "Blue")
+			else if(builders[i].getColor() == "Blue")
 				builderColor = "B";
-			else if(builders[i].GetColor() == "Orange")
+			else if(builders[i].getColor() == "Orange")
 				builderColor = "O";
-			else if(builders[i].GetColor() == "Yellow")
+			else if(builders[i].getColor() == "Yellow")
 				builderColor = "Y";
 
-			if(builders[i].GetNumPoints() >= 10){
-				cout << "Player " << builders[i].GetColor() << " win!";
+			if(builders[i].getNumPoints() >= 10){
+				cout << "Player " << builders[i].getColor() << " win!";
 				win = true;
 				break;
 			}
 
-			cout << "Builder " << builders[i].GetColor() << "'s turn'" << endl;
+			cout << "Builder " << builders[i].getColor() << "'s turn'" << endl;
 			// print the builder's status
 			builders[i].status();
 			// TODO need to make sure the user entered the right input
@@ -102,7 +102,12 @@ int main()
 				Dice dice(diceCMD);
 				// Get the rolled number
 				rand = dice.rollDice();
-					break;
+				if(rand == 7){
+					// set the goose stuff
+				} else {
+
+				}
+				break;
 			}
 
 	// End Beginning of Turn *********************
@@ -151,9 +156,13 @@ int main()
 
 					// TODO need to check if the road is valid and if resource is enough
 					// Cost of building a road
-					builders[i].removeHeat(1);
-					builders[i].removeWifi(1);
-
+					if(builders[i].getNumHeat() >= 1 && builders[i].getNumWifi() >= 1){
+						// If contain enough resources, build the raod.
+						builders[i].removeHeat(1);
+						builders[i].removeWifi(1);
+					} else {
+						cout << "You do not have enough resources." << endl;
+					}
 					paths[roadNumber].upgrade(builderColor);
 					// Build the road at roadNumber
 				} else if(userCMD == "build-res") {
