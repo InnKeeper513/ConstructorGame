@@ -35,3 +35,11 @@ void Path::setOwner(std::string set){
 void Path::upgrade(string set){
 	owner = set;
 }
+
+vector<int> Path::getConnectedAddress(){
+	return connectedAddress;
+}
+
+vector<int> Path::getNeighborPath(){
+	return neighborPath;
+}

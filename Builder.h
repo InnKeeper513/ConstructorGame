@@ -8,6 +8,7 @@
 #include "Path.h"
 
 class Builder{
+	std::string name;
 	int number;
 	std::string color;
 	int numPoints;
@@ -48,9 +49,16 @@ public:
 	int addAddress(int);
 	int addPath(int);
 	bool checkImprove(int);
+	bool checkAdjacent(int);
+	bool checkAdjacentPath();
 	void checkBuildingResource(int);
 	std::vector<int> getAddress();
 	std::vector<int> getPath();
+
+	// Check if the selected path has adjacent path built to it
+	bool pathNeighbors(int);
+		// Check if the selected path has adjacent player address built to it
+	bool pathAddress(int);
 };
 
 #endif

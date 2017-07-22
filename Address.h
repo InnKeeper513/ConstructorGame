@@ -25,6 +25,10 @@ public:
 	// Add adjacent addresses
 	void addAddress(int);
 
+	std::vector<int> getNeighbor(){
+		return address;
+	}
+
 	// set the owner of the building
 	void setOwner(std::string);
 private:
@@ -33,8 +37,9 @@ private:
 	// Modified
 	std::string owner;
 	std::string buildingType;
-	std::vector<int> addresses;
+	std::vector<int> address;
 	bool isInNeighborAddress(int number);
+
 };
 
 #endif

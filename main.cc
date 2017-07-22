@@ -15,6 +15,7 @@ int main()
 
 	// WRITE THE COMMAND LINE HERE
 	string commandLine;
+	/*
 	getline(commandLine);
 	string word;
 	bool load_flag = false;
@@ -47,7 +48,7 @@ int main()
 	                k = rand() % res.size();
 	                tiles[i].setRes(res[k]);
 	                res.erase(res.begin() + k);
-	                
+
 	                if (res[k] != "PARK") {
 	                    j = rand() % vals.size();
 	                    tiles[i].setVal(vals[j]);
@@ -57,6 +58,7 @@ int main()
 	        }
 	    }
 	}
+	*/
 
 	// WRITE THE COMMAND LINE HERE
 
@@ -88,17 +90,32 @@ int main()
 		int tempAdd;
 		cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
 		cout << ">";
+
 		cin >> tempAdd;
-		builders[i].addAddress(tempAdd);
-		addresses[tempAdd].setBuildingType("B");
+		while(true){
+			if(addresses[tempAdd].getBuilder() == "N"){
+				builders[i].addAddress(tempAdd);
+				addresses[tempAdd].setBuildingType("B");
+				break;
+			} else {
+				cout << "You cannot build here." << endl;
+			}
+		}
 	}
-	for(int j = 3; j >= 0; j--){
+	for(int i = 3; i >= 0; i--){
 		int tempAdd2;
-		cout << "Builder " << builders[j].getColor() << " , where do you want to build a basement?" << endl;
+		cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
 		cout << ">";
 		cin >> tempAdd2;
-		builders[j].addAddress(tempAdd2);
-		addresses[tempAdd2].setBuildingType("B");
+		while(true){
+			if(addresses[tempAdd2].getBuilder() == "N"){
+				builders[i].addAddress(tempAdd2);
+				addresses[tempAdd2].setBuildingType("B");
+				break;
+			} else {
+				cout << "You cannot build here." << endl;
+			}
+		}
 	}
 
 	// Print the updated board
@@ -200,7 +217,8 @@ int main()
 
 					// TODO need to check if the road is valid and if resource is enough
 					// Cost of building a road
-					if(builders[i].getNumHeat() >= 1 && builders[i].getNumWifi() >= 1){
+					if(builders[i].getNumHeat() >= 1 && builders[i].getNumWifi() >= 1 &&
+					(builders[i].pathNeighbors(roadNumber) || builders[i].pathAddress(roadNumber))){
 						// If contain enough resources, build the raod.
 						builders[i].removeHeat(1);
 						builders[i].removeWifi(1);
@@ -214,8 +232,18 @@ int main()
 					istringstream ss{userCMD};
 					int resNumber;
 					ss >> resNumber;
-					// Build the road at roadNumber
 
+					// Check if the residence address is valid
+					// If yes build a basement
+					if(builders[i].checkAdjacent(resNumber) &&
+					 addresses[resNumber].getBuildingType() == "B" &&
+				 	 builders[i].checkAdjacentPath()){
+						builders[i].addAddress(resNumber);
+						addresses[resNumber].setBuildingType("B");
+						addresses[resNumber].setOwner(builders[i].getColor());
+					} else {
+						cout << "You cannot build here." << endl;
+					}
 
 				} else if(userCMD == "improve") {
 					// Improve the residence at the improveNumebr location
@@ -238,10 +266,11 @@ int main()
 				} else if(userCMD == "next") {
 					break;
 				} else if(userCMD == "save") {
+					/*
 				    cin >> userCMD;
 				    std::ofstream ofs (userCMD, std::ofstream::out);
 				    ofs << builderColor << endl; // prints <curTurn>
-				    
+
 				    for (int i = 0; i < 4; i++) {// prints <builder(0-3)Data>
 				        ofs << builders[i].printData();
 				        ofs << " " << r << " ";
@@ -258,7 +287,7 @@ int main()
 				        }
 				        ofs << endl;
 				    }
-				    
+
 				    for (int i = 0; i < tiles.size(); ++i) { // prints <board>
 				        if (tiles[i].getResource() == "BRICK") {
 				            if (i = 0) {
@@ -310,6 +339,7 @@ int main()
 				        }
 				    }
 				    ofs.close(); // closes file
+						*/
 				} else if(userCMD == "help") {
 					cout << "Valid commands:" << endl;
 					cout << "board" << endl;

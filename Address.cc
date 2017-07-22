@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Address::Address(int number):number{number},owner{"N"}{}
+Address::Address(int number):number{number},owner{"N"},buildingType{"N"}{}
 
 string Address::getBuilder()
 {
@@ -28,8 +28,8 @@ void Address::setOwner(string set){
 
 bool Address::isInNeighborAddress(int number)
 {
-	for(int i = 0; i < addresses.size(); i++){
-		if(addresses[i] == number)
+	for(int i = 0; i < address.size(); i++){
+		if(address[i] == number)
 			return true;
 	}
 	return false;
@@ -38,5 +38,5 @@ bool Address::isInNeighborAddress(int number)
 
 void Address::addAddress(int add)
 {
-	addresses.emplace_back(add);
+	address.emplace_back(add);
 }

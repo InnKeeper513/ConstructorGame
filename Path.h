@@ -16,6 +16,11 @@ public:
 	void setOwner(std::string);
 	// upgrade the path for a specific building
 	void upgrade(std::string);
+	// Return the connected address of the path
+	std::vector<int> getConnectedAddress();
+	// Return all of the neighbor paths for the current path
+	std::vector<int> getNeighborPath();
+
 private:
 	int number;
 	std::string owner;

@@ -3,6 +3,7 @@
 using namespace std;
 
 Builder::Builder(int number, string color, int numPoints, int numBrick, int numEnergy, int numGlass, int numHeat, int numWifi):
+	name{color[0]},
 	number{number},
 	color{color},
 	numPoints{numPoints},
@@ -103,17 +104,10 @@ int Builder::removeWifi(int remove){
 }
 // Add address
 int Builder::addAddress(int set){
-	string name;
-	if(color == "Red")
-		name = "R";
-	else if(color == "Blue")
-		name = "B";
-	else if(color == "Orange")
-		name = "O";
-	else if(color == "Yellow")
-		name = "Y";
 
+	// Set the owner name for the address
 	addresses[set].setOwner(name);
+	// Add the address to the list of address the owner owns
 	address.emplace_back(set);
 }
 int Builder::addPath(int set){
@@ -156,9 +150,59 @@ void Builder::checkBuildingResource(int check){
 	}
 }
 
+bool Builder::checkAdjacent(int check){
+	// Get all the neighbors of the checking address
+	vector<int> vecs = addresses[check].getNeighbor();
+
+	// Loop through all of its adjacent addresses to see if all of them don't have owner
+	for(int i = 0; i < vecs.size(); i++){
+
+		// If one neighbor contains an owner, then cannot build here.
+		if(addresses[vecs[i]].getBuildingType() != "N" && addresses[vecs[i]].getBuilder() != color){
+			cout << addresses[vecs[i]].getBuilder() << endl;
+			return false;
+		}
+	}
+	return true;
+}
+
+// Check if any of the owner's path is connencted to the desired address
+bool Builder::checkAdjacentPath(){
+
+	for(int i = 0; i < path.size(); i++){
+		for(int j = 0; j < 2; j++){
+			if(paths[paths[path[i]].getConnectedAddress()[j]].getBuilder() == name){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 vector<int> Builder::getAddress(){
 	return address;
 }
 vector<int> Builder::getPath(){
 	return path;
+}
+
+bool Builder::pathNeighbors(int check){
+
+	for(int i = 0; i < paths[check].getNeighborPath().size(); i++){
+			if(paths[paths[check].getNeighborPath()[i]].getBuilder() == name)
+				return true;
+	}
+
+	return false;
+}
+
+bool Builder::pathAddress(int check){
+	// Check through the neighbour addresses
+
+	for(int i = 0; i < 2; i++){
+			if(paths[paths[check].getConnectedAddress()[i]].getBuilder() == name)
+				return true;
+	}
+
+	return false;
 }
