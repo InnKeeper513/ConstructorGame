@@ -4,6 +4,8 @@
 #include "Board.h"
 #include "Builder.h"
 #include <string>
+#include <stdlib.h> // for srand() random number generator
+#include <fstream> // for save to file
 //#include "Address.h"
 
 using namespace std;
@@ -13,6 +15,48 @@ int main()
 
 	// WRITE THE COMMAND LINE HERE
 	string commandLine;
+	getline(commandLine);
+	string word;
+	bool load_flag = false;
+	while (commandLine >> word) {
+	    if (word == "-seed") {
+	        int seed;
+	        commandLine >> seed;
+	        srand(seed);
+	    }
+	    else if (word == "-load") {
+	        load_flag = true;
+	        string game_file;
+	        commandLine >> game_file;
+	        //
+	    }
+	    else if (word == "-board") {
+	        string board_file;
+	        commandLine >> board_file;
+	        //
+	    }
+	    else if (word == "-random-board") {
+	        if (load_flag) {
+	            // ignore command
+	        }
+	        else {
+	            // randomly generate tiles
+	            vector<string> res = {"WIFI","WIFI","WIFI","HEAT","HEAT","HEAT","BRICK","BRICK","BRICK","BRICK","ENERGY","ENERGY","ENERGY","ENERGY","GLASS","GLASS","GLASS","GLASS","PARK"};
+	            vector<int> vals = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12};
+	            for (int i = 0; i < 19; ++i) {  // GO TO TILE TO IMPLEMENT public SETRES AND SETVAL
+	                k = rand() % res.size();
+	                tiles[i].setRes(res[k]);
+	                res.erase(res.begin() + k);
+	                
+	                if (res[k] != "PARK") {
+	                    j = rand() % vals.size();
+	                    tiles[i].setVal(vals[j]);
+	                    vals.erase(vals.begin() + j);
+	                }
+	            }
+	        }
+	    }
+	}
 
 	// WRITE THE COMMAND LINE HERE
 
@@ -194,7 +238,78 @@ int main()
 				} else if(userCMD == "next") {
 					break;
 				} else if(userCMD == "save") {
-
+				    cin >> userCMD;
+				    std::ofstream ofs (userCMD, std::ofstream::out);
+				    ofs << builderColor << endl; // prints <curTurn>
+				    
+				    for (int i = 0; i < 4; i++) {// prints <builder(0-3)Data>
+				        ofs << builders[i].printData();
+				        ofs << " " << r << " ";
+				        vector<int> path = builders[i].getPath();
+				        int pathSize = path.size();
+				        for (int k = 0; k < pathSize; ++k) {
+				            ofs << path[k]<< " ";
+				        }
+				        ofs << h;
+				        vector<int> address = builders[i].getAddress();
+				        int addressSize = address.size();
+				        for (int k = 0; k < addressSize; ++k) {
+				            ofs << " " << address[k].getNumber() << " " << address[k].getBuildingType();
+				        }
+				        ofs << endl;
+				    }
+				    
+				    for (int i = 0; i < tiles.size(); ++i) { // prints <board>
+				        if (tiles[i].getResource() == "BRICK") {
+				            if (i = 0) {
+				                ofs << 0 << " " << tiles[i].getValue();
+				            }
+				            else {
+				                ofs << " " << 0 << " " << tiles[i].getValue();
+				            }
+				        }
+				        else if (tiles[i].getResource() == "ENERGY") {
+				            if (i = 0) {
+				                ofs << 1 << " " << tiles[i].getValue();
+				            }
+				            else {
+				                ofs << " " << 1 << " " << tiles[i].getValue();
+				            }
+				        }
+				        else if (tiles[i].getResource() == "GLASS") {
+				            if (i = 0) {
+				                ofs << 2 << " " << tiles[i].getValue();
+				            }
+				            else {
+				                ofs << " " << 2 << " " << tiles[i].getValue();
+				            }
+				        }
+				        else if (tiles[i].getResource() == "HEAT") {
+				            if (i = 0) {
+				                ofs << 3 << " " << tiles[i].getValue();
+				            }
+				            else {
+				                ofs << " " << 3 << " " << tiles[i].getValue();
+				            }
+				        }
+				        else if (tiles[i].getResource() == "WIFI") {
+				            if (i = 0) {
+				                ofs << 4 << " " << tiles[i].getValue();
+				            }
+				            else {
+				                ofs << " " << 4 << " " << tiles[i].getValue();
+				            }
+				        }
+				        else if (tiles[i].getResource() == "PARK") {
+				            if (i = 0) {
+				                ofs << 5 << " " << 7;
+				            }
+				            else {
+				                ofs << " " << 5 << " " << 7;
+				            }
+				        }
+				    }
+				    ofs.close(); // closes file
 				} else if(userCMD == "help") {
 					cout << "Valid commands:" << endl;
 					cout << "board" << endl;
