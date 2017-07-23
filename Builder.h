@@ -33,7 +33,6 @@ public:
 	int getNumHeat();
 	int getNumWifi();
 	// Added
-	void printData(std::ofstream);
 	void status();
 	void incrPoints(int);
 	void addBrick(int);

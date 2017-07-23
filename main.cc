@@ -4,11 +4,51 @@
 #include "Board.h"
 #include "Builder.h"
 #include <string>
+#include <sstream>
 #include <stdlib.h> // for srand() random number generator
 #include <fstream> // for save to file
 //#include "Address.h"
 
 using namespace std;
+void boardLayout(bool def, string board_file, vector<Builder>& builders){
+	string line;
+	string default_layout;
+	if(def){
+		default_layout = "layout.txt";
+	} else {
+		default_layout = board_file;
+	}
+
+		ifstream fileStream{default_layout};
+		int input_line;
+		int counter = 0;
+		getline(fileStream, line);
+		stringstream ss{line};
+
+		while (ss >> input_line) {
+					if(input_line == 0){
+						ss >> input_line;
+						tiles.emplace_back(Tile(counter, "BRICK", input_line));
+					} else if(input_line == 1){
+							ss >> input_line;
+							tiles.emplace_back(Tile(counter, "ENERGY", input_line));
+					}	else if(input_line == 2){
+							ss >> input_line;
+							tiles.emplace_back(Tile(counter, "GLASS", input_line));
+					}	else if(input_line == 3){
+							ss >> input_line;
+							tiles.emplace_back(Tile(counter, "HEAT", input_line));
+					}	else if(input_line == 4){
+							ss >> input_line;
+							tiles.emplace_back(Tile(counter, "WIFI", input_line));
+					} else if(input_line == 5){
+							ss >> input_line;
+							tiles.emplace_back(Tile(counter, "ROAD", input_line));
+					}
+					counter ++;
+		}
+
+}
 
 void resourceDistribution(string resourceName, int amount, int &heat, int &energy, int &brick, int &wifi, int &glass){
 	if(resourceName == "heat"){
@@ -25,32 +65,106 @@ void resourceDistribution(string resourceName, int amount, int &heat, int &energ
 
 int main()
 {
+	Board board;
 
+	// initialize the builders.
+	vector<Builder> builders;
+	builders.emplace_back(Builder(0,"Blue"));
+	builders.emplace_back(Builder(1,"Red"));
+	builders.emplace_back(Builder(2,"Orange"));
+	builders.emplace_back(Builder(3,"Yellow"));
+
+	bool loaded = false;
+	int currentTurn = 0;
 	int geeseLocation = -1;
 	// WRITE THE COMMAND LINE HERE
-	string commandLine;
+	string commandLine="";
+	bool def = true;
+	getline(cin,commandLine);
 
-	getline(commandLine);
 	string word;
 	bool load_flag = false;
-	while (commandLine >> word) {
+	stringstream ss {commandLine};
+
+	while (ss >> word) {
+			def = false;
 	    if (word == "-seed") {
 	        int seed;
-	        commandLine >> seed;
+	        ss >> seed;
 	        srand(seed);
-	    }
-	    else if (word == "-load") {
-	        load_flag = true;
-	        string game_file;
-	        commandLine >> game_file;
-	        //
-	    }
-	    else if (word == "-board") {
+	    } else if (word == "-load") {
+				load_flag = true;
+				string game_file;
+				ss >> game_file;
+				ifstream myfile;
+				myfile.open (game_file);
+
+				myfile >> currentTurn; // read in <curTurn>
+
+				string line;
+				for (int i = 0; i < 4; ++i) { // read in <builder(0-3)data>
+					getline(myfile,line);
+					stringstream s{line};
+					int bricks, energies, glasses, heats, wifis;
+					s >> bricks >> energies >> glasses >> heats >> wifis;
+					builders[i].addBrick(bricks);
+					builders[i].addEnergy(energies);
+					builders[i].addGlass(glasses);
+					builders[i].addHeat(heats);
+					builders[i].addWifi(wifis);
+
+					string r_flush;
+					s >> r_flush;
+
+					int path;
+					while (s >> path) {
+						builders[i].addPath(path);
+					}
+
+					int address;
+					string residence;
+					while (s >> address) {
+						s >> residence;
+						builders[i].addAddress(address);
+						addresses[address].setBuildingType(residence);
+					}
+				}
+
+				getline(myfile,line);
+				stringstream s{line};
+
+				int input_line;
+				int counter = 0;
+
+				while (s >> input_line) {
+							if(input_line == 0){
+								s >> input_line;
+								tiles.emplace_back(Tile(counter, "BRICK", input_line));
+							} else if(input_line == 1){
+									s >> input_line;
+									tiles.emplace_back(Tile(counter, "ENERGY", input_line));
+							}	else if(input_line == 2){
+									s >> input_line;
+									tiles.emplace_back(Tile(counter, "GLASS", input_line));
+							}	else if(input_line == 3){
+									s >> input_line;
+									tiles.emplace_back(Tile(counter, "HEAT", input_line));
+							}	else if(input_line == 4){
+									s >> input_line;
+									tiles.emplace_back(Tile(counter, "WIFI", input_line));
+							} else if(input_line == 5){
+									s >> input_line;
+									tiles.emplace_back(Tile(counter, "ROAD", input_line));
+							}
+							counter ++;
+				}
+
+			} else if (word == "-board") {
 	        string board_file;
-	        commandLine >> board_file;
-	        //
-	    }
-	    else if (word == "-random-board") {
+					ss >> board_file;
+	        boardLayout(false, board_file, builders);
+
+	    } else if (word == "-random-board") {
 	        if (load_flag) {
 	            // ignore command
 	        }
@@ -59,39 +173,31 @@ int main()
 	            vector<string> res = {"WIFI","WIFI","WIFI","HEAT","HEAT","HEAT","BRICK","BRICK","BRICK","BRICK","ENERGY","ENERGY","ENERGY","ENERGY","GLASS","GLASS","GLASS","GLASS","PARK"};
 	            vector<int> vals = {2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12};
 	            for (int i = 0; i < 19; ++i) {  // GO TO TILE TO IMPLEMENT public SETRES AND SETVAL
-	                k = rand() % res.size();
-	                tiles[i].setRes(res[k]);
+									int k, j;
+									k = rand() % res.size();
+									if(res[k] != "PARK"){
+										j = rand() % vals.size();
+										tiles.emplace_back(i,res[k],vals[j]);
+									} else {
+										tiles.emplace_back(i,res[k],vals[j]);
+									}
 	                res.erase(res.begin() + k);
+									vals.erase(vals.begin() + j);
 
-	                if (res[k] != "PARK") {
-	                    j = rand() % vals.size();
-	                    tiles[i].setVal(vals[j]);
-	                    vals.erase(vals.begin() + j);
-	                }
 	            }
 	        }
 	    }
 	}
 
-	// WRITE THE COMMAND LINE HERE
+	boardLayout(def, " ",builders);
 
-	Board board;
 	cout << board;
 
 	//ifstream file(BoardFileName);
 	//file >> board;
 	bool win = false;
-	//cout << board;
-	//file.close();
-	// random number for the dice
-	int rand;
 
-	// The beginning of game.
-	vector<Builder> builders;
-	builders.emplace_back(Builder(0,"Blue"));
-	builders.emplace_back(Builder(1,"Red"));
-	builders.emplace_back(Builder(2,"Orange"));
-	builders.emplace_back(Builder(3,"Yellow"));
+	int rand;
 
 	// Continue the game
 	while(true){
@@ -99,45 +205,46 @@ int main()
 	//TODO Address need to be valid
 	// - It must exist
 	// - It cannot collapse with other player's address
-	for(int i = 0; i < 4; i++){
-		int tempAdd;
+	if(!load_flag){
+		for(int i = 0; i < 4; i++){
+			int tempAdd;
 
-		while(true){
-			cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
-			cout << ">";
-			cin >> tempAdd;
+			while(true){
+				cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
+				cout << ">";
+				cin >> tempAdd;
 
-			if(addresses[tempAdd].getBuilder() == "N"){
-				builders[i].addAddress(tempAdd);
-				addresses[tempAdd].setBuildingType("B");
-				break;
-			} else {
-				cout << "You cannot build here." << endl;
-				cin.clear();
-				cin.ignore();
+				if(addresses[tempAdd].getBuilder() == "N"){
+					builders[i].addAddress(tempAdd);
+					addresses[tempAdd].setBuildingType("B");
+					break;
+				} else {
+					cout << "You cannot build here." << endl;
+					cin.clear();
+					cin.ignore();
+				}
+			}
+		}
+		for(int i = 3; i >= 0; i--){
+			int tempAdd2;
+
+			while(true){
+				cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
+				cout << ">";
+				cin >> tempAdd2;
+
+				if(addresses[tempAdd2].getBuilder() == "N"){
+					builders[i].addAddress(tempAdd2);
+					addresses[tempAdd2].setBuildingType("B");
+					break;
+				} else {
+					cout << "You cannot build here." << endl;
+					cin.clear();
+					cin.ignore();
+				}
 			}
 		}
 	}
-	for(int i = 3; i >= 0; i--){
-		int tempAdd2;
-
-		while(true){
-			cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
-			cout << ">";
-			cin >> tempAdd2;
-
-			if(addresses[tempAdd2].getBuilder() == "N"){
-				builders[i].addAddress(tempAdd2);
-				addresses[tempAdd2].setBuildingType("B");
-				break;
-			} else {
-				cout << "You cannot build here." << endl;
-				cin.clear();
-				cin.ignore();
-			}
-		}
-	}
-
 	// Print the updated board
 	cout << board;
 
@@ -153,6 +260,11 @@ int main()
 
 		// Every turn, there will be 4 player inputing commands
 		for(int i = 0; i < 4; i++){
+			if(loaded){
+				i = currentTurn;
+				loaded = false;
+			}
+
 			string builderColor;
 			if(builders[i].getColor() == "Red")
 				builderColor = "R";
@@ -183,6 +295,7 @@ int main()
 				Dice dice(diceCMD);
 				// Get the rolled number
 				rand = dice.rollDice();
+
 				if(rand == 7){
 					// set the goose stuff
 
@@ -202,7 +315,7 @@ int main()
 
 							// Run through each tiles;
 							for(int k = 0; k < tiles.size(); k++){
-
+								cout << tiles[k].getValue() << endl;
 								// The tile value is equivalent to the value of the dice
 								if(tiles[k].getValue() == rand && tiles[k].getResource() != "Park" && geeseLocation != k){
 									// get the address numbers in the tile
@@ -436,8 +549,20 @@ int main()
 				    ofs << builderColor << endl; // prints <curTurn>
 
 				    for (int o = 0; o < 4; o++) {// prints <builder(0-3)Data>
-				        builders[o].printData(ofs);
-				        ofs << endl;
+
+							ofs << builders[o].getNumBrick() << " " << builders[o].getNumEnergy() << " " << builders[o].getNumGlass() << " " << builders[o].getNumHeat() << " " << builders[o].getNumWifi();
+							ofs << " r";
+							vector<int> path = builders[o].getPath();
+							vector<int> address = builders[o].getAddress();
+							for(int i = 0; i < path.size(); i++){
+									ofs << " " << path[i];
+							}
+							ofs << " h";
+							for(int i = 0; i < address.size(); i++){
+								ofs << " " << address[i] << " " << addresses[address[i]].getBuildingType();
+							}
+
+				      ofs << endl;
 				    }
 
 				    for (int i = 0; i < tiles.size(); ++i) { // prints <board>
@@ -523,6 +648,5 @@ int main()
 	}
 	}
   return 0;
-
 
 }

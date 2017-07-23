@@ -18,6 +18,7 @@ int Dice::rollDice(){
         cout << "Invalid roll" << endl;
         cout << "Input a roll between 2 and 12:" << endl;
       } else {
+        cout << "You rolled " << number << endl;
         break;
       }
       return number;
@@ -27,6 +28,7 @@ int Dice::rollDice(){
     int dice1 = rand() % 6 + 1;
     int dice2 = rand() % 6 + 1;
     int sum = dice1 + dice2;
+    cout << "You rolled " << sum << endl;
     return sum;
   }
 }

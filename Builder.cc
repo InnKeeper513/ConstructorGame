@@ -53,19 +53,6 @@ int Builder::getNumWifi()
 	return this->numWifi;
 }
 
-void Builder::printData(ofstream out){
-	out << numBrick << " " << numEnergy << " " << numGlass << " " << numHeat << " " << numWifi;
-	out << " r"
-	for(int i = 0; i < path.size(); i++){
-			out << " " << path[i];
-	}
-	out << " h"
-	for(int i = 0; i < address.size(); i++){
-		out << " " << address[i] << " " << addresses[address[i]].getBuildingType();
-	}
-	out << endl;
-}
-
 void Builder::status(){
 	cout << color << " has " << numPoints << " building points, " << numBrick << " brick, "
 	<< numEnergy << " energy, " << numGlass << " glass, " << numHeat << " heat, and " << numWifi
