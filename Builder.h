@@ -6,6 +6,7 @@
 #include "Address.h"
 #include "Board.h"
 #include "Path.h"
+#include <fstream>
 
 class Builder{
 	std::string name;
@@ -32,22 +33,21 @@ public:
 	int getNumHeat();
 	int getNumWifi();
 	// Added
-	void printData();
-	void trade(Builder&, std::string, std::string);
+	void printData(std::ofstream);
 	void status();
-	int incrPoints(int);
-	int addBrick(int);
-	int addEnergy(int);
-	int addGlass(int);
-	int addHeat(int);
-	int addWifi(int);
-	int removeBrick(int);
-	int removeEnergy(int);
-	int removeGlass(int);
-	int removeHeat(int);
-	int removeWifi(int);
-	int addAddress(int);
-	int addPath(int);
+	void incrPoints(int);
+	void addBrick(int);
+	void addEnergy(int);
+	void addGlass(int);
+	void addHeat(int);
+	void addWifi(int);
+	void removeBrick(int);
+	void removeGlass(int);
+	void removeEnergy(int);
+	void removeHeat(int);
+	void removeWifi(int);
+	void addAddress(int);
+	void addPath(int);
 	bool checkImprove(int);
 	bool checkAdjacent(int);
 	bool checkAdjacentPath();

@@ -10,12 +10,26 @@
 
 using namespace std;
 
+void resourceDistribution(string resourceName, int amount, int &heat, int &energy, int &brick, int &wifi, int &glass){
+	if(resourceName == "heat"){
+		heat += amount;
+	} else if(resourceName == "energy"){
+		energy += amount;
+	} else if(resourceName == "brick"){
+		brick += amount;
+	} else if(resourceName == "wifi"){
+		wifi += amount;
+	} else
+		glass += amount;
+}
+
 int main()
 {
 
+	int geeseLocation = -1;
 	// WRITE THE COMMAND LINE HERE
 	string commandLine;
-	/*
+
 	getline(commandLine);
 	string word;
 	bool load_flag = false;
@@ -58,7 +72,6 @@ int main()
 	        }
 	    }
 	}
-	*/
 
 	// WRITE THE COMMAND LINE HERE
 
@@ -100,6 +113,8 @@ int main()
 				break;
 			} else {
 				cout << "You cannot build here." << endl;
+				cin.clear();
+				cin.ignore();
 			}
 		}
 	}
@@ -110,12 +125,15 @@ int main()
 			cout << "Builder " << builders[i].getColor() << " , where do you want to build a basement?" << endl;
 			cout << ">";
 			cin >> tempAdd2;
+
 			if(addresses[tempAdd2].getBuilder() == "N"){
 				builders[i].addAddress(tempAdd2);
 				addresses[tempAdd2].setBuildingType("B");
 				break;
 			} else {
 				cout << "You cannot build here." << endl;
+				cin.clear();
+				cin.ignore();
 			}
 		}
 	}
@@ -167,8 +185,73 @@ int main()
 				rand = dice.rollDice();
 				if(rand == 7){
 					// set the goose stuff
-				} else {
 
+				} else {
+					// If the builder has rolled a number that is different then 7
+					bool gained = false;
+
+					// Run through each player
+					for(int u = 0; u < 4; u ++){
+							// The amount of resources to be gained.
+							int heat = 0;
+							int energy = 0;
+							int brick = 0;
+							int wifi = 0;
+							int glass = 0;
+							bool playerGain = false;
+
+							// Run through each tiles;
+							for(int k = 0; k < tiles.size(); k++){
+
+								// The tile value is equivalent to the value of the dice
+								if(tiles[k].getValue() == rand && tiles[k].getResource() != "Park" && geeseLocation != k){
+									// get the address numbers in the tile
+									vector<int> allTileAddress = tiles[k].getAddress();
+
+									for(int p = 0; p < allTileAddress.size(); p ++){
+										if(addresses[allTileAddress[p]].getBuilder() == builders[u].getColor()){
+											playerGain = true;
+											gained = true;
+											if(addresses[allTileAddress[p]].getBuildingType() == "B"){
+												// gained the amount of resource
+												resourceDistribution(tiles[k].getResource(), 1, heat, energy, brick, wifi, glass);
+											} else if(addresses[allTileAddress[p]].getBuildingType() == "H"){
+												// gained the amount of resource
+												resourceDistribution(tiles[k].getResource(), 2, heat, energy, brick, wifi, glass);
+											} else {
+												// gained the amount of resource
+												resourceDistribution(tiles[k].getResource(), 3, heat, energy, brick, wifi, glass);
+											}
+
+										}
+									}
+
+								}
+							}
+							if(playerGain){
+								cout << "Builder " << builders[u].getColor() << " gained:" << endl;
+								if(heat != 0)
+									cout << heat << " Heat" << endl;
+								if(energy != 0)
+									cout << energy << " Energy" << endl;
+								if(brick != 0)
+									cout << brick << " Brick" << endl;
+								if(wifi != 0)
+									cout << wifi << " Wifi" << endl;
+								if(glass != 0)
+									cout << glass << " Glass" << endl;
+							}
+							// Add the amount of resources to the builder.
+							builders[u].addHeat(heat);
+							builders[u].addEnergy(energy);
+							builders[u].addBrick(brick);
+							builders[u].addWifi(wifi);
+							builders[u].addGlass(glass);
+
+						}
+
+				if(!gained)
+					cout << "No builders gained resources." << endl;
 				}
 				break;
 			}
@@ -347,25 +430,13 @@ int main()
 					// Switch to the next player
 					break;
 				} else if(userCMD == "save") {
-					/*
+
 				    cin >> userCMD;
 				    std::ofstream ofs (userCMD, std::ofstream::out);
 				    ofs << builderColor << endl; // prints <curTurn>
 
-				    for (int i = 0; i < 4; i++) {// prints <builder(0-3)Data>
-				        ofs << builders[i].printData();
-				        ofs << " " << r << " ";
-				        vector<int> path = builders[i].getPath();
-				        int pathSize = path.size();
-				        for (int k = 0; k < pathSize; ++k) {
-				            ofs << path[k]<< " ";
-				        }
-				        ofs << h;
-				        vector<int> address = builders[i].getAddress();
-				        int addressSize = address.size();
-				        for (int k = 0; k < addressSize; ++k) {
-				            ofs << " " << address[k].getNumber() << " " << address[k].getBuildingType();
-				        }
+				    for (int o = 0; o < 4; o++) {// prints <builder(0-3)Data>
+				        builders[o].printData(ofs);
 				        ofs << endl;
 				    }
 
@@ -420,7 +491,7 @@ int main()
 				        }
 				    }
 				    ofs.close(); // closes file
-						*/
+
 				} else if(userCMD == "help") {
 					cout << "Valid commands:" << endl;
 					cout << "board" << endl;

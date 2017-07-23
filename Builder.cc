@@ -53,13 +53,17 @@ int Builder::getNumWifi()
 	return this->numWifi;
 }
 
-// Added
-void Builder::trade(Builder&, string give, string take){
-
-}
-
-void Builder::printData(){
-	cout << numBrick << " " << numEnergy << " " << numGlass << " " << numHeat << " " << numWifi;
+void Builder::printData(ofstream out){
+	out << numBrick << " " << numEnergy << " " << numGlass << " " << numHeat << " " << numWifi;
+	out << " r"
+	for(int i = 0; i < path.size(); i++){
+			out << " " << path[i];
+	}
+	out << " h"
+	for(int i = 0; i < address.size(); i++){
+		out << " " << address[i] << " " << addresses[address[i]].getBuildingType();
+	}
+	out << endl;
 }
 
 void Builder::status(){
@@ -68,49 +72,49 @@ void Builder::status(){
 	<< " WiFi." << endl;
 }
 
-int Builder::incrPoints(int add){
+void Builder::incrPoints(int add){
 		numPoints += add;
 }
 
-int Builder::addBrick(int add){
+void Builder::addBrick(int add){
 	numBrick += add;
 }
-int Builder::addEnergy(int add){
+void Builder::addEnergy(int add){
 	numEnergy += add;
 }
-int Builder::addGlass(int add){
+void Builder::addGlass(int add){
 	numGlass += add;
 }
-int Builder::addHeat(int add){
+void Builder::addHeat(int add){
 	numHeat += add;
 }
-int Builder::addWifi(int add){
+void Builder::addWifi(int add){
 	numWifi += add;
 }
-int Builder::removeBrick(int remove){
+void Builder::removeBrick(int remove){
 	numBrick -= remove;
 }
-int Builder::removeEnergy(int remove){
+void Builder::removeEnergy(int remove){
 	numEnergy -= remove;
 }
-int Builder::removeGlass(int remove){
+void Builder::removeGlass(int remove){
 	numGlass -= remove;
 }
-int Builder::removeHeat(int remove){
+void Builder::removeHeat(int remove){
 	numHeat -= remove;
 }
-int Builder::removeWifi(int remove){
+void Builder::removeWifi(int remove){
 	numWifi -= remove;
 }
 // Add address
-int Builder::addAddress(int set){
+void Builder::addAddress(int set){
 
 	// Set the owner name for the address
 	addresses[set].setOwner(name);
 	// Add the address to the list of address the owner owns
 	address.emplace_back(set);
 }
-int Builder::addPath(int set){
+void Builder::addPath(int set){
 	path.emplace_back(set);
 }
 

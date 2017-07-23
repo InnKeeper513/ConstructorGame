@@ -10,22 +10,16 @@ class Tile
 {
 public:
 	Tile(int number, std::string resource, int value);
-	int GetNumber();
-	std::string GetResource();
-	int GetValue();
-	void SetGeese(int);
-	std::string GetGeese();
+	int getNumber();
+	std::string getResource();
+	int getValue();
+	std::vector<int> getAddress();
 	void addAddress(int add);
-	void SetPos(int row, int col);
+
 private:
 	std::vector<int> tileAddress;
 	int number;
 	std::string resource;
 	int value;
-	int numAddress;
-	int numpath;
-	std::string geese;
-	int row;
-	int col;
 };
 #endif
