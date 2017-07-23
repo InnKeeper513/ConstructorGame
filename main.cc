@@ -51,13 +51,13 @@ void boardLayout(bool def, string board_file, vector<Builder>& builders){
 }
 
 void resourceDistribution(string resourceName, int amount, int &heat, int &energy, int &brick, int &wifi, int &glass){
-	if(resourceName == "heat"){
+	if(resourceName == "HEAT"){
 		heat += amount;
-	} else if(resourceName == "energy"){
+	} else if(resourceName == "ENERGY"){
 		energy += amount;
-	} else if(resourceName == "brick"){
+	} else if(resourceName == "BRICK"){
 		brick += amount;
-	} else if(resourceName == "wifi"){
+	} else if(resourceName == "WIFI"){
 		wifi += amount;
 	} else
 		glass += amount;
@@ -66,7 +66,7 @@ void resourceDistribution(string resourceName, int amount, int &heat, int &energ
 int main()
 {
 	Board board;
-
+	cout << "Press enter to load the dafault board" << endl;
 	// initialize the builders.
 	vector<Builder> builders;
 	builders.emplace_back(Builder(0,"Blue"));
@@ -197,7 +197,7 @@ int main()
 	//file >> board;
 	bool win = false;
 
-	int rand;
+	int random;
 
 	// Continue the game
 	while(true){
@@ -248,6 +248,7 @@ int main()
 	// Print the updated board
 	cout << board;
 
+	board.addTileDependency();
 	// Begin the game ********************
 
 	// Beginning of Turn *****************
@@ -294,10 +295,11 @@ int main()
 				cin >> diceCMD;
 				Dice dice(diceCMD);
 				// Get the rolled number
-				rand = dice.rollDice();
+				random = dice.rollDice();
 
-				if(rand == 7){
+				if(random == 7){
 					// set the goose stuff
+
 
 				} else {
 					// If the builder has rolled a number that is different then 7
@@ -315,14 +317,15 @@ int main()
 
 							// Run through each tiles;
 							for(int k = 0; k < tiles.size(); k++){
-								cout << tiles[k].getValue() << endl;
 								// The tile value is equivalent to the value of the dice
-								if(tiles[k].getValue() == rand && tiles[k].getResource() != "Park" && geeseLocation != k){
+
+								if(tiles[k].getValue() == random && tiles[k].getResource() != "Park" && geeseLocation != k){
 									// get the address numbers in the tile
 									vector<int> allTileAddress = tiles[k].getAddress();
-
 									for(int p = 0; p < allTileAddress.size(); p ++){
-										if(addresses[allTileAddress[p]].getBuilder() == builders[u].getColor()){
+//										cout << " Neighbor Address: " << allTileAddress[p] << " Builder: " << addresses[allTileAddress[p]].getBuilder() << " Color " << builders[u].getColor() << endl;
+
+										if(addresses[allTileAddress[p]].getBuilder() == builders[u].getColor().substr(0,1)){
 											playerGain = true;
 											gained = true;
 											if(addresses[allTileAddress[p]].getBuildingType() == "B"){
@@ -382,7 +385,7 @@ int main()
 				if(userCMD == "board")
 					cout << board;
 				else if(userCMD == "status"){
-					for(int i = 0; i < 3; i++){
+					for(int i = 0; i < 4; i++){
 						builders[i].status();
 					}
 				} else if(userCMD == "residences") {
@@ -405,6 +408,7 @@ int main()
 						if(addresses[builders[i].getAddress()[j]].getBuildingType() == "T")
 							cout << builders[i].getAddress()[j] << " ";
 					}
+					cout << endl;
 
 				} else if(userCMD == "build-road") {
 

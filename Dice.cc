@@ -19,9 +19,8 @@ int Dice::rollDice(){
         cout << "Input a roll between 2 and 12:" << endl;
       } else {
         cout << "You rolled " << number << endl;
-        break;
+        return number;
       }
-      return number;
     }
   }else if(type == "fair"){
     // Generate two random integer between 1 and 6

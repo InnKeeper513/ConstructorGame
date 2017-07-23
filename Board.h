@@ -15,7 +15,7 @@ class Board
 
 
 public:
-
+	void addTileDependency();
 	Board();
 	friend std::ostream &operator<<(std::ostream &output, Board &board);
 

@@ -38,6 +38,142 @@ void displayAmount(int add){
 
 }
 
+void Board::addTileDependency(){
+	tiles[0].addAddress(0);
+		tiles[0].addAddress(1);
+		tiles[0].addAddress(4);
+		tiles[0].addAddress(3);
+		tiles[0].addAddress(8);
+		tiles[0].addAddress(9);
+
+		tiles[1].addAddress(2);
+		tiles[1].addAddress(3);
+		tiles[1].addAddress(7);
+		tiles[1].addAddress(8);
+		tiles[1].addAddress(13);
+		tiles[1].addAddress(14);
+
+
+		tiles[2].addAddress(4);
+		tiles[2].addAddress(5);
+		tiles[2].addAddress(9);
+		tiles[2].addAddress(10);
+		tiles[2].addAddress(15);
+		tiles[2].addAddress(16);
+		tiles[3].addAddress(6);
+		tiles[3].addAddress(7);
+		tiles[3].addAddress(12);
+		tiles[3].addAddress(13);
+		tiles[3].addAddress(18);
+		tiles[3].addAddress(19);
+
+		tiles[4].addAddress(8);
+		tiles[4].addAddress(9);
+		tiles[4].addAddress(14);
+		tiles[4].addAddress(15);
+		tiles[4].addAddress(20);
+		tiles[4].addAddress(21);
+
+		tiles[5].addAddress(10);
+		tiles[5].addAddress(11);
+		tiles[5].addAddress(16);
+		tiles[5].addAddress(17);
+		tiles[5].addAddress(22);
+		tiles[5].addAddress(23);
+
+		tiles[6].addAddress(13);
+		tiles[6].addAddress(14);
+		tiles[6].addAddress(19);
+		tiles[6].addAddress(20);
+		tiles[6].addAddress(25);
+		tiles[6].addAddress(26);
+
+		tiles[7].addAddress(15);
+		tiles[7].addAddress(16);
+		tiles[7].addAddress(21);
+		tiles[7].addAddress(22);
+		tiles[7].addAddress(28);
+		tiles[7].addAddress(28);
+
+		tiles[8].addAddress(18);
+		tiles[8].addAddress(19);
+		tiles[8].addAddress(24);
+		tiles[8].addAddress(25);
+		tiles[8].addAddress(30);
+		tiles[8].addAddress(31);
+
+		tiles[9].addAddress(20);
+		tiles[9].addAddress(21);
+		tiles[9].addAddress(31);
+		tiles[9].addAddress(32);
+		tiles[9].addAddress(37);
+		tiles[9].addAddress(38);
+
+		tiles[10].addAddress(22);
+		tiles[10].addAddress(23);
+		tiles[10].addAddress(28);
+		tiles[10].addAddress(29);
+		tiles[10].addAddress(34);
+		tiles[10].addAddress(35);
+
+		tiles[11].addAddress(25);
+		tiles[11].addAddress(26);
+		tiles[11].addAddress(31);
+		tiles[11].addAddress(32);
+		tiles[11].addAddress(37);
+		tiles[11].addAddress(38);
+
+		tiles[12].addAddress(27);
+		tiles[12].addAddress(28);
+		tiles[12].addAddress(33);
+		tiles[12].addAddress(34);
+		tiles[12].addAddress(39);
+		tiles[12].addAddress(40);
+
+		tiles[13].addAddress(30);
+		tiles[13].addAddress(31);
+		tiles[13].addAddress(36);
+		tiles[13].addAddress(37);
+		tiles[13].addAddress(42);
+		tiles[13].addAddress(43);
+
+		tiles[14].addAddress(32);
+		tiles[14].addAddress(33);
+		tiles[14].addAddress(38);
+		tiles[14].addAddress(39);
+		tiles[14].addAddress(44);
+		tiles[14].addAddress(45);
+
+		tiles[15].addAddress(34);
+		tiles[15].addAddress(35);
+		tiles[15].addAddress(40);
+		tiles[15].addAddress(41);
+		tiles[15].addAddress(46);
+		tiles[15].addAddress(47);
+
+		tiles[16].addAddress(37);
+		tiles[16].addAddress(38);
+		tiles[16].addAddress(43);
+		tiles[16].addAddress(44);
+		tiles[16].addAddress(48);
+		tiles[16].addAddress(49);
+
+		tiles[17].addAddress(39);
+		tiles[17].addAddress(40);
+		tiles[17].addAddress(45);
+		tiles[17].addAddress(46);
+		tiles[17].addAddress(50);
+		tiles[17].addAddress(51);
+
+		tiles[18].addAddress(44);
+		tiles[18].addAddress(45);
+		tiles[18].addAddress(49);
+		tiles[18].addAddress(50);
+		tiles[18].addAddress(52);
+		tiles[18].addAddress(53);
+}
+
+
 // Display the board
 // TODO will need to display the board base on different tile types, resources, etc..
 ostream &operator<<(ostream &out, Board &board) {
@@ -646,139 +782,5 @@ paths[70].addNeighbor(68);
 paths[70].addNeighbor(71);
 paths[71].addNeighbor(69);
 paths[71].addNeighbor(70);
-// tile add address;
-/*
-	tiles[0].addAddress(0);
-    tiles[0].addAddress(1);
-    tiles[0].addAddress(4);
-    tiles[0].addAddress(3);
-    tiles[0].addAddress(8);
-    tiles[0].addAddress(9);
 
-    tiles[1].addAddress(2);
-    tiles[1].addAddress(3);
-    tiles[1].addAddress(7);
-    tiles[1].addAddress(8);
-    tiles[1].addAddress(13);
-    tiles[1].addAddress(14);
-
-
-    tiles[2].addAddress(4);
-    tiles[2].addAddress(5);
-    tiles[2].addAddress(9);
-    tiles[2].addAddress(10);
-    tiles[2].addAddress(15);
-    tiles[2].addAddress(16);
-    tiles[3].addAddress(6);
-    tiles[3].addAddress(7);
-    tiles[3].addAddress(12);
-    tiles[3].addAddress(13);
-    tiles[3].addAddress(18);
-    tiles[3].addAddress(19);
-
-    tiles[4].addAddress(8);
-    tiles[4].addAddress(9);
-    tiles[4].addAddress(14);
-    tiles[4].addAddress(15);
-    tiles[4].addAddress(20);
-    tiles[4].addAddress(21);
-
-    tiles[5].addAddress(10);
-    tiles[5].addAddress(11);
-    tiles[5].addAddress(16);
-    tiles[5].addAddress(17);
-    tiles[5].addAddress(22);
-    tiles[5].addAddress(23);
-
-    tiles[6].addAddress(13);
-    tiles[6].addAddress(14);
-    tiles[6].addAddress(19);
-    tiles[6].addAddress(20);
-    tiles[6].addAddress(25);
-    tiles[6].addAddress(26);
-
-    tiles[7].addAddress(15);
-    tiles[7].addAddress(16);
-    tiles[7].addAddress(21);
-    tiles[7].addAddress(22);
-    tiles[7].addAddress(28);
-    tiles[7].addAddress(28);
-
-    tiles[8].addAddress(18);
-    tiles[8].addAddress(19);
-    tiles[8].addAddress(24);
-    tiles[8].addAddress(25);
-    tiles[8].addAddress(30);
-    tiles[8].addAddress(31);
-
-    tiles[9].addAddress(20);
-    tiles[9].addAddress(21);
-    tiles[9].addAddress(31);
-    tiles[9].addAddress(32);
-    tiles[9].addAddress(37);
-    tiles[9].addAddress(38);
-
-    tiles[10].addAddress(22);
-    tiles[10].addAddress(23);
-    tiles[10].addAddress(28);
-    tiles[10].addAddress(29);
-    tiles[10].addAddress(34);
-    tiles[10].addAddress(35);
-
-    tiles[11].addAddress(25);
-    tiles[11].addAddress(26);
-    tiles[11].addAddress(31);
-    tiles[11].addAddress(32);
-    tiles[11].addAddress(37);
-    tiles[11].addAddress(38);
-
-    tiles[12].addAddress(27);
-    tiles[12].addAddress(28);
-    tiles[12].addAddress(33);
-    tiles[12].addAddress(34);
-    tiles[12].addAddress(39);
-    tiles[12].addAddress(40);
-
-    tiles[13].addAddress(30);
-    tiles[13].addAddress(31);
-    tiles[13].addAddress(36);
-    tiles[13].addAddress(37);
-    tiles[13].addAddress(42);
-    tiles[13].addAddress(43);
-
-    tiles[14].addAddress(32);
-    tiles[14].addAddress(33);
-    tiles[14].addAddress(38);
-    tiles[14].addAddress(39);
-    tiles[14].addAddress(44);
-    tiles[14].addAddress(45);
-
-    tiles[15].addAddress(34);
-    tiles[15].addAddress(35);
-    tiles[15].addAddress(40);
-    tiles[15].addAddress(41);
-    tiles[15].addAddress(46);
-    tiles[15].addAddress(47);
-
-    tiles[16].addAddress(37);
-    tiles[16].addAddress(38);
-    tiles[16].addAddress(43);
-    tiles[16].addAddress(44);
-    tiles[16].addAddress(48);
-    tiles[16].addAddress(49);
-
-    tiles[17].addAddress(39);
-    tiles[17].addAddress(40);
-    tiles[17].addAddress(45);
-    tiles[17].addAddress(46);
-    tiles[17].addAddress(50);
-    tiles[17].addAddress(51);
-
-    tiles[18].addAddress(44);
-    tiles[18].addAddress(45);
-    tiles[18].addAddress(49);
-    tiles[18].addAddress(50);
-    tiles[18].addAddress(52);
-    tiles[18].addAddress(53);
-		*/
 }

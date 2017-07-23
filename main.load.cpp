@@ -7,34 +7,34 @@ while (commandLine >> word) {
 		commandLine >> game_file;
 		ifstream myfile;
 		myfile.open (game_file);
-		
+
 		myfile >> currentTurn; // read in <curTurn>
-		
+
 		string line;
 		for (int i = 0; i < 4; ++i) { // read in <builder(0-3)data>
 			getline(myfile,line);
 			int bricks, energies, glasses, heats, wifis;
 			line >> bricks >> energies >> glasses >> heats >> wifis
-			builders[i].addBrick(bricks); 
+			builders[i].addBrick(bricks);
 			builders[i].addEnergy(energies);
 			builders[i].addGlass(glasses);
 			builders[i].addHeat(heats);
 			builders[i].addWifi(wifis);
-			
+
 			string r_flush;
 			line >> r_flush;
-			
+
 			int path;
 			while (line >> path) {
 				builders[i].addPath(path);
 			}
-			
+
 			int address;
 			string residence;
 			while (line >> address) {
 				line >> residence;
 				builders[i].addAddress(address);
-				// add residence type 
+				// add residence type
 				// builders[i].addAddress(address,residence);
 			}
 		}
