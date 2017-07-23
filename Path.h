@@ -3,8 +3,10 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include "Observer.h"
+#include "Subscriptions.h"
 
-class Path
+class Path : public Observer
 {
 public:
 	Path(int number);
@@ -20,6 +22,9 @@ public:
 	std::vector<int> getConnectedAddress();
 	// Return all of the neighbor paths for the current path
 	std::vector<int> getNeighborPath();
+
+	void notify(std::string, int) override;
+	Subscriptions subType() const override;
 
 private:
 	int number;

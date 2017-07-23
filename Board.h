@@ -4,22 +4,18 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "Tile.h"
 #include <vector>
 #include "Address.h"
 #include "Path.h"
+#include "Tile.h"
 
 class Board
 {
 
-
-
-public:
-	void addTileDependency();
+	public:
 	Board();
 	friend std::ostream &operator<<(std::ostream &output, Board &board);
-
-
+	void addTileDependency();
 };
 
 extern std::vector<Address> addresses;

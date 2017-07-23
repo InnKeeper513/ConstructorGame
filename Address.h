@@ -4,8 +4,10 @@
 #include <string>
 #include "Path.h"
 #include <vector>
+#include "Observer.h"
+#include "Subscriptions.h"
 
-class Address{
+class Address : public Observer{
 // Building type, B H T N
 public:
 	Address(int number);
@@ -31,6 +33,9 @@ public:
 
 	// set the owner of the building
 	void setOwner(std::string);
+
+	void notify(std::string, int) override;
+	Subscriptions subType() const override;
 private:
 
 	int number;

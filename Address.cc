@@ -40,3 +40,11 @@ void Address::addAddress(int add)
 {
 	address.emplace_back(add);
 }
+
+void Address::notify(std::string name, int location){
+	string temp = name;
+	setOwner(temp);
+}
+Subscriptions Address::subType() const{
+	return Subscriptions::Address;
+}

@@ -1,13 +1,8 @@
 #ifndef _SUBSCRIPTIONS_H_
 #define _SUBSCRIPTIONS_H_
 enum class Subscriptions {
-Road,
+Path,
 Address,
-Brick,
-Energy,
-Glass,
-Heat,
-Wifi,
-Park
+Tile
 };
 #endif

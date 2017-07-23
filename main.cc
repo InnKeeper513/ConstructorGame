@@ -558,60 +558,60 @@ int main()
 							ofs << " r";
 							vector<int> path = builders[o].getPath();
 							vector<int> address = builders[o].getAddress();
-							for(int i = 0; i < path.size(); i++){
-									ofs << " " << path[i];
+							for(int q = 0; i < path.size(); q++){
+									ofs << " " << path[q];
 							}
 							ofs << " h";
-							for(int i = 0; i < address.size(); i++){
-								ofs << " " << address[i] << " " << addresses[address[i]].getBuildingType();
+							for(int q = 0; q < address.size(); i++){
+								ofs << " " << address[q] << " " << addresses[address[q]].getBuildingType();
 							}
 
 				      ofs << endl;
 				    }
 
-				    for (int i = 0; i < tiles.size(); ++i) { // prints <board>
-				        if (tiles[i].getResource() == "BRICK") {
-				            if (i = 0) {
-				                ofs << 0 << " " << tiles[i].getValue();
+				    for (int q = 0; q < tiles.size(); ++q) { // prints <board>
+				        if (tiles[q].getResource() == "BRICK") {
+				            if (q = 0) {
+				                ofs << 0 << " " << tiles[q].getValue();
 				            }
 				            else {
-				                ofs << " " << 0 << " " << tiles[i].getValue();
+				                ofs << " " << 0 << " " << tiles[q].getValue();
 				            }
 				        }
-				        else if (tiles[i].getResource() == "ENERGY") {
-				            if (i = 0) {
-				                ofs << 1 << " " << tiles[i].getValue();
+				        else if (tiles[q].getResource() == "ENERGY") {
+				            if (q = 0) {
+				                ofs << 1 << " " << tiles[q].getValue();
 				            }
 				            else {
-				                ofs << " " << 1 << " " << tiles[i].getValue();
+				                ofs << " " << 1 << " " << tiles[q].getValue();
 				            }
 				        }
-				        else if (tiles[i].getResource() == "GLASS") {
-				            if (i = 0) {
-				                ofs << 2 << " " << tiles[i].getValue();
+				        else if (tiles[q].getResource() == "GLASS") {
+				            if (q = 0) {
+				                ofs << 2 << " " << tiles[q].getValue();
 				            }
 				            else {
-				                ofs << " " << 2 << " " << tiles[i].getValue();
+				                ofs << " " << 2 << " " << tiles[q].getValue();
 				            }
 				        }
-				        else if (tiles[i].getResource() == "HEAT") {
-				            if (i = 0) {
-				                ofs << 3 << " " << tiles[i].getValue();
+				        else if (tiles[q].getResource() == "HEAT") {
+				            if (q = 0) {
+				                ofs << 3 << " " << tiles[q].getValue();
 				            }
 				            else {
-				                ofs << " " << 3 << " " << tiles[i].getValue();
+				                ofs << " " << 3 << " " << tiles[q].getValue();
 				            }
 				        }
-				        else if (tiles[i].getResource() == "WIFI") {
-				            if (i = 0) {
-				                ofs << 4 << " " << tiles[i].getValue();
+				        else if (tiles[q].getResource() == "WIFI") {
+				            if (q = 0) {
+				                ofs << 4 << " " << tiles[q].getValue();
 				            }
 				            else {
-				                ofs << " " << 4 << " " << tiles[i].getValue();
+				                ofs << " " << 4 << " " << tiles[q].getValue();
 				            }
 				        }
-				        else if (tiles[i].getResource() == "PARK") {
-				            if (i = 0) {
+				        else if (tiles[q].getResource() == "PARK") {
+				            if (q = 0) {
 				                ofs << 5 << " " << 7;
 				            }
 				            else {

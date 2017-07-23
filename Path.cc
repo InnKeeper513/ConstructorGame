@@ -5,7 +5,6 @@
 using namespace std;
 
 
-
 Path::Path(int number):number{number}, owner{"N"}{}
 
 int Path::GetNumber()
@@ -42,4 +41,12 @@ vector<int> Path::getConnectedAddress(){
 
 vector<int> Path::getNeighborPath(){
 	return neighborPath;
+}
+
+void Path::notify(std::string name, int location){
+	string temp = name;
+	setOwner(temp);
+}
+Subscriptions Path::subType() const{
+	return Subscriptions::Path;
 }

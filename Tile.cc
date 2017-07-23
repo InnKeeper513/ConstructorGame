@@ -26,3 +26,15 @@ void Tile::addAddress(int add)
 vector<int> Tile::getAddress(){
 	return tileAddress;
 }
+
+bool Tile::hasGoose(){
+	return goose;
+}
+
+void Tile::notify(std::string name, int location){
+	goose = !goose;
+}
+
+Subscriptions Tile::subType() const{
+	return Subscriptions::Tile;
+}

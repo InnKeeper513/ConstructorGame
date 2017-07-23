@@ -7,8 +7,9 @@
 #include "Board.h"
 #include "Path.h"
 #include <fstream>
+#include "Subject.h"
 
-class Builder{
+class Builder : public Subject{
 	std::string name;
 	int number;
 	std::string color;
@@ -53,7 +54,6 @@ public:
 	void checkBuildingResource(int);
 	std::vector<int> getAddress();
 	std::vector<int> getPath();
-
 	// Check if the selected path has adjacent path built to it
 	bool pathNeighbors(int);
 		// Check if the selected path has adjacent player address built to it
