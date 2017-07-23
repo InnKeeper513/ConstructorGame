@@ -298,7 +298,105 @@ int main()
 				random = dice.rollDice();
 
 				if(random == 7){
-					// set the goose stuff
+					// Any builder with >= 10 resources lose half of the resources chosen at random
+						for (int o = 0; o < 4; ++o) {
+
+							int n_resources = builders[o].getNumBrick() + builders[o].getNumEnergy() + builders[o].getNumGlass() + 
+								builders[o].getNumHeat() + builders[o].getNumWifi();
+
+							int n_lost;
+							if (n_resources >= 10) {
+								n_lost = floor(n_resources / 2);
+								cout << "Builder " << builders[o].getColor() << " loses " << n_lost << " resources to the geese. They lose:" << endl;
+								
+								int b_lost;
+								int e_lost;
+								int g_lost;
+								int h_lost;
+								int w_lost;
+								while (n_lost != 0) {
+									int b_lost = std::rand() % (std::min(builders[o].getNumBrick(), n_lost) + 1);
+									n_lost -= b_lost;
+									int e_lost = std::rand() % (std::min(builders[o].getNumEnergy(), n_lost) + 1);
+									n_lost -= e_lost;
+									int g_lost = std::rand() % (std::min(builders[o].getNumGlass(), n_lost) + 1);
+									n_lost -= g_lost;
+									int h_lost = std::rand() % (std::min(builders[o].getNumHeat(), n_lost) + 1);
+									n_lost -= h_lost;
+									int w_lost = std::rand() % (std::min(builders[o].getNumWifi(), n_lost) + 1);
+									n_lost -= w_lost;
+								}
+								
+
+								builders[o].removeBrick(b_lost);
+								cout << b_lost << " Brick" << endl;
+								builders[o].removeEnergy(e_lost);
+								cout << e_lost << " Energy" << endl;
+								builders[o].removeGlass(g_lost);
+								cout << g_lost << " Glass" << endl;
+								builders[o].removeHeat(h_lost);
+								cout << h_lost << " Heat" << endl;
+								builders[o].removeWifi(w_lost);
+								cout << w_lost << " Wifi" << endl;
+							}
+						}
+						
+						// builder moves geese to any tile
+						cout << "Choose where to place the GEESE." << endl;
+						cout << ">";
+						int tile_n;
+						cin >> tile_n;
+						tiles[tile_n].SetGeese(1); 
+
+						//builder can steal from builders who have built residences on tiles[tile_n]
+						
+						//attempt to steal
+						cout << "Choose a builder to steal from." << endl;
+						cout << ">";
+						string builder_color;
+						cin >> builder_color;
+						for (int o = 0; o < 4; ++o) {
+							if (builders[o].getColor() == builder_color) {
+								bool b_steal = false;
+								bool e_steal = false;
+								bool g_steal = false;
+								bool h_steal = false;
+								bool w_steal = false;
+								int total_resources = builders[o].getNumBrick() + builders[o].getNumEnergy() + builders[o].getNumGlass() +
+									builders[o].getNumHeat() + builders[o].getNumWifi();
+								int k = std::rand() % total_resources;
+								if (k < builders[o].getNumBrick()) {
+									b_steal = true;
+									builders[i].addBrick(1);
+									builders[o].removeBrick(1);
+									cout << "Builder " << builders[i].getColor() << " steals Brick from builder " << builders[o].getColor << "." << endl;
+								}
+								if (k < builders[o].getNumEnergy()) {
+									e_steal = true;
+									builders[i].addEnergy(1);
+									builders[o].removeEnergy(1);
+									cout << "Builder " << builders[i].getColor() << " steals Energy from builder " << builders[o].getColor << "." << endl;
+								}
+								if (k < builders[o].getNumGlass()) {
+									g_steal = true;
+									builders[i].addGlass(1);
+									builders[o].removeGlass(1);
+									cout << "Builder " << builders[i].getColor() << " steals Glass from builder " << builders[o].getColor << "." << endl;
+								}
+								if (k < builders[o].getNumHeat()) {
+									h_steal = true;
+									builders[i].addHeat(1);
+									builders[o].removeHeat(1);
+									cout << "Builder " << builders[i].getColor() << " steals Heat from builder " << builders[o].getColor << "." << endl;
+								}
+								if (k < builders[o].getNumWifi()) {
+									w_steal = true;
+									builders[i].addWifi(1);
+									builders[o].removeWifi(1);
+									cout << "Builder " << builders[i].getColor() << " steals Wifi from builder " << builders[o].getColor << "." << endl;
+								}
+							}
+						}
 
 
 				} else {
