@@ -5,7 +5,7 @@
 using namespace std;
 
 
-Path::Path(int number):number{number}, owner{"N"}{}
+Path::Path(int number):Tile{},number{number}, owner{"N"}{}
 
 int Path::GetNumber()
 {

@@ -3,10 +3,11 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include "Tile.h"
 #include "Observer.h"
 #include "Subscriptions.h"
 
-class Path : public Observer
+class Path : public Tile
 {
 public:
 	Path(int number);
@@ -15,7 +16,7 @@ public:
 	void addPath(int);
 	void addNeighbor(int);
 	// set the owner of the path
-	void setOwner(std::string);
+	void setOwner(std::string) override;
 	// upgrade the path for a specific building
 	void upgrade(std::string);
 	// Return the connected address of the path

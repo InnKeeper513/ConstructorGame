@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Address::Address(int number):number{number},owner{"N"},buildingType{"N"}{}
+Address::Address(int number):Tile{},number{number},owner{"N"},buildingType{"N"}{}
 
 string Address::getBuilder()
 {

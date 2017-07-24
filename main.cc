@@ -80,6 +80,7 @@ int main()
 	// WRITE THE COMMAND LINE HERE
 	string commandLine="";
 	bool def = true;
+
 	getline(cin,commandLine);
 
 	string word;
@@ -206,7 +207,9 @@ int main()
 									}
 	            }
 	        }
-	    }
+	    } else {
+				cout << "Invalid Command, use default board." << endl;
+			}
 	}
 
 	if(def)
@@ -331,38 +334,49 @@ int main()
 							int n_lost;
 							if (n_resources >= 10) {
 								n_lost = n_resources / 2;
-								cout << "Builder " << builders[o].getColor() << " loses " << n_lost << " resources to the geese. They lose:" << endl;
+								cout << "Builder " << builders[o].getColor() << " loses " << n_lost << " resources to the geese. Lose:" << endl;
 
 								int b_lost;
 								int e_lost;
 								int g_lost;
 								int h_lost;
 								int w_lost;
+								int bTot=0;
+								int eTot=0;
+								int gTot=0;
+								int hTot=0;
+								int wTot=0;
 								while (n_lost != 0) {
 									int b_lost = std::rand() % (std::min(builders[o].getNumBrick(), n_lost) + 1);
 									n_lost -= b_lost;
+									bTot += b_lost;
 									int e_lost = std::rand() % (std::min(builders[o].getNumEnergy(), n_lost) + 1);
 									n_lost -= e_lost;
+									eTot += e_lost;
 									int g_lost = std::rand() % (std::min(builders[o].getNumGlass(), n_lost) + 1);
 									n_lost -= g_lost;
+									gTot += g_lost;
 									int h_lost = std::rand() % (std::min(builders[o].getNumHeat(), n_lost) + 1);
 									n_lost -= h_lost;
+									hTot += h_lost;
 									int w_lost = std::rand() % (std::min(builders[o].getNumWifi(), n_lost) + 1);
 									n_lost -= w_lost;
+									wTot += w_lost;
 								}
 
-								builders[o].removeBrick(b_lost);
-								cout << b_lost << " Brick" << endl;
-								builders[o].removeEnergy(e_lost);
-								cout << e_lost << " Energy" << endl;
-								builders[o].removeGlass(g_lost);
-								cout << g_lost << " Glass" << endl;
-								builders[o].removeHeat(h_lost);
-								cout << h_lost << " Heat" << endl;
-								builders[o].removeWifi(w_lost);
-								cout << w_lost << " Wifi" << endl;
+								builders[o].removeBrick(bTot);
+								cout << bTot << " Brick" << endl;
+								builders[o].removeEnergy(eTot);
+								cout << eTot << " Energy" << endl;
+								builders[o].removeGlass(gTot);
+								cout << gTot << " Glass" << endl;
+								builders[o].removeHeat(hTot);
+								cout << hTot << " Heat" << endl;
+								builders[o].removeWifi(wTot);
+								cout << wTot << " Wifi" << endl;
 							}
 						}
+						bool exist = false;
 
 						// builder moves geese to any tile
 						cout << "Choose where to place the GEESE." << endl;
@@ -372,16 +386,60 @@ int main()
 						builders[i].notifyObservers(Subscriptions::Tile, builders[i].getColor(), tile_n);
 
 						//builder can steal from builders who have built residences on tiles[tile_n]
-						cout << "Builder " << builders[i].getColor() << " can choose to steal from ";
-						for(int w = 0; w < 4; w++){
+						cout << "Builder " << builders[i].getColor() << " can choose to steal from: " << endl;
+						vector<string> list;
+						for(int w = 0; w < tiles[tile_n].getAddress().size(); w++){
+							exist = false;
+							stringstream tempo;
+							tempo << builders[i].getColor()[0];
+							string k;
+							tempo >> k;
 
+							if(addresses[tiles[tile_n].getAddress()[w]].getBuilder() != k && addresses[tiles[tile_n].getAddress()[w]].getBuilder() != "N")
+
+
+								for(int e = 0; e < list.size(); e++){
+										if(list[e][0] == addresses[tiles[tile_n].getAddress()[w]].getBuilder()[0]){
+											exist = true;
+										}
+								}
+								if(!exist){
+									string fullname = " ";
+									if(addresses[tiles[tile_n].getAddress()[w]].getBuilder() == "B")
+										fullname = "Blue";
+									else if(addresses[tiles[tile_n].getAddress()[w]].getBuilder() == "R")
+										fullname = "Red";
+									else if(addresses[tiles[tile_n].getAddress()[w]].getBuilder() == "Y")
+										fullname = "Yellow";
+									else if(addresses[tiles[tile_n].getAddress()[w]].getBuilder() == "O")
+										fullname = "Orange";
+									if(fullname != " "){
+										list.emplace_back(fullname);
+										cout << fullname << endl;
+									}
+								}
 						}
 
+						if(list.size() != 0){
+						cout << endl;
 						//attempt to steal
 						cout << "Choose a builder to steal from." << endl;
 						cout << ">";
 						string builder_color;
-						cin >> builder_color;
+
+						while(true){
+							bool valid = false;
+							cin >> builder_color;
+							for(int u = 0; u < list.size(); u++){
+								if(list[u] == builder_color)
+									valid = true;
+							}
+							if(valid)
+								break;
+							cout << "Invalid Color, Re-enter! " << endl;
+							cin.ignore();
+							cin.clear();
+						}
 						for (int o = 0; o < 4; ++o) {
 							if (builders[o].getColor() == builder_color) {
 								bool b_steal = false;
@@ -425,7 +483,7 @@ int main()
 							}
 						}
 
-
+					} else cout << "Actually, no player can be stole from" << endl;
 				} else {
 					// If the builder has rolled a number that is different then 7
 					bool gained = false;
@@ -562,6 +620,7 @@ int main()
 					}
 					// Build the road at roadNumber
 				} else if(userCMD == "build-res") {
+
 					cin >> userCMD;
 					istringstream ss{userCMD};
 					int resNumber;
@@ -572,7 +631,7 @@ int main()
 
 					if(
 					 addresses[resNumber].getBuildingType() == "N" &&
-				 	 builders[i].checkAdjacentPath()){
+				 	 builders[i].checkAdjacentPath(resNumber)){
 
 						// Check if there are enough resources
 						if(builders[i].getNumBrick() >= 1 && builders[i].getNumEnergy() >= 1 &&
@@ -619,6 +678,20 @@ int main()
 						cin >> resource1;
 						cin >> resource2;
 
+						// Invalid input
+						while((builder2 != "Blue" && builder2 != "Red"&& builder2 != "Yellow"&& builder2 != "Orange") ||
+									(resource1 != "HEAT"&&resource1 != "WIFI"&&resource1 != "GLASS" &&resource1 != "ENERGY" &&resource1 != "BRICK") ||
+									(resource2 != "HEAT"&&resource2 != "WIFI"&&resource2 != "GLASS" &&resource2 != "ENERGY" &&resource2 != "BRICK")){
+										cout << "Invalid Input, Re-input" << endl;
+										cout << "Trade with ? " << endl;
+										cin >> builder2;
+										cout << "Trade resource: ";
+										cin >> resource1;
+										cout << "For : ";
+										cin >> resource2;
+									}
+
+
 						int playerNum = 0;
 						for(int k = 0; k < 4; k++){
 							if(builders[k].getColor() == builder2){
@@ -626,7 +699,7 @@ int main()
 								break;
 							}
 						}
-
+						// TODO Check if have enough resource
 						cout << builders[i].getColor() << " offers " << builder2 << " one " << resource1 << " for one " << resource2 << endl;
 						cout << "Does " << builder2 << " accept this offer?" << endl;
 						cout << "Answer with yes / no" << endl;
@@ -638,36 +711,36 @@ int main()
 						// The trading builder will lose 1 resource 1 and gain 1 resource 2
 						if(answer == "yes"){
 							if(resource1 == "HEAT"){
-									builders[i].addHeat(1);
-									builders[playerNum].removeHeat(1);
-							} else if(resource1 == "WIFI") {
-									builders[i].addWifi(1);
-									builders[playerNum].removeWifi(1);
-							} else if(resource1 == "BRICK") {
-									builders[i].addBrick(1);
-									builders[playerNum].removeBrick(1);
-							} else if(resource1 == "ENERGY") {
-									builders[i].addEnergy(1);
-									builders[playerNum].removeEnergy(1);
-							} else if(resource1 == "GLASS") {
-									builders[i].addGlass(1);
-									builders[playerNum].removeGlass(1);
-							}
-							if(resource2 == "HEAT"){
 									builders[playerNum].addHeat(1);
 									builders[i].removeHeat(1);
-							} else if(resource2 == "WIFI") {
+							} else if(resource1 == "WIFI") {
 									builders[playerNum].addWifi(1);
 									builders[i].removeWifi(1);
-							} else if(resource2 == "BRICK") {
+							} else if(resource1 == "BRICK") {
 									builders[playerNum].addBrick(1);
 									builders[i].removeBrick(1);
-							} else if(resource2 == "ENERGY") {
+							} else if(resource1 == "ENERGY") {
 									builders[playerNum].addEnergy(1);
 									builders[i].removeEnergy(1);
-							} else if(resource2 == "GLASS") {
+							} else if(resource1 == "GLASS") {
 									builders[playerNum].addGlass(1);
 									builders[i].removeGlass(1);
+							}
+							if(resource2 == "HEAT"){
+									builders[i].addHeat(1);
+									builders[playerNum].removeHeat(1);
+							} else if(resource2 == "WIFI") {
+									builders[i].addWifi(1);
+									builders[playerNum].removeWifi(1);
+							} else if(resource2 == "BRICK") {
+									builders[i].addBrick(1);
+									builders[playerNum].removeBrick(1);
+							} else if(resource2 == "ENERGY") {
+									builders[i].addEnergy(1);
+									builders[playerNum].removeEnergy(1);
+							} else if(resource2 == "GLASS") {
+									builders[i].addGlass(1);
+									builders[playerNum].removeGlass(1);
 							}
 						} else if(answer == "no"){
 
@@ -763,7 +836,7 @@ int main()
 					cout << "residences" << endl;
 					cout << "build-road <path#>" << endl;
 					cout << "build-res <housing#>" << endl;
-					cout << "improve <housign#>" << endl;
+					cout << "improve <housing#>" << endl;
 					cout << "trade <colour> <give> <take>" << endl;
 					cout << "next" << endl;
 					cout << "save <file>" << endl;

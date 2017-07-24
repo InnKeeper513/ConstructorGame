@@ -101,7 +101,9 @@ void Builder::addAddress(int set){
 	// Add the address to the list of address the owner owns
 	address.emplace_back(set);
 }
+
 void Builder::addPath(int set){
+	paths[set].setOwner(name);
 	path.emplace_back(set);
 }
 
@@ -163,7 +165,7 @@ bool Builder::checkAdjacent(int check){
 }
 
 // Check if any of the owner's path is connencted to the desired address
-bool Builder::checkAdjacentPath(){
+bool Builder::checkAdjacentPath(int check){
 	stringstream temp ;
 	temp << color[0];
 	string character;
@@ -172,7 +174,7 @@ bool Builder::checkAdjacentPath(){
 	for(int i = 0; i < path.size(); i++){
 
 		for(int j = 0; j < 2; j++){
-			if(addresses[paths[path[i]].getConnectedAddress()[j]].getBuilder() == character){
+			if(addresses[paths[path[i]].getConnectedAddress()[j]].getBuilder() == character && addresses[paths[path[i]].getConnectedAddress()[j]].getNumber() == check){
 
 				return true;
 			}
@@ -216,4 +218,8 @@ bool Builder::pathAddress(int check){
 	}
 
 	return false;
+}
+
+int Builder::totResource(){
+	return numBrick + numHeat + numEnergy + numGlass + numWifi;
 }

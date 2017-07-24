@@ -35,6 +35,7 @@ public:
 	int getNumWifi();
 	// Added
 	void status();
+	int totResource();
 	void incrPoints(int);
 	void addBrick(int);
 	void addEnergy(int);
@@ -50,7 +51,7 @@ public:
 	void addPath(int);
 	bool checkImprove(int);
 	bool checkAdjacent(int);
-	bool checkAdjacentPath();
+	bool checkAdjacentPath(int);
 	void checkBuildingResource(int);
 	std::vector<int> getAddress();
 	std::vector<int> getPath();

@@ -10,10 +10,12 @@ int Dice::rollDice(){
   int number = 0;
 
   if(type=="load"){
-    cout << "Input a roll between 2 and 12:" << endl;
 
     // Continue to input the dice number until it is correct
-    while(cin >> number){
+    while(true){
+      if(cin >> number){
+        cout << "Input a roll between 2 and 12:" << endl;
+        cout << ">";
       if(number < 2 || number > 12){
         cout << "Invalid roll" << endl;
         cout << "Input a roll between 2 and 12:" << endl;
@@ -21,6 +23,11 @@ int Dice::rollDice(){
         cout << "You rolled " << number << endl;
         return number;
       }
+    } else {
+      cout << "Invalid input." << endl;
+      cin.clear();
+      cin.ignore();
+    }
     }
   }else if(type == "fair"){
     // Generate two random integer between 1 and 6

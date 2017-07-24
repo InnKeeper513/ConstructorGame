@@ -2,8 +2,6 @@
 #ifndef _TILE_H_
 #define _TILE_H_
 #include <string>
-#include "Address.h"
-#include "Path.h"
 #include "Observer.h"
 #include <vector>
 #include "Subscriptions.h"
@@ -11,13 +9,14 @@
 class Tile : public Observer{
 public:
 	Tile(int number, std::string resource, int value);
+	Tile();
 	int getNumber();
 	std::string getResource();
 	int getValue();
 	std::vector<int> getAddress();
-	void addAddress(int add);
+	virtual void addAddress(int add);
 	bool hasGoose();
-
+	virtual void setOwner(std::string);
 	void notify(std::string, int) override;
   Subscriptions subType() const override;
 

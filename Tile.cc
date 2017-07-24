@@ -1,6 +1,8 @@
 #include "Tile.h"
 using namespace std;
 
+Tile::Tile(){}
+
 Tile::Tile(int number, string resource, int value): number{number},
 resource{resource}, value{value}{}
 
@@ -38,3 +40,5 @@ void Tile::notify(std::string name, int location){
 Subscriptions Tile::subType() const{
 	return Subscriptions::Tile;
 }
+
+void Tile::setOwner(std::string set){}
