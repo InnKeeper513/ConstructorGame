@@ -2,6 +2,10 @@
 #include "Observer.h"
 #include "Subscriptions.h"
 #include "Board.h"
+#include "Address.h"
+#include "Tile.h"
+#include "Path.h"
+
 using namespace std;
 
 void Subject::notifyObservers(Subscriptions t, string name, int location) {

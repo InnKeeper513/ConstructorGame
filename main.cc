@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 #include "Dice.h"
+#include "Tile.h"
+#include "Address.h"
+#include "Path.h"
 #include "Board.h"
 #include "Builder.h"
 #include <string>
@@ -61,6 +64,10 @@ void resourceDistribution(string resourceName, int amount, int &heat, int &energ
 	} else
 		glass += amount;
 }
+
+vector<Tile> tiles;
+vector<Address> addresses;
+vector<Path> paths;
 
 int main()
 {
