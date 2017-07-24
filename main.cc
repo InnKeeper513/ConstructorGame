@@ -7,7 +7,6 @@
 #include <sstream>
 #include <stdlib.h> // for srand() random number generator
 #include <fstream> // for save to file
-//#include "Address.h"
 
 using namespace std;
 void boardLayout(bool def, string board_file, vector<Builder>& builders){
@@ -43,7 +42,7 @@ void boardLayout(bool def, string board_file, vector<Builder>& builders){
 							tiles.emplace_back(Tile(counter, "WIFI", input_line));
 					} else if(input_line == 5){
 							ss >> input_line;
-							tiles.emplace_back(Tile(counter, "ROAD", input_line));
+							tiles.emplace_back(Tile(counter, "PARK", input_line));
 					}
 					counter ++;
 		}
@@ -134,7 +133,6 @@ int main()
 					while (s >> address) {
 
 						s >> residence;
-						cout << residence;
 						if(residence == "B")
 							builders[i].incrPoints(1);
 						else if(residence == "H")
@@ -169,7 +167,7 @@ int main()
 									tiles.emplace_back(Tile(counter, "WIFI", input_line));
 							} else if(input_line == 5){
 									s >> input_line;
-									tiles.emplace_back(Tile(counter, "ROAD", input_line));
+									tiles.emplace_back(Tile(counter, "PARK", input_line));
 							}
 							counter ++;
 				}
@@ -213,7 +211,6 @@ int main()
 
 	if(def)
 		boardLayout(def, " ",builders);
-	cout << board;
 	bool win = false;
 
 	int random;
@@ -221,6 +218,7 @@ int main()
 	// Continue the game
 	while(true){
 	board.addTileDependency();
+
 	// Adding 2 initial address locations for the player
 	//TODO Address need to be valid
 	// - It must exist
@@ -268,7 +266,6 @@ int main()
 	// Print the updated board
 	cout << board;
 
-	board.addTileDependency();
 	// Begin the game ********************
 
 	// Beginning of Turn *****************
@@ -310,13 +307,20 @@ int main()
 			while(true){
 				string diceCMD;
 
-				cout << "Enter 'load' or 'fair' dice" << endl;
-				cout << ">";
-				cin >> diceCMD;
+				while(true){
+					cout << "Enter 'load' or 'fair' dice" << endl;
+					cout << ">";
+					cin >> diceCMD;
+					if(diceCMD != "load" && diceCMD != "fair")
+						cout << "Invalid Command" << endl;
+					else break;
+					}
+
 				Dice dice(diceCMD);
 				// Get the rolled number
 				random = dice.rollDice();
 
+				// Goose move
 				if(random == 7){
 					// Any builder with >= 10 resources lose half of the resources chosen at random
 						for (int o = 0; o < 4; ++o) {
@@ -444,14 +448,14 @@ int main()
 									// get the address numbers in the tile
 									vector<int> allTileAddress = tiles[k].getAddress();
 									for(int p = 0; p < allTileAddress.size(); p ++){
-//										cout << " Neighbor Address: " << allTileAddress[p] << " Builder: " << addresses[allTileAddress[p]].getBuilder() << " Color " << builders[u].getColor() << endl;
+										//	cout << " Neighbor Address: " << allTileAddress[p] << " Builder: " << addresses[allTileAddress[p]].getBuilder() << " Color " << builders[u].getColor() << endl;
 
 										if(addresses[allTileAddress[p]].getBuilder() == builders[u].getColor().substr(0,1)){
 											playerGain = true;
 											gained = true;
 											if(addresses[allTileAddress[p]].getBuildingType() == "B"){
 												// gained the amount of resource
-												resourceDistribution(tiles[k].getResource(), 1, heat, energy, brick, wifi, glass);
+												resourceDistribution(tiles[ k].getResource(), 1, heat, energy, brick, wifi, glass);
 											} else if(addresses[allTileAddress[p]].getBuildingType() == "H"){
 												// gained the amount of resource
 												resourceDistribution(tiles[k].getResource(), 2, heat, energy, brick, wifi, glass);
@@ -565,8 +569,9 @@ int main()
 
 					// Check if the residence address is valid
 					// If yes build a basement
-					if(builders[i].checkAdjacent(resNumber) &&
-					 addresses[resNumber].getBuildingType() == "B" &&
+
+					if(
+					 addresses[resNumber].getBuildingType() == "N" &&
 				 	 builders[i].checkAdjacentPath()){
 
 						// Check if there are enough resources
@@ -602,7 +607,7 @@ int main()
 						builders[i].checkBuildingResource(improveNumber);
 					} else {
 					// invalid address to improve
-						cout << "You cannot build here.";
+						cout << "You cannot build here." << endl;
 					}
 
 				} else if(userCMD == "trade") {
@@ -668,7 +673,7 @@ int main()
 
 						} else {
 							// TODO will keep asking until correct command;
-							cout << "Invalid Command";
+							cout << "Invalid Command" << endl;
 						}
 
 				} else if(userCMD == "next") {
@@ -681,25 +686,25 @@ int main()
 				    ofs << builderColor << endl; // prints <curTurn>
 
 				    for (int o = 0; o < 4; o++) {// prints <builder(0-3)Data>
-
 							ofs << builders[o].getNumBrick() << " " << builders[o].getNumEnergy() << " " << builders[o].getNumGlass() << " " << builders[o].getNumHeat() << " " << builders[o].getNumWifi();
 							ofs << " r";
 							vector<int> path = builders[o].getPath();
 							vector<int> address = builders[o].getAddress();
-							for(int q = 0; i < path.size(); q++){
-									ofs << " " << path[q];
+
+							for(int q = 0; q < path.size(); q++){
+								ofs << " " << path[q];
 							}
 							ofs << " h";
-							for(int q = 0; q < address.size(); i++){
+							for(int q = 0; q < address.size(); q++){
 								ofs << " " << address[q] << " " << addresses[address[q]].getBuildingType();
 							}
 
-				      ofs << endl;
+				    	ofs << endl;
 				    }
 
-				    for (int q = 0; q < tiles.size(); ++q) { // prints <board>
+				    for (int q = 0; q < 19; ++q) { // prints <board>
 				        if (tiles[q].getResource() == "BRICK") {
-				            if (q = 0) {
+				            if (q == 0) {
 				                ofs << 0 << " " << tiles[q].getValue();
 				            }
 				            else {
@@ -707,7 +712,7 @@ int main()
 				            }
 				        }
 				        else if (tiles[q].getResource() == "ENERGY") {
-				            if (q = 0) {
+				            if (q == 0) {
 				                ofs << 1 << " " << tiles[q].getValue();
 				            }
 				            else {
@@ -715,7 +720,7 @@ int main()
 				            }
 				        }
 				        else if (tiles[q].getResource() == "GLASS") {
-				            if (q = 0) {
+				            if (q == 0) {
 				                ofs << 2 << " " << tiles[q].getValue();
 				            }
 				            else {
@@ -723,7 +728,7 @@ int main()
 				            }
 				        }
 				        else if (tiles[q].getResource() == "HEAT") {
-				            if (q = 0) {
+				            if (q == 0) {
 				                ofs << 3 << " " << tiles[q].getValue();
 				            }
 				            else {
@@ -731,7 +736,7 @@ int main()
 				            }
 				        }
 				        else if (tiles[q].getResource() == "WIFI") {
-				            if (q = 0) {
+				            if (q == 0) {
 				                ofs << 4 << " " << tiles[q].getValue();
 				            }
 				            else {
@@ -739,7 +744,7 @@ int main()
 				            }
 				        }
 				        else if (tiles[q].getResource() == "PARK") {
-				            if (q = 0) {
+				            if (q == 0) {
 				                ofs << 5 << " " << 7;
 				            }
 				            else {
@@ -747,6 +752,8 @@ int main()
 				            }
 				        }
 				    }
+						ofs << endl;
+
 				    ofs.close(); // closes file
 
 				} else if(userCMD == "help") {
@@ -780,7 +787,6 @@ int main()
 		addresses.clear();
 		tiles.clear();
 		boardLayout(def, " ",builders);
-		cout << board;
 		builders.emplace_back(Builder(0,"Blue"));
 		builders.emplace_back(Builder(1,"Red"));
 		builders.emplace_back(Builder(2,"Orange"));

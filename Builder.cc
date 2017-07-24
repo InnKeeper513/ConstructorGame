@@ -148,10 +148,14 @@ bool Builder::checkAdjacent(int check){
 
 	// Loop through all of its adjacent addresses to see if all of them don't have owner
 	for(int i = 0; i < vecs.size(); i++){
+		stringstream temp ;
+		temp << color[1];
+		string character;
+		temp >> character;
 
 		// If one neighbor contains an owner, then cannot build here.
-		if(addresses[vecs[i]].getBuildingType() != "N" && addresses[vecs[i]].getBuilder() != color){
-			cout << addresses[vecs[i]].getBuilder() << endl;
+		if(addresses[vecs[i]].getBuildingType() != "N" && addresses[vecs[i]].getBuilder() != character){
+
 			return false;
 		}
 	}
@@ -160,10 +164,16 @@ bool Builder::checkAdjacent(int check){
 
 // Check if any of the owner's path is connencted to the desired address
 bool Builder::checkAdjacentPath(){
+	stringstream temp ;
+	temp << color[0];
+	string character;
+	temp >> character;
 
 	for(int i = 0; i < path.size(); i++){
+
 		for(int j = 0; j < 2; j++){
-			if(paths[paths[path[i]].getConnectedAddress()[j]].getBuilder() == name){
+			if(addresses[paths[path[i]].getConnectedAddress()[j]].getBuilder() == character){
+
 				return true;
 			}
 		}

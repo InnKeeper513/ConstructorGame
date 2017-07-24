@@ -24,7 +24,7 @@ string displayAddress(int add){
 string displayResource(int add){
 	if(tiles[add].getResource() == "ENERGY")
 		return "ENERGY";
-	else if(tiles[add].getResource() == "HEAT" || tiles[add].getResource() == "WIFI" || tiles[add].getResource() == "ROAD" ){
+	else if(tiles[add].getResource() == "HEAT" || tiles[add].getResource() == "WIFI" || tiles[add].getResource() == "PARK" ){
 		return tiles[add].getResource() + "  ";
 	}
 	else return tiles[add].getResource() + " ";
@@ -34,7 +34,7 @@ void displayGoose(int add){
 
 }
 string displayAmount(int add){
-	if(tiles[add].getResource() == "Park")
+	if(tiles[add].getResource() == "PARK")
 		return "  ";
 	else if(tiles[add].getValue() < 9)
 		return " " + to_string(tiles[add].getValue());
@@ -43,7 +43,7 @@ string displayAmount(int add){
 }
 
 void Board::addTileDependency(){
-	tiles[0].addAddress(0);
+		tiles[0].addAddress(0);
 		tiles[0].addAddress(1);
 		tiles[0].addAddress(4);
 		tiles[0].addAddress(3);
