@@ -67,6 +67,7 @@ int main()
 {
 	Board board;
 	cout << "Press enter to load the dafault board" << endl;
+	cout << "The following are the commandline options, '-seed <number>', '-load <file>', '-board <file>', ‘-random-board’" << endl;
 	// initialize the builders.
 	vector<Builder> builders;
 	builders.emplace_back(Builder(0,"Blue"));
@@ -87,26 +88,30 @@ int main()
 	stringstream ss {commandLine};
 
 	while (ss >> word) {
-			def = false;
 	    if (word == "-seed") {
 	        int seed;
 	        ss >> seed;
 	        srand(seed);
 	    } else if (word == "-load") {
+				def = false;
+
 				load_flag = true;
 				string game_file;
 				ss >> game_file;
 				ifstream myfile;
 				myfile.open (game_file);
-
-				myfile >> currentTurn; // read in <curTurn>
-
 				string line;
+				getline(myfile, line);
+				stringstream k{line};
+				k >> currentTurn; // read in <curTurn>
+
 				for (int i = 0; i < 4; ++i) { // read in <builder(0-3)data>
 					getline(myfile,line);
+
 					stringstream s{line};
 					int bricks, energies, glasses, heats, wifis;
 					s >> bricks >> energies >> glasses >> heats >> wifis;
+
 					builders[i].addBrick(bricks);
 					builders[i].addEnergy(energies);
 					builders[i].addGlass(glasses);
@@ -123,6 +128,7 @@ int main()
 
 					int address;
 					string residence;
+					s >> residence;
 					while (s >> address) {
 						s >> residence;
 						builders[i].addAddress(address);
@@ -132,7 +138,6 @@ int main()
 
 				getline(myfile,line);
 				stringstream s{line};
-
 				int input_line;
 				int counter = 0;
 
@@ -160,11 +165,15 @@ int main()
 				}
 
 			} else if (word == "-board") {
+					def = false;
+
 	        string board_file;
 					ss >> board_file;
 	        boardLayout(false, board_file, builders);
 
 	    } else if (word == "-random-board") {
+					def = false;
+
 	        if (load_flag) {
 	            // ignore command
 	        }
@@ -175,26 +184,26 @@ int main()
 	            for (int i = 0; i < 19; ++i) {  // GO TO TILE TO IMPLEMENT public SETRES AND SETVAL
 									int k, j;
 									k = rand() % res.size();
-									if(res[k] != "PARK"){
+									if(res[k] == "PARK"){
+										tiles.emplace_back(i,res[k],7);
+									} else {
 										j = rand() % vals.size();
 										tiles.emplace_back(i,res[k],vals[j]);
-									} else {
-										tiles.emplace_back(i,res[k],vals[j]);
 									}
-	                res.erase(res.begin() + k);
-									vals.erase(vals.begin() + j);
-
+									if(res[k] == "PARK"){
+										res.erase(res.begin() + k);
+									} else {
+										res.erase(res.begin() + k);
+										vals.erase(vals.begin() + j);
+									}
 	            }
 	        }
 	    }
 	}
 
-	boardLayout(def, " ",builders);
-
+	if(def)
+		boardLayout(def, " ",builders);
 	cout << board;
-
-	//ifstream file(BoardFileName);
-	//file >> board;
 	bool win = false;
 
 	int random;
@@ -301,14 +310,14 @@ int main()
 					// Any builder with >= 10 resources lose half of the resources chosen at random
 						for (int o = 0; o < 4; ++o) {
 
-							int n_resources = builders[o].getNumBrick() + builders[o].getNumEnergy() + builders[o].getNumGlass() + 
+							int n_resources = builders[o].getNumBrick() + builders[o].getNumEnergy() + builders[o].getNumGlass() +
 								builders[o].getNumHeat() + builders[o].getNumWifi();
 
 							int n_lost;
 							if (n_resources >= 10) {
-								n_lost = floor(n_resources / 2);
+								n_lost = n_resources / 2;
 								cout << "Builder " << builders[o].getColor() << " loses " << n_lost << " resources to the geese. They lose:" << endl;
-								
+
 								int b_lost;
 								int e_lost;
 								int g_lost;
@@ -326,7 +335,6 @@ int main()
 									int w_lost = std::rand() % (std::min(builders[o].getNumWifi(), n_lost) + 1);
 									n_lost -= w_lost;
 								}
-								
 
 								builders[o].removeBrick(b_lost);
 								cout << b_lost << " Brick" << endl;
@@ -340,16 +348,16 @@ int main()
 								cout << w_lost << " Wifi" << endl;
 							}
 						}
-						
+
 						// builder moves geese to any tile
 						cout << "Choose where to place the GEESE." << endl;
 						cout << ">";
 						int tile_n;
 						cin >> tile_n;
-						tiles[tile_n].SetGeese(1); 
+						builders[i].notifyObservers(Subscriptions::Tile, builders[i].getColor(), tile_n);
 
 						//builder can steal from builders who have built residences on tiles[tile_n]
-						
+
 						//attempt to steal
 						cout << "Choose a builder to steal from." << endl;
 						cout << ">";
@@ -369,31 +377,31 @@ int main()
 									b_steal = true;
 									builders[i].addBrick(1);
 									builders[o].removeBrick(1);
-									cout << "Builder " << builders[i].getColor() << " steals Brick from builder " << builders[o].getColor << "." << endl;
+									cout << "Builder " << builders[i].getColor() << " steals Brick from builder " << builders[o].getColor() << "." << endl;
 								}
 								if (k < builders[o].getNumEnergy()) {
 									e_steal = true;
 									builders[i].addEnergy(1);
 									builders[o].removeEnergy(1);
-									cout << "Builder " << builders[i].getColor() << " steals Energy from builder " << builders[o].getColor << "." << endl;
+									cout << "Builder " << builders[i].getColor() << " steals Energy from builder " << builders[o].getColor() << "." << endl;
 								}
 								if (k < builders[o].getNumGlass()) {
 									g_steal = true;
 									builders[i].addGlass(1);
 									builders[o].removeGlass(1);
-									cout << "Builder " << builders[i].getColor() << " steals Glass from builder " << builders[o].getColor << "." << endl;
+									cout << "Builder " << builders[i].getColor() << " steals Glass from builder " << builders[o].getColor() << "." << endl;
 								}
 								if (k < builders[o].getNumHeat()) {
 									h_steal = true;
 									builders[i].addHeat(1);
 									builders[o].removeHeat(1);
-									cout << "Builder " << builders[i].getColor() << " steals Heat from builder " << builders[o].getColor << "." << endl;
+									cout << "Builder " << builders[i].getColor() << " steals Heat from builder " << builders[o].getColor() << "." << endl;
 								}
 								if (k < builders[o].getNumWifi()) {
 									w_steal = true;
 									builders[i].addWifi(1);
 									builders[o].removeWifi(1);
-									cout << "Builder " << builders[i].getColor() << " steals Wifi from builder " << builders[o].getColor << "." << endl;
+									cout << "Builder " << builders[i].getColor() << " steals Wifi from builder " << builders[o].getColor() << "." << endl;
 								}
 							}
 						}
@@ -522,10 +530,11 @@ int main()
 						// If contain enough resources, build the raod.
 						builders[i].removeHeat(1);
 						builders[i].removeWifi(1);
+						builders[i].addPath(roadNumber);
+						builders[i].notifyObservers(Subscriptions::Path, builders[i].getColor(), roadNumber);
 					} else {
 						cout << "You do not have enough resources." << endl;
 					}
-					paths[roadNumber].upgrade(builderColor);
 					// Build the road at roadNumber
 				} else if(userCMD == "build-res") {
 					cin >> userCMD;
@@ -551,8 +560,8 @@ int main()
 
 							// Add the basement to the address and set its owner
 							builders[i].addAddress(resNumber);
-							addresses[resNumber].setBuildingType("B");
-							addresses[resNumber].setOwner(builders[i].getColor());
+							builders[i].notifyObservers(Subscriptions::Address, builders[i].getColor(), resNumber);
+
 						} else {
 							cout << "You do not have enough resources." << endl;
 						}
@@ -744,6 +753,18 @@ int main()
 	cin >> newRound;
 	if(newRound == "yes"){
 		// Need to reset the game
+		builders.clear();
+
+		paths.clear();
+		addresses.clear();
+		tiles.clear();
+		boardLayout(def, " ",builders);
+		cout << board;
+		builders.emplace_back(Builder(0,"Blue"));
+		builders.emplace_back(Builder(1,"Red"));
+		builders.emplace_back(Builder(2,"Orange"));
+		builders.emplace_back(Builder(3,"Yellow"));
+		win = false;
 	} else{
 		// End game
 		break;

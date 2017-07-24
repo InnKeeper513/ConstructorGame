@@ -33,8 +33,12 @@ string displayResource(int add){
 void displayGoose(int add){
 
 }
-void displayAmount(int add){
-
+string displayAmount(int add){
+	if(tiles[add].getResource() == "Park")
+		return "  ";
+	else if(tiles[add].getValue() < 9)
+		return " " + to_string(tiles[add].getValue());
+	else return to_string(tiles[add].getValue());
 
 }
 

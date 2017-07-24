@@ -44,6 +44,14 @@ void Address::addAddress(int add)
 void Address::notify(std::string name, int location){
 	string temp = name;
 	setOwner(temp);
+
+	if(buildingType == "N")
+		buildingType = "B";
+	else if(buildingType == "B")
+		buildingType = "H";
+	else if(buildingType == "H")
+		buildingType = "T";
+
 }
 Subscriptions Address::subType() const{
 	return Subscriptions::Address;

@@ -122,7 +122,7 @@ void Builder::checkBuildingResource(int check){
 					numGlass -= 2;
 					numHeat -= 3;
 					numPoints ++;
-					addresses[check].setBuildingType("H");
+					notifyObservers(Subscriptions::Address, getColor(), check);
 				}else{
 					cout << "You do not have enough resources." << endl;
 				}
@@ -134,7 +134,7 @@ void Builder::checkBuildingResource(int check){
 					numWifi -= 1;
 					numHeat -= 22;
 					numPoints ++;
-					addresses[check].setBuildingType("T");
+					notifyObservers(Subscriptions::Address, getColor(), check);
 				}else{
 					cout << "You do not have enough resources." << endl;
 				}
