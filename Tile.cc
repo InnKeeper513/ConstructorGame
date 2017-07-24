@@ -41,4 +41,8 @@ Subscriptions Tile::subType() const{
 	return Subscriptions::Tile;
 }
 
+void Tile::reset(){
+	goose = false;
+}
+
 void Tile::setOwner(std::string set){}

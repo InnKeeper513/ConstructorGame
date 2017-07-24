@@ -37,6 +37,7 @@ public:
 
 	void notify(std::string, int) override;
 	Subscriptions subType() const override;
+	void reset() override;
 private:
 
 	int number;

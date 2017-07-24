@@ -10,6 +10,87 @@
 
 
 using namespace std;
+// Use for file saving.
+void saveFile(vector<Builder>& builders, string builderColor, string name){
+
+	std::ofstream ofs (name, std::ofstream::out);
+	ofs << builderColor << endl; // prints <curTurn>
+
+	for (int o = 0; o < 4; o++) {// prints <builder(0-3)Data>
+		ofs << builders[o].getNumBrick() << " " << builders[o].getNumEnergy() << " " << builders[o].getNumGlass() << " " << builders[o].getNumHeat() << " " << builders[o].getNumWifi();
+		ofs << " r";
+		vector<int> path = builders[o].getPath();
+		vector<int> address = builders[o].getAddress();
+
+		int temp7 = path.size();
+		for(int q = 0; q < temp7; q++){
+			ofs << " " << path[q];
+		}
+		ofs << " h";
+		int temp8 = address.size();
+		for(int q = 0; q < temp8; q++){
+			ofs << " " << address[q] << " " << addresses[address[q]].getBuildingType();
+		}
+
+		ofs << endl;
+	}
+
+	for (int q = 0; q < 19; ++q) { // prints <board>
+			if (tiles[q].getResource() == "BRICK") {
+					if (q == 0) {
+							ofs << 0 << " " << tiles[q].getValue();
+					}
+					else {
+							ofs << " " << 0 << " " << tiles[q].getValue();
+					}
+			}
+			else if (tiles[q].getResource() == "ENERGY") {
+					if (q == 0) {
+							ofs << 1 << " " << tiles[q].getValue();
+					}
+					else {
+							ofs << " " << 1 << " " << tiles[q].getValue();
+					}
+			}
+			else if (tiles[q].getResource() == "GLASS") {
+					if (q == 0) {
+							ofs << 2 << " " << tiles[q].getValue();
+					}
+					else {
+							ofs << " " << 2 << " " << tiles[q].getValue();
+					}
+			}
+			else if (tiles[q].getResource() == "HEAT") {
+					if (q == 0) {
+							ofs << 3 << " " << tiles[q].getValue();
+					}
+					else {
+							ofs << " " << 3 << " " << tiles[q].getValue();
+					}
+			}
+			else if (tiles[q].getResource() == "WIFI") {
+					if (q == 0) {
+							ofs << 4 << " " << tiles[q].getValue();
+					}
+					else {
+							ofs << " " << 4 << " " << tiles[q].getValue();
+					}
+			}
+			else if (tiles[q].getResource() == "PARK") {
+					if (q == 0) {
+							ofs << 5 << " " << 7;
+					}
+					else {
+							ofs << " " << 5 << " " << 7;
+					}
+			}
+	}
+	ofs << endl;
+
+	ofs.close(); // closes file
+}
+
+
 void boardLayout(bool def, string board_file, vector<Builder>& builders){
 	string line;
 	string default_layout;
@@ -86,6 +167,7 @@ int main()
 	bool def = true;
 
 	getline(cin,commandLine);
+
 
 	string word;
 	bool load_flag = false;
@@ -223,8 +305,9 @@ int main()
 	int random;
 
 	// Continue the game
-	while(true){
 	board.addTileDependency();
+
+	while(true){
 
 	// Adding 2 initial address locations for the player
 	//TODO Address need to be valid
@@ -318,6 +401,10 @@ int main()
 					cout << "Enter 'load' or 'fair' dice" << endl;
 					cout << ">";
 					cin >> diceCMD;
+					if(cin.eof()){
+						saveFile(builders, builderColor, "backup.sv");
+						return 0;
+					}
 					if(diceCMD != "load" && diceCMD != "fair")
 						cout << "Invalid Command" << endl;
 					else break;
@@ -383,6 +470,10 @@ int main()
 						cout << ">";
 						int tile_n;
 						cin >> tile_n;
+						if(cin.eof()){
+							saveFile(builders, builderColor, "backup.sv");
+							return 0;
+						}
 						builders[i].notifyObservers(Subscriptions::Tile, builders[i].getColor(), tile_n);
 
 						//builder can steal from builders who have built residences on tiles[tile_n]
@@ -431,6 +522,10 @@ int main()
 						while(true){
 							bool valid = false;
 							cin >> builder_color;
+							if(cin.eof()){
+								saveFile(builders, builderColor, "backup.sv");
+								return 0;
+							}
 							int temp3 = list.size();
 							for(int u = 0; u < temp3; u++){
 								if(list[u] == builder_color)
@@ -557,6 +652,10 @@ int main()
 				string userCMD;
 				cout << ">";
 				cin >> userCMD;
+				if(cin.eof()){
+					saveFile(builders, builderColor, "backup.sv");
+					return 0;
+				}
 
 				//TODO endoffile need to be backed up
 
@@ -592,6 +691,10 @@ int main()
 				} else if(userCMD == "build-road") {
 
 					cin >> userCMD;
+					if(cin.eof()){
+						saveFile(builders, builderColor, "backup.sv");
+						return 0;
+					}
 					istringstream ss{userCMD};
 					int roadNumber;
 					ss >> roadNumber;
@@ -618,6 +721,10 @@ int main()
 				} else if(userCMD == "build-res") {
 
 					cin >> userCMD;
+					if(cin.eof()){
+						saveFile(builders, builderColor, "backup.sv");
+						return 0;
+					}
 					istringstream ss{userCMD};
 					int resNumber;
 					ss >> resNumber;
@@ -653,6 +760,10 @@ int main()
 				} else if(userCMD == "improve") {
 					// Improve the residence at the improveNumebr location
 					cin >> userCMD;
+					if(cin.eof()){
+						saveFile(builders, builderColor, "backup.sv");
+						return 0;
+					}
 					istringstream ss{userCMD};
 					int improveNumber;
 					ss >> improveNumber;
@@ -671,8 +782,20 @@ int main()
 						string resource2;
 						// TODO need to check if these inputs are valid
 						cin >> builder2;
+						if(cin.eof()){
+							saveFile(builders, builderColor, "backup.sv");
+							return 0;
+						}
 						cin >> resource1;
+						if(cin.eof()){
+							saveFile(builders, builderColor, "backup.sv");
+							return 0;
+						}
 						cin >> resource2;
+						if(cin.eof()){
+							saveFile(builders, builderColor, "backup.sv");
+							return 0;
+						}
 
 						// Invalid input
 						while((builder2 != "Blue" && builder2 != "Red"&& builder2 != "Yellow"&& builder2 != "Orange") ||
@@ -681,10 +804,22 @@ int main()
 										cout << "Invalid Input, Re-input" << endl;
 										cout << "Trade with ? " << endl;
 										cin >> builder2;
+										if(cin.eof()){
+											saveFile(builders, builderColor, "backup.sv");
+											return 0;
+										}
 										cout << "Trade resource: ";
 										cin >> resource1;
+										if(cin.eof()){
+											saveFile(builders, builderColor, "backup.sv");
+											return 0;
+										}
 										cout << "For : ";
 										cin >> resource2;
+										if(cin.eof()){
+											saveFile(builders, builderColor, "backup.sv");
+											return 0;
+										}
 									}
 
 
@@ -702,6 +837,10 @@ int main()
 
 						string answer;
 						cin >> answer;
+						if(cin.eof()){
+							saveFile(builders, builderColor, "backup.sv");
+							return 0;
+						}
 
 						// If the answer is yes, then the current builder will gain 1 resource1 and lose 1 resource 2
 						// The trading builder will lose 1 resource 1 and gain 1 resource 2
@@ -750,82 +889,13 @@ int main()
 					break;
 				} else if(userCMD == "save") {
 
-				    cin >> userCMD;
-				    std::ofstream ofs (userCMD, std::ofstream::out);
-				    ofs << builderColor << endl; // prints <curTurn>
+					cin >> userCMD;
+					if(cin.eof()){
+						saveFile(builders, builderColor, "backup.sv");
+						return 0;
+					}
+					saveFile(builders, builderColor, userCMD);
 
-				    for (int o = 0; o < 4; o++) {// prints <builder(0-3)Data>
-							ofs << builders[o].getNumBrick() << " " << builders[o].getNumEnergy() << " " << builders[o].getNumGlass() << " " << builders[o].getNumHeat() << " " << builders[o].getNumWifi();
-							ofs << " r";
-							vector<int> path = builders[o].getPath();
-							vector<int> address = builders[o].getAddress();
-
-							int temp7 = path.size();
-							for(int q = 0; q < temp7; q++){
-								ofs << " " << path[q];
-							}
-							ofs << " h";
-							int temp8 = address.size();
-							for(int q = 0; q < temp8; q++){
-								ofs << " " << address[q] << " " << addresses[address[q]].getBuildingType();
-							}
-
-				    	ofs << endl;
-				    }
-
-				    for (int q = 0; q < 19; ++q) { // prints <board>
-				        if (tiles[q].getResource() == "BRICK") {
-				            if (q == 0) {
-				                ofs << 0 << " " << tiles[q].getValue();
-				            }
-				            else {
-				                ofs << " " << 0 << " " << tiles[q].getValue();
-				            }
-				        }
-				        else if (tiles[q].getResource() == "ENERGY") {
-				            if (q == 0) {
-				                ofs << 1 << " " << tiles[q].getValue();
-				            }
-				            else {
-				                ofs << " " << 1 << " " << tiles[q].getValue();
-				            }
-				        }
-				        else if (tiles[q].getResource() == "GLASS") {
-				            if (q == 0) {
-				                ofs << 2 << " " << tiles[q].getValue();
-				            }
-				            else {
-				                ofs << " " << 2 << " " << tiles[q].getValue();
-				            }
-				        }
-				        else if (tiles[q].getResource() == "HEAT") {
-				            if (q == 0) {
-				                ofs << 3 << " " << tiles[q].getValue();
-				            }
-				            else {
-				                ofs << " " << 3 << " " << tiles[q].getValue();
-				            }
-				        }
-				        else if (tiles[q].getResource() == "WIFI") {
-				            if (q == 0) {
-				                ofs << 4 << " " << tiles[q].getValue();
-				            }
-				            else {
-				                ofs << " " << 4 << " " << tiles[q].getValue();
-				            }
-				        }
-				        else if (tiles[q].getResource() == "PARK") {
-				            if (q == 0) {
-				                ofs << 5 << " " << 7;
-				            }
-				            else {
-				                ofs << " " << 5 << " " << 7;
-				            }
-				        }
-				    }
-						ofs << endl;
-
-				    ofs.close(); // closes file
 
 				} else if(userCMD == "help") {
 					cout << "Valid commands:" << endl;
@@ -850,18 +920,28 @@ int main()
 	string newRound;
 	cout << ">";
 	cin >> newRound;
+
 	if(newRound == "yes"){
 		// Need to reset the game
-		builders.clear();
 
-		paths.clear();
-		addresses.clear();
-		tiles.clear();
-		boardLayout(def, " ",builders);
+		int length = tiles.size();
+		for(int q = 0; q < length; q++){
+			tiles[q].reset();
+		}
+		length = addresses.size();
+		for(int q = 0; q < length; q++){
+			addresses[q].reset();
+		}
+		length = paths.size();
+		for(int q = 0; q < length; q++){
+			paths[q].reset();
+		}
+		builders.clear();
 		builders.emplace_back(Builder(0,"Blue"));
 		builders.emplace_back(Builder(1,"Red"));
 		builders.emplace_back(Builder(2,"Orange"));
 		builders.emplace_back(Builder(3,"Yellow"));
+
 		win = false;
 	} else{
 		// End game

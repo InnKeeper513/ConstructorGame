@@ -18,6 +18,7 @@ public:
 	bool hasGoose();
 	virtual void setOwner(std::string);
 	void notify(std::string, int) override;
+	virtual void reset();
   Subscriptions subType() const override;
 
 private:

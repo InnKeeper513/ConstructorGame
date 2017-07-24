@@ -58,3 +58,9 @@ void Address::notify(std::string name, int location){
 Subscriptions Address::subType() const{
 	return Subscriptions::Address;
 }
+
+void Address::reset(){
+	owner = "N";
+	buildingType = "N";
+
+}

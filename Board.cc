@@ -221,7 +221,7 @@ out << "            |  "<<displayGoose(16)<<"  |         |  "<<displayGoose(17)<
 out << "           " << displayPath(63) << "        " << displayPath(64) << "   18   " << displayPath(65) << "        " << displayPath(66) << endl;
 out << "            |         |  " << displayResource(18) << " |         |" << endl;
 out << "          |" << displayAddress(48) << "|--" << displayPath(67) << "--|" << displayAddress(49) << "|  " << " 9" << "  |" << displayAddress(50) << "|--" << displayPath(68) <<"--|" << displayAddress(51) << "|"  << endl;
-out << "                      |  "<< displayResource(18) <<"  |" << endl;
+out << "                      |  "<< displayGoose(18) <<"  |" << endl;
 out << "                     " << displayPath(69) << "        "  << displayPath(70) << endl;
 out << "                      |         |" << endl;
 out << "                    |" << displayAddress(52) << "|--" << displayPath(71) << "--|" << displayAddress(53) << "|" << endl;

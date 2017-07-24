@@ -50,3 +50,7 @@ void Path::notify(std::string name, int location){
 Subscriptions Path::subType() const{
 	return Subscriptions::Path;
 }
+
+void Path::reset(){
+	owner = "N";
+}

@@ -23,7 +23,7 @@ public:
 	std::vector<int> getConnectedAddress();
 	// Return all of the neighbor paths for the current path
 	std::vector<int> getNeighborPath();
-
+	void reset() override;
 	void notify(std::string, int) override;
 	Subscriptions subType() const override;
 
