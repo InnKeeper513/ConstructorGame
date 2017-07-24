@@ -37,4 +37,5 @@ int Dice::rollDice(){
     cout << "You rolled " << sum << endl;
     return sum;
   }
+  return 0;
 }

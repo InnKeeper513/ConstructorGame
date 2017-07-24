@@ -108,7 +108,8 @@ void Builder::addPath(int set){
 }
 
 bool Builder::checkImprove(int check){
-		for(int i = 0; i < address.size(); i++){
+		int temp = address.size();
+		for(int i = 0; i < temp; i++){
 			// It cannot be a tower
 			if(address[i] == check && addresses[address[i]].getBuildingType() != "T")
 				return true;
@@ -149,7 +150,8 @@ bool Builder::checkAdjacent(int check){
 	vector<int> vecs = addresses[check].getNeighbor();
 
 	// Loop through all of its adjacent addresses to see if all of them don't have owner
-	for(int i = 0; i < vecs.size(); i++){
+	int k = vecs.size();
+	for(int i = 0; i < k; i++){
 		stringstream temp ;
 		temp << color[1];
 		string character;
@@ -170,8 +172,8 @@ bool Builder::checkAdjacentPath(int check){
 	temp << color[0];
 	string character;
 	temp >> character;
-
-	for(int i = 0; i < path.size(); i++){
+	int k = path.size();
+	for(int i = 0; i < k; i++){
 
 		for(int j = 0; j < 2; j++){
 			if(addresses[paths[path[i]].getConnectedAddress()[j]].getBuilder() == character && addresses[paths[path[i]].getConnectedAddress()[j]].getNumber() == check){
@@ -196,8 +198,8 @@ bool Builder::pathNeighbors(int check){
 	ss << color[0];
 	string temp;
 	ss >> temp;
-
-	for(int i = 0; i < paths[check].getNeighborPath().size(); i++){
+	int k = paths[check].getNeighborPath().size();
+	for(int i = 0; i < k; i++){
 			if(paths[paths[check].getNeighborPath()[i]].getBuilder() == temp)
 				return true;
 	}

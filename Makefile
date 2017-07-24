@@ -1,5 +1,5 @@
 CXX = g++-5
-CXXFLAGS = -std=c++14 -MMD -Werror=vla
+CXXFLAGS = -std=c++14 -MMD -Werror=vla -Wall
 EXEC = ctor
 OBJECTS = main.o Address.o Tile.o Builder.o Dice.o Path.o Subject.o Board.o
 DEPENDS = ${OBJECTS:.o=.d}

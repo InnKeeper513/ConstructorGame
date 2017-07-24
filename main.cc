@@ -1,15 +1,13 @@
 #include <iostream>
 #include <vector>
 #include "Dice.h"
-#include "Tile.h"
-#include "Address.h"
-#include "Path.h"
 #include "Board.h"
 #include "Builder.h"
 #include <string>
 #include <sstream>
 #include <stdlib.h> // for srand() random number generator
 #include <fstream> // for save to file
+
 
 using namespace std;
 void boardLayout(bool def, string board_file, vector<Builder>& builders){
@@ -65,10 +63,9 @@ void resourceDistribution(string resourceName, int amount, int &heat, int &energ
 		glass += amount;
 }
 
-vector<Tile> tiles;
 vector<Address> addresses;
+vector<Tile> tiles;
 vector<Path> paths;
-
 int main()
 {
 	Board board;
@@ -343,11 +340,7 @@ int main()
 								n_lost = n_resources / 2;
 								cout << "Builder " << builders[o].getColor() << " loses " << n_lost << " resources to the geese. Lose:" << endl;
 
-								int b_lost;
-								int e_lost;
-								int g_lost;
-								int h_lost;
-								int w_lost;
+
 								int bTot=0;
 								int eTot=0;
 								int gTot=0;
@@ -395,7 +388,9 @@ int main()
 						//builder can steal from builders who have built residences on tiles[tile_n]
 						cout << "Builder " << builders[i].getColor() << " can choose to steal from: " << endl;
 						vector<string> list;
-						for(int w = 0; w < tiles[tile_n].getAddress().size(); w++){
+						int temp = tiles[tile_n].getAddress().size();
+						for(int w = 0; w < temp; w++){
+							int temp2 = list.size();
 							exist = false;
 							stringstream tempo;
 							tempo << builders[i].getColor()[0];
@@ -404,8 +399,7 @@ int main()
 
 							if(addresses[tiles[tile_n].getAddress()[w]].getBuilder() != k && addresses[tiles[tile_n].getAddress()[w]].getBuilder() != "N")
 
-
-								for(int e = 0; e < list.size(); e++){
+								for(int e = 0; e < temp2; e++){
 										if(list[e][0] == addresses[tiles[tile_n].getAddress()[w]].getBuilder()[0]){
 											exist = true;
 										}
@@ -437,7 +431,8 @@ int main()
 						while(true){
 							bool valid = false;
 							cin >> builder_color;
-							for(int u = 0; u < list.size(); u++){
+							int temp3 = list.size();
+							for(int u = 0; u < temp3; u++){
 								if(list[u] == builder_color)
 									valid = true;
 							}
@@ -449,40 +444,31 @@ int main()
 						}
 						for (int o = 0; o < 4; ++o) {
 							if (builders[o].getColor() == builder_color) {
-								bool b_steal = false;
-								bool e_steal = false;
-								bool g_steal = false;
-								bool h_steal = false;
-								bool w_steal = false;
+
 								int total_resources = builders[o].getNumBrick() + builders[o].getNumEnergy() + builders[o].getNumGlass() +
 									builders[o].getNumHeat() + builders[o].getNumWifi();
 								int k = std::rand() % total_resources;
 								if (k < builders[o].getNumBrick()) {
-									b_steal = true;
 									builders[i].addBrick(1);
 									builders[o].removeBrick(1);
 									cout << "Builder " << builders[i].getColor() << " steals Brick from builder " << builders[o].getColor() << "." << endl;
 								}
 								if (k < builders[o].getNumEnergy()) {
-									e_steal = true;
 									builders[i].addEnergy(1);
 									builders[o].removeEnergy(1);
 									cout << "Builder " << builders[i].getColor() << " steals Energy from builder " << builders[o].getColor() << "." << endl;
 								}
 								if (k < builders[o].getNumGlass()) {
-									g_steal = true;
 									builders[i].addGlass(1);
 									builders[o].removeGlass(1);
 									cout << "Builder " << builders[i].getColor() << " steals Glass from builder " << builders[o].getColor() << "." << endl;
 								}
 								if (k < builders[o].getNumHeat()) {
-									h_steal = true;
 									builders[i].addHeat(1);
 									builders[o].removeHeat(1);
 									cout << "Builder " << builders[i].getColor() << " steals Heat from builder " << builders[o].getColor() << "." << endl;
 								}
 								if (k < builders[o].getNumWifi()) {
-									w_steal = true;
 									builders[i].addWifi(1);
 									builders[o].removeWifi(1);
 									cout << "Builder " << builders[i].getColor() << " steals Wifi from builder " << builders[o].getColor() << "." << endl;
@@ -506,13 +492,15 @@ int main()
 							bool playerGain = false;
 
 							// Run through each tiles;
-							for(int k = 0; k < tiles.size(); k++){
+							int temp6 = tiles.size();
+							for(int k = 0; k < temp6; k++){
 								// The tile value is equivalent to the value of the dice
 
 								if(tiles[k].getValue() == random && tiles[k].getResource() != "Park" && geeseLocation != k){
 									// get the address numbers in the tile
 									vector<int> allTileAddress = tiles[k].getAddress();
-									for(int p = 0; p < allTileAddress.size(); p ++){
+									int temp4 = allTileAddress.size();
+									for(int p = 0; p < temp4; p ++){
 										//	cout << " Neighbor Address: " << allTileAddress[p] << " Builder: " << addresses[allTileAddress[p]].getBuilder() << " Color " << builders[u].getColor() << endl;
 
 										if(addresses[allTileAddress[p]].getBuilder() == builders[u].getColor().substr(0,1)){
@@ -582,19 +570,20 @@ int main()
 					// print all the completed residences
 					// print basements
 					cout << "B: ";
-					for(int j = 0; j < builders[i].getAddress().size(); j++){
+					int temp5 = builders[i].getAddress().size();
+					for(int j = 0; j < temp5; j++){
 						if(addresses[builders[i].getAddress()[j]].getBuildingType() == "B")
 							cout << builders[i].getAddress()[j] << " ";
 					}
 					// print houses
 					cout << "H: ";
-					for(int j = 0; j < builders[i].getAddress().size(); j++){
+					for(int j = 0; j < temp5; j++){
 						if(addresses[builders[i].getAddress()[j]].getBuildingType() == "H")
 							cout << builders[i].getAddress()[j] << " ";
 					}
 					// print towers
 					cout << "T: ";
-					for(int j = 0; j < builders[i].getAddress().size(); j++){
+					for(int j = 0; j < temp5; j++){
 						if(addresses[builders[i].getAddress()[j]].getBuildingType() == "T")
 							cout << builders[i].getAddress()[j] << " ";
 					}
@@ -771,11 +760,13 @@ int main()
 							vector<int> path = builders[o].getPath();
 							vector<int> address = builders[o].getAddress();
 
-							for(int q = 0; q < path.size(); q++){
+							int temp7 = path.size();
+							for(int q = 0; q < temp7; q++){
 								ofs << " " << path[q];
 							}
 							ofs << " h";
-							for(int q = 0; q < address.size(); q++){
+							int temp8 = address.size();
+							for(int q = 0; q < temp8; q++){
 								ofs << " " << address[q] << " " << addresses[address[q]].getBuildingType();
 							}
 

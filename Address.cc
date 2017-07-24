@@ -28,7 +28,8 @@ void Address::setOwner(string set){
 
 bool Address::isInNeighborAddress(int number)
 {
-	for(int i = 0; i < address.size(); i++){
+	int temp = address.size();
+	for(int i = 0; i < temp; i++){
 		if(address[i] == number)
 			return true;
 	}
