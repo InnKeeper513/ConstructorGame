@@ -121,16 +121,26 @@ int main()
 					string r_flush;
 					s >> r_flush;
 
-					int path;
-					while (s >> path) {
-						builders[i].addPath(path);
+					string path = " ";
+					int value;
+					while (s >> path && path != "h") {
+						stringstream temporary{path};
+						temporary >> value;
+						builders[i].addPath(value);
 					}
 
 					int address;
 					string residence;
-					s >> residence;
 					while (s >> address) {
+
 						s >> residence;
+						cout << residence;
+						if(residence == "B")
+							builders[i].incrPoints(1);
+						else if(residence == "H")
+							builders[i].incrPoints(2);
+						else 	builders[i].incrPoints(3);
+
 						builders[i].addAddress(address);
 						addresses[address].setBuildingType(residence);
 					}
@@ -210,6 +220,7 @@ int main()
 
 	// Continue the game
 	while(true){
+	board.addTileDependency();
 	// Adding 2 initial address locations for the player
 	//TODO Address need to be valid
 	// - It must exist
@@ -357,6 +368,10 @@ int main()
 						builders[i].notifyObservers(Subscriptions::Tile, builders[i].getColor(), tile_n);
 
 						//builder can steal from builders who have built residences on tiles[tile_n]
+						cout << "Builder " << builders[i].getColor() << " can choose to steal from ";
+						for(int w = 0; w < 4; w++){
+
+						}
 
 						//attempt to steal
 						cout << "Choose a builder to steal from." << endl;
@@ -525,13 +540,19 @@ int main()
 
 					// TODO need to check if the road is valid and if resource is enough
 					// Cost of building a road
-					if(builders[i].getNumHeat() >= 1 && builders[i].getNumWifi() >= 1 &&
-					(builders[i].pathNeighbors(roadNumber) || builders[i].pathAddress(roadNumber))){
-						// If contain enough resources, build the raod.
-						builders[i].removeHeat(1);
-						builders[i].removeWifi(1);
-						builders[i].addPath(roadNumber);
-						builders[i].notifyObservers(Subscriptions::Path, builders[i].getColor(), roadNumber);
+					if(builders[i].getNumHeat() >= 1 && builders[i].getNumWifi() >= 1){
+
+
+					  if (builders[i].pathNeighbors(roadNumber) || builders[i].pathAddress(roadNumber)){
+
+							// If contain enough resources, build the raod.
+							builders[i].removeHeat(1);
+							builders[i].removeWifi(1);
+							builders[i].addPath(roadNumber);
+							builders[i].notifyObservers(Subscriptions::Path, builders[i].getColor(), roadNumber);
+						} else {
+							cout << "You cannot build here." << endl;
+						}
 					} else {
 						cout << "You do not have enough resources." << endl;
 					}

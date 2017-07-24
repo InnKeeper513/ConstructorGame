@@ -117,6 +117,7 @@ bool Builder::checkImprove(int check){
 }
 
 void Builder::checkBuildingResource(int check){
+
 	if(addresses[check].getBuildingType() == "B"){
 				if(numGlass >= 2 && numHeat >= 3){
 					numGlass -= 2;
@@ -179,8 +180,13 @@ vector<int> Builder::getPath(){
 
 bool Builder::pathNeighbors(int check){
 
+	stringstream ss;
+	ss << color[0];
+	string temp;
+	ss >> temp;
+
 	for(int i = 0; i < paths[check].getNeighborPath().size(); i++){
-			if(paths[paths[check].getNeighborPath()[i]].getBuilder() == name)
+			if(paths[paths[check].getNeighborPath()[i]].getBuilder() == temp)
 				return true;
 	}
 
@@ -191,7 +197,11 @@ bool Builder::pathAddress(int check){
 	// Check through the neighbour addresses
 
 	for(int i = 0; i < 2; i++){
-			if(paths[paths[check].getConnectedAddress()[i]].getBuilder() == name)
+		stringstream ss;
+		ss << color[0];
+		string temp;
+		ss >> temp;
+			if(addresses[paths[check].getConnectedAddress()[i]].getBuilder() == temp)
 				return true;
 	}
 

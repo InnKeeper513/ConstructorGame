@@ -45,6 +45,7 @@ void Address::notify(std::string name, int location){
 	string temp = name;
 	setOwner(temp);
 
+
 	if(buildingType == "N")
 		buildingType = "B";
 	else if(buildingType == "B")
