@@ -7,14 +7,14 @@
 #include <sstream>
 #include <stdlib.h> // for srand() random number generator
 #include <fstream> // for save to file
-
+#include <algorithm>
 
 using namespace std;
 // Use for file saving.
-void saveFile(vector<Builder>& builders, string builderColor, string name){
+void saveFile(vector<Builder>& builders, string builderColor, string name, int turn){
 
 	std::ofstream ofs (name, std::ofstream::out);
-	ofs << builderColor << endl; // prints <curTurn>
+	ofs << turn << endl; // prints <curTurn>
 
 	for (int o = 0; o < 4; o++) {// prints <builder(0-3)Data>
 		ofs << builders[o].getNumBrick() << " " << builders[o].getNumEnergy() << " " << builders[o].getNumGlass() << " " << builders[o].getNumHeat() << " " << builders[o].getNumWifi();
@@ -402,7 +402,7 @@ int main()
 					cout << ">";
 					cin >> diceCMD;
 					if(cin.eof()){
-						saveFile(builders, builderColor, "backup.sv");
+						saveFile(builders, builderColor, "backup.sv",i);
 						return 0;
 					}
 					if(diceCMD != "load" && diceCMD != "fair")
@@ -465,13 +465,17 @@ int main()
 						}
 						bool exist = false;
 
+						for(int b = 0; b < 19; b++){
+							tiles[b].reset();
+						}
+
 						// builder moves geese to any tile
 						cout << "Choose where to place the GEESE." << endl;
 						cout << ">";
 						int tile_n;
 						cin >> tile_n;
 						if(cin.eof()){
-							saveFile(builders, builderColor, "backup.sv");
+							saveFile(builders, builderColor, "backup.sv",i);
 							return 0;
 						}
 						builders[i].notifyObservers(Subscriptions::Tile, builders[i].getColor(), tile_n);
@@ -506,8 +510,14 @@ int main()
 									else if(addresses[tiles[tile_n].getAddress()[w]].getBuilder() == "O")
 										fullname = "Orange";
 									if(fullname != " "){
-										list.emplace_back(fullname);
-										cout << fullname << endl;
+										for(int u = 0; u < 4; u++){
+											if(fullname == builders[u].getColor() && builders[u].totResource() != 0){
+												list.emplace_back(fullname);
+												cout << fullname << endl;
+												break;
+											}
+										}
+
 									}
 								}
 						}
@@ -523,7 +533,7 @@ int main()
 							bool valid = false;
 							cin >> builder_color;
 							if(cin.eof()){
-								saveFile(builders, builderColor, "backup.sv");
+								saveFile(builders, builderColor, "backup.sv",i);
 								return 0;
 							}
 							int temp3 = list.size();
@@ -653,7 +663,7 @@ int main()
 				cout << ">";
 				cin >> userCMD;
 				if(cin.eof()){
-					saveFile(builders, builderColor, "backup.sv");
+					saveFile(builders, builderColor, "backup.sv",i);
 					return 0;
 				}
 
@@ -692,7 +702,7 @@ int main()
 
 					cin >> userCMD;
 					if(cin.eof()){
-						saveFile(builders, builderColor, "backup.sv");
+						saveFile(builders, builderColor, "backup.sv",i);
 						return 0;
 					}
 					istringstream ss{userCMD};
@@ -722,7 +732,7 @@ int main()
 
 					cin >> userCMD;
 					if(cin.eof()){
-						saveFile(builders, builderColor, "backup.sv");
+						saveFile(builders, builderColor, "backup.sv",i);
 						return 0;
 					}
 					istringstream ss{userCMD};
@@ -761,7 +771,7 @@ int main()
 					// Improve the residence at the improveNumebr location
 					cin >> userCMD;
 					if(cin.eof()){
-						saveFile(builders, builderColor, "backup.sv");
+						saveFile(builders, builderColor, "backup.sv",i);
 						return 0;
 					}
 					istringstream ss{userCMD};
@@ -783,17 +793,17 @@ int main()
 						// TODO need to check if these inputs are valid
 						cin >> builder2;
 						if(cin.eof()){
-							saveFile(builders, builderColor, "backup.sv");
+							saveFile(builders, builderColor, "backup.sv",i);
 							return 0;
 						}
 						cin >> resource1;
 						if(cin.eof()){
-							saveFile(builders, builderColor, "backup.sv");
+							saveFile(builders, builderColor, "backup.sv",i);
 							return 0;
 						}
 						cin >> resource2;
 						if(cin.eof()){
-							saveFile(builders, builderColor, "backup.sv");
+							saveFile(builders, builderColor, "backup.sv",i);
 							return 0;
 						}
 
@@ -805,19 +815,19 @@ int main()
 										cout << "Trade with ? " << endl;
 										cin >> builder2;
 										if(cin.eof()){
-											saveFile(builders, builderColor, "backup.sv");
+											saveFile(builders, builderColor, "backup.sv",i);
 											return 0;
 										}
 										cout << "Trade resource: ";
 										cin >> resource1;
 										if(cin.eof()){
-											saveFile(builders, builderColor, "backup.sv");
+											saveFile(builders, builderColor, "backup.sv",i);
 											return 0;
 										}
 										cout << "For : ";
 										cin >> resource2;
 										if(cin.eof()){
-											saveFile(builders, builderColor, "backup.sv");
+											saveFile(builders, builderColor, "backup.sv",i);
 											return 0;
 										}
 									}
@@ -838,7 +848,7 @@ int main()
 						string answer;
 						cin >> answer;
 						if(cin.eof()){
-							saveFile(builders, builderColor, "backup.sv");
+							saveFile(builders, builderColor, "backup.sv",i);
 							return 0;
 						}
 
@@ -891,10 +901,10 @@ int main()
 
 					cin >> userCMD;
 					if(cin.eof()){
-						saveFile(builders, builderColor, "backup.sv");
+						saveFile(builders, builderColor, "backup.sv",i);
 						return 0;
 					}
-					saveFile(builders, builderColor, userCMD);
+					saveFile(builders, builderColor, userCMD,i);
 
 
 				} else if(userCMD == "help") {
